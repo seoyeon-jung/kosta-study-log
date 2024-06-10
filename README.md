@@ -1,0 +1,7 @@
+# [KOSTA](https://kostaswedu.co.kr/index) Java 기반 Cloud 개발자 양성 교육 과정
+- 2024.06.10 ~ 2024.11.10
+- 교육 과정을 진행하면서 `TIL(Today I Learned)`를 기록하는 저장소입니다.   
+
+
+## 교육 과정
+(추후 추가 예정)
