@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css practice</title>
+    <style>
+        /* * {
+            color: blue;
+            margin: 0;
+            padding: 0;
+        } */
+        /* h1 {
+            color: red;
+        }
+        p {
+            background-color: aliceblue;
+        } */
+         /* #header {
+            background-color:aliceblue;
+            font-size: 20px;
+            border: 1px solid black; /* 두께 모양 색상*/
+            /* height: 50px;
+         } */
+        /*
+         #footer {
+            background-color: bisque;
+            border: 1px solid black;
+            height: 50px;
+         } */
+        /* .box {
+            background-color: aliceblue;
+            font-style: italic;
+        }
+        .title {
+            font-size: 25px;
+        }
+        input[type=text] {
+            background: rgb(255, 202, 202);
+            color: white;
+            border: none;
+        }
+        input[type=password] {
+            background: rgb(209, 209, 248);
+            border-radius: 6px;
+        } */
+        
+        /* 부모 > 자손 */
+        /* header > div > h1 {
+            background-color: rgb(209, 209, 248);
+        }
+        #header>h1 {
+            color: red;
+        }
+        #section>h1 {
+            color: orange;
+        } */
+
+        /* #main > h1 {
+            background-color: rgb(255, 255, 202);
+        }
+        #main h1 {
+            color: rgb(131, 194, 248);
+        }
+        #main > h2 {
+            font-size: 15px;
+        }
+        #main h2 {
+            font-style: italic;
+        } */
+
+        #main>ul h2 {
+            background-color: cornflowerblue;
+        }
+        #main h1, #main h2 {
+            border: 1px solid black;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- <h1>카카오 '카나나' 조직 신설…AI 서비스·개발 투톱 체제</h1>
+
+    <p>
+        카카오가 인공지능(AI) 서비스와 개발을 투톱 체제로 운영하는 AI 전담 조직을 신설했다. AI 사업 역량을 강화하는 데 힘을 싣는 모양새다.
+        <br/>
+        카카오는 최근 AI 전담 조직 ‘카나나’를 신설했다고 11일 발표했다. ‘카나나’는 AI 모델 개발 중심의 ‘카나나 알파’와 AI 서비스 중심인 ‘카나나 엑스’로 구성됐다. 두 조직이 ‘따로 또 같이’ 전략으로
+        시너지를 극대화할 것이라고 카카오 측은 설명했다.
+        <br/>
+        기존 최고AI책임자(CAIO) 직책을 폐지하고, 두 조직장 체제로 바꾼 게 핵심 변화다. 카나나 알파는 카카오의 AI 연구·개발 자회사 카카오브레인의 김병학 각자대표가 카카오에서 FO(펑션 오너) 직책을 겸직하며
+        이끌게 됐다. 카카오는 이달 초 카카오브레인의 초거대 AI 기반 언어 모델과 이미지 생성 모델 등을 넘겨받았다. 김 FO는 카카오로 이적한 카카오브레인 직원들과 함께 ‘코(Ko)-GPT’ 등 AI 언어모델을 개발하는
+        데 집중할 계획이다.
+        <br/>
+        카나나 엑스는 이상호 전 카카오 CAIO가 PO(프로덕트 오너)를 맡아 이끈다. AI 모델을 카카오톡 등 카카오의 다양한 플랫폼에 접목하는 서비스 개발에 집중하기로 했다.
+    </p> -->
+
+
+    <!-- <div id="header">Header</div>
+    <div id="nav">nav</div>
+    <div id="aside">aside</div>
+    <div id="main">main</div>
+    <div id="footer">footer</div> -->
+
+    <!-- 큐브 박스 css -->
+    <!-- <div class="box title">box1</div>
+    <div class="box">box2</div>
+    <div class="box">box3</div>
+
+    <input type="text" value="아이디 입력" />
+    <input type="password" value="비밀번호 입력" /> -->
+    
+    <!-- 후손 선택자와 자손 선택자 -->
+    <!-- <header>
+        <div>
+            <h1>CSS 구조 선택자 : 자손, 후손</h1>
+            <h2>선택자</h2>
+            <ul>
+                <li>전체 선택자</li>
+                <li>태그 선택자</li>
+                <li>아이디, 클래스 선택자</li>
+            </ul>
+        </div>
+    </header> -->
+
+    <h1>선택자 예제</h1>
+    <div id="main">
+        <h1>CSS 선택자</h1>
+        <h2>범위 선택자</h2>
+        <ul>
+            <li>
+                <h1>자손 선택자</h1>
+            </li>
+            <li><h2>후손 선택자</h2></li>
+            <li>동위 선택자</li>
+        </ul>
+    </div>
+
+    <h1>test tag</h1>
+    <h2>subtitle</h2>
+
+    <h1>test tag</h1>
+    <h2>subtitle</h2>
+</body>
+</html>

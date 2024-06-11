@@ -5,6 +5,6 @@
 <br/>
 <br/>
 
-## TIL
-### 1주차
-06.10 [웹 개발 기초 (HTML, CSS, JavaScript)](./1주차/240610/README.md)
+## 1주차
+06.10 [웹 개발 기초 (HTML)](./1주차/240610/README.md)   
+06.11 [웹 개발 기초 (HTML, CSS)](./1주차/240611/README.md)
