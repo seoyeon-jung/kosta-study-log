@@ -1,0 +1,62 @@
+.header {
+}
+
+.nav {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    overflow: hidden;
+    margin-bottom: 15px;
+    padding: 5px;
+}
+
+.navbar {
+    float: left;
+}
+
+.navbar>div {
+    float: left;
+    margin-right: 20px;
+}
+
+.search {
+    float: right;
+}
+
+.search>input {}
+
+.main {
+    overflow: hidden;
+}
+
+.content {
+    width: 800px;
+    float: left;
+}
+
+.imgbox {
+    width: 430px;
+    height: 280px;
+    background-color: lightgray;
+    border: none;
+    font-size: 50px;
+    line-height: 280px;
+    text-align: center;
+    color: gray;
+}
+
+.sidebar {
+    border: 1px solid black;
+    float: right;
+}
+
+.sidebar > label {
+    font-style: bold;
+}
+
+li {
+    list-style: none;
+}
+
+.footer {
+    color: blue;
+}

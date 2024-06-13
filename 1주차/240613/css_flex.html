@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            /* width: 600px; */
+            background-color: #ccc;
+            border: 1px solid #222;
+            margin: 20px 10px;
+            display: flex;
+            height: 150px;
+
+        }
+
+        .box {
+            background-color: #222;
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            color: azure;
+        }
+
+        #wrap1 {
+            flex-direction: row;
+        }
+
+        #wrap2 {
+            flex-direction: row-reverse;
+        }
+
+        #wrap3 {
+            flex-direction: column;
+        }
+
+        #wrap4 {
+            flex-direction: column-reverse;
+        }
+
+        #wrap5 {
+            flex-wrap: nowrap;
+        }
+
+        #wrap6 {
+            flex-wrap: wrap;
+        }
+
+        #wrap7 {
+            flex-wrap: wrap-reverse;
+        }
+
+        #wrap8 {
+            flex-flow: row wrap;
+        }
+
+        #wrap9 {
+            justify-content: flex-start;
+        }
+
+        #wrap10 {
+            justify-content: flex-end;
+        }
+
+        #wrap11 {
+            justify-content: center;
+        }
+
+        #wrap12 {
+            justify-content: space-between;
+        }
+
+        #wrap13 {
+            justify-content: space-around;
+        }
+
+        #wrap15 {
+            align-items: flex-end;
+        }
+
+        #wrap16 {
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container" id="wrap17">
+        <div class="box">box-1</div>
+        <div class="box">box-2</div>
+        <div class="box">box-3</div>
+        <div class="box">box-4</div>
+        <div class="box">box-5</div>
+        <div class="box">box-6</div>
+    </div>
+
+    <div class="container" id="wrap16">
+        <div class="box">box-1</div>
+        <div class="box">box-2</div>
+        <div class="box">box-3</div>
+        <div class="box">box-4</div>
+        <div class="box">box-5</div>
+        <div class="box">box-6</div>
+    </div>
+
+    <div class="container" id="wrap15">
+        <div class="box">box-1</div>
+        <div class="box">box-2</div>
+        <div class="box">box-3</div>
+        <div class="box">box-4</div>
+        <div class="box">box-5</div>
+        <div class="box">box-6</div>
+    </div>
+
+    <div class="container" id="wrap14">
+        <div class="box">box-1</div>
+        <div class="box">box-2</div>
+        <div class="box">box-3</div>
+        <div class="box">box-4</div>
+        <div class="box">box-5</div>
+        <div class="box">box-6</div>
+    </div>
+
+
+    <div class="container" id="wrap13">
+        <div class="box">box-1</div>
+        <div class="box">box-2</div>
+        <div class="box">box-3</div>
+        <div class="box">box-4</div>
+        <div class="box">box-5</div>
+        <div class="box">box-6</div>
+    </div>
+
+    <div class="container" id="wrap12">
+        <div class="box">box-1</div>
+        <div class="box">box-2</div>
+        <div class="box">box-3</div>
+        <div class="box">box-4</div>
+        <div class="box">box-5</div>
+        <div class="box">box-6</div>
+    </div>
+
+    <div class="container" id="wrap11">
+        <div class="box">box-1</div>
+        <div class="box">box-2</div>
+        <div class="box">box-3</div>
+        <div class="box">box-4</div>
+        <div class="box">box-5</div>
+        <div class="box">box-6</div>
+    </div>
+
+    <div class="container" id="wrap10">
+        <div class="box">box-1</div>
+        <div class="box">box-2</div>
+        <div class="box">box-3</div>
+        <div class="box">box-4</div>
+        <div class="box">box-5</div>
+        <div class="box">box-6</div>
+    </div>
+
+    <div class="container" id="wrap9">
+        <div class="box">box-1</div>
+        <div class="box">box-2</div>
+        <div class="box">box-3</div>
+        <div class="box">box-4</div>
+        <div class="box">box-5</div>
+        <div class="box">box-6</div>
+    </div>
+
+    <div class="container" id="wrap8">
+        <div class="box">box-1</div>
+        <div class="box">box-2</div>
+        <div class="box">box-3</div>
+        <div class="box">box-4</div>
+        <div class="box">box-5</div>
+        <div class="box">box-6</div>
+    </div>
+
+    <div class="container" id="wrap7">
+        <div class="box">box-1</div>
+        <div class="box">box-2</div>
+        <div class="box">box-3</div>
+        <div class="box">box-4</div>
+        <div class="box">box-5</div>
+        <div class="box">box-6</div>
+    </div>
+
+    <div class="container" id="wrap6">
+        <div class="box">box-1</div>
+        <div class="box">box-2</div>
+        <div class="box">box-3</div>
+        <div class="box">box-4</div>
+        <div class="box">box-5</div>
+        <div class="box">box-6</div>
+    </div>
+
+    <div class="container" id="wrap5">
+        <div class="box">box-1</div>
+        <div class="box">box-2</div>
+        <div class="box">box-3</div>
+        <div class="box">box-4</div>
+        <div class="box">box-5</div>
+        <div class="box">box-6</div>
+    </div>
+
+    <div class="container" id="wrap4">
+        <div class="box">box-1</div>
+        <div class="box">box-2</div>
+        <div class="box">box-3</div>
+    </div>
+
+    <div class="container" id="wrap3">
+        <div class="box">box-1</div>
+        <div class="box">box-2</div>
+        <div class="box">box-3</div>
+    </div>
+
+    <div class="container" id="wrap2">
+        <div class="box">box-1</div>
+        <div class="box">box-2</div>
+        <div class="box">box-3</div>
+    </div>
+
+    <div class="container" id="wrap1">
+        <div class="box">box-1</div>
+        <div class="box">box-2</div>
+        <div class="box">box-3</div>
+    </div>
+
+</body>
+
+</html>
