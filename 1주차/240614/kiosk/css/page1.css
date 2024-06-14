@@ -1,0 +1,16 @@
+#start {
+  color: white;
+  font-size: 45px;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 230px;
+  animation: move 1.3s infinite ease-in-out alternate;
+}
+@keyframes move {
+  from {
+    transform: translatey(8px);
+  }
+  to {
+    transform: translatey(-8px);
+  }
+}

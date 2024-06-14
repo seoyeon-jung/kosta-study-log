@@ -1,0 +1,52 @@
+.kiosk {
+    width: 700px;
+    height: 900px;
+    border: 1px solid black;
+    margin: 0 auto;
+}
+
+.header {
+    background-color: #0b421a;
+    width: 700px;
+    height: 150px;
+    color: #ffffff;
+}
+
+.subject {
+    text-align: center;
+    font-size: 30px;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    line-height: 100px;
+}
+
+.buttons {
+    text-align: center;
+}
+
+.header-texts {
+    text-align: center;
+    font-size: 16px;
+}
+
+.text {
+    display: inline-block;
+    color:  #ccc;
+    margin: 10px;
+}
+
+#icon {
+    margin-left: 20px;
+    margin-top: 17px;
+}
+
+#icon2{
+    margin-right: 20px;
+    margin-top: 17px;
+}
+
+.home-tag {
+    text-decoration: none;
+    color: #fff;
+}

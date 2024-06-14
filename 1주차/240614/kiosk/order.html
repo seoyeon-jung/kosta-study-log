@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/order.css">
+    <script src="https://kit.fontawesome.com/5a5c478e43.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="kiosk">
+        <div class="header" id="header">
+            <div class="subject">
+                <i class="fa-solid fa-left-long" id="icon" style="color: #ffffff;" onclick="location.href='basket.html'"></i>
+                <div>결제 수단 선택</div>
+                <i class="fa-solid fa-house" id="icon2" "color: #ffffff;" onclick="location.href='index.html'"></i>
+            </div>
+            <div class="header-texts">
+                <div class="text text1">1. 장바구니</div>
+                <div class="text text2">2. 결제 수단 선택</div>
+                <div class="text text3">3. 결제 완료</div>
+            </div>
+        </div>
+
+        <div class="content">
+                <div class="pay">
+                    <button class="modal_btn">
+                        <img class="img" src="./image/card.png" alt="card" />
+                        카드
+                    </button>    
+                </div>
+
+
+                <div class="pay">
+                    <button class="modal_btn">
+                        <img class="img" src="./image/kakaopay.svg" alt="kakaopay"/>
+                        카카오페이
+                    </button>
+                </div>
+
+
+
+                <div class="pay">
+                    <button class="modal_btn">
+                        <img class="img" src="./image/naverpay.jpg" alt="naverpay" />
+                        네이버페이
+                    </button>
+                </div>
+
+
+                <div class="pay">
+                    <button class="modal_btn">
+                        <img class="img" src="./image/payco.jpg" alt="payco" />
+                        페이코
+                    </button>
+                </div>
+
+                <div class="pay">
+                    <button class="modal_btn">
+                        <img class="img" src="./image/toss.png" alt="toss" />
+                        토스
+                    </button>
+                </div>
+
+                <div class="pay">
+                    <button class="modal_btn">
+                        <img class="img" src="./image/phone.png" alt="phone" />
+                        핸드폰
+                    </button>
+                </div>
+        </div>
+
+
+        <!-- 카드 결제 선택 시 -->
+        <div class="modal">
+            <div class="modal-content">
+                <div>
+                    결제하실 신용카드를 카드 투입구에 넣고 <br />
+                    결제가 완료될 때까지 반드시 기다려주세요
+                </div>
+                <img class="pay-img" src="./image/pay_card.jpg" alt="pay-card" />
+        
+                <div>
+                    <button type="button" class="move_btn" onclick="location.href='order_end.html'">결제 완료</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/common.js"></script>
+</body>
+
+</html>

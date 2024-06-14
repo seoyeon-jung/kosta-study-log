@@ -1,0 +1,32 @@
+@import "page1.css";
+@import "page2.css";
+/* PAGE */
+#page {
+  background-color: #0b421a;
+  animation: page 1.2s ease-in-out;
+}
+#logoimg {
+  width: 150px;
+  display: block;
+  margin: auto;
+  padding-top: 45px;
+}
+#logo {
+  color: white;
+  font-size: 80px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+@keyframes page {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

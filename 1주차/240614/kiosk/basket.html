@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/basket.css">
+    <script src="https://kit.fontawesome.com/5a5c478e43.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="kiosk">
+        <div class="header" id="header">
+            <div class="subject">
+                <i class="fa-solid fa-left-long" id="icon" style="color: #ffffff;" onclick="location.href='menu.html'"></i>
+                <div>장바구니</div>
+                <i class="fa-solid fa-house" id="icon2" "color: #ffffff;" onclick="location.href='index.html'"></i>
+            </div>
+            <div class="header-texts">
+                <div class="text text1">1. 장바구니</div>
+                <div class="text text2">2. 결제 수단 선택</div>
+                <div class="text text3">3. 결제 완료</div>
+            </div>
+        </div>
+        <div class="main">
+            <div class="main_h">
+                <div class="m m_h1">메뉴명</div>
+                <div class="m m_h2">수량</div>
+                <div class="m m_h3">금액</div>
+                <div class="m m_h4">삭제</div>
+            </div>
+
+            <div class="main_s">
+                <div class="mm m1">아메리카노</div>
+                <div class="mm m2">
+                    <button type="button" class="cnt_bm">-</button>
+                    1
+                    <button type="button" class="cnt_bp">+</button>
+                </div>
+                <div class="mm m3">4,500</div>
+                <div class="mm m4">
+                    <button type="button" class="del_b">X</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="f f1">주문수량 : 1 &nbsp; 주문금액 : 4,500</div>
+            <div class="f f2">
+                <button onclick="location.href='order.html'" type="button" class="b_b">결제하기</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
