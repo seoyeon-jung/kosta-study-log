@@ -4,46 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script>
+        // 프로그램의 흐름 제어
+        // 분기, 반복
+
+        // if( bool ) {
+        //    bool 값의 true 일때 처리되는 블록
+        // }
+        if(true) {
+            //alert('if(true)')
+            console.log('true 일때 실행하는 블록 1')
+        }
+        
+        if(false) {
+            //alert('if(false)')
+            console.log('true 일때 실행하는 블록 2')
+        }
+
+        // 현재 시각에서 오전과 오후를 구분하는 코드 작성
+        const date = new Date()
+        // 시간 비교 : 시간 >= 12 오후
+        if( date.getHours() >= 12 ) {
+            console.log('오후')
+        } 
+        if( date.getHours() < 12 ) {
+            console.log('오전')
+        } 
+
+        if ( date.getHours() >= 12 ) {
+            console.log('오후 입니다.')
+        } else {
+            // date.getHours() >= 12 조건의 반대 범위
+            // => date.getHours() < 12 
+            console.log('오전 입니다.')
+        }
+        
+        // 학점 표현
+        // A : score >= 90
+        // B : score >= 80 && score < 90
+        // C : score >= 70 && score < 80
+        // F : score < 70
+
+        let score = 99
+        if(score >= 90) {
+            console.log("A")
+        } else if ( score>=80 ){
+            console.log('B')
+        } else if ( score>=70 ){
+            console.log('C')
+        } else { // score < 70
+            console.log('F')
+        }
+
+        // 사용자로 부터 값을 입력 받아서 하이로우 게임
+        // 1~100 => 임의의 숫자 하나 정의  40
+        // 자용자로 부터 데이터(숫자) 입력 받아서 
+        // 1 : 20 => 하이~
+        // 2 : 80 => 로우~
+        // 10 번의 기회  over -> fail => 반복문
+
+        const rand_num = Math.random()
+
+        console.log('rand_num', rand_num)
+
+        const real_num = Math.floor(rand_num * 100) + 1  // Math.floor(3.1258455)
+        console.log('real_num => ', real_num)
+
+        // 사용자로부터 숫자 데이터를 입력받아서 홀수 짝수 판단 하는 프로그램
+        // if(홀수) { '홀수' } else { '짝수' }
+        // num % 2 => 0(짝수) ,1(홀수)
+
+        let str_num = prompt('숫자를 입력하세요.')
+        let user_num = Number(str_num)  // NaN => 숫자 타입 ok!, 숫자 표현
+
+        if( isNaN(user_num) ){
+            alert('옳바른 숫자 형식이 아닙니다.')
+        } else {
+            if( user_num%2==0 ){
+                alert('짝수 입니다.')
+            } else {
+                alert('홀수 입니다.')
+            }
+        }
+
+    </script>
 </head>
 <body>
-    <script>
-        // function Plus() {
-        //     let num = 10;
-        //     console.log(num)
-        //     // console.log('더하기 함수')
-        //     const pi = 3.14;
-        //     console.log(pi)
-        // }
-        // console.log(Plus())
-
-        // let num10 = 100;
-        // console.log('num10: ', num10, typeof(num10))
-
-        // let number_str1 = String(num10)
-        // console.log('number_str1: ', number_str1, typeof(number_str1))
-
-        // let number_str2 = num10 + '' // 숫자 + 문자열 => 문자열 + 문자열 => 문자열
-        // console.log(number_str2)
-
-        // 현재 시각에서 오전/오후 구분하는 코드 작성
-        //const date = new Date()
-        
-        // 시간 비교 : 시간 >= 12 오후
-        // if (date.getHours() >= 12) {
-        //     console.log('오후입니다')
-        // } else {
-        //     console.log('오전입니다')
-        // }
-
-        // 사용자로부터 값을 입력 받아서 하이로우 게임
-        // 1~100 하나 정의
-        // 사용자로부터 숫자 입력받아서 비교
-        // 10번의 기회 over -> fail
-        
-        const random_num = Math.random();
-        console.log(random_num)
-
-        
-    </script>
+    
 </body>
 </html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+        // var num 
+        // 변수 : 특정 데이터를  저장 항식 -> 이후에 참조
+        // 변수 생성 => 메모리 공간을 생성 하고 데이터와 연결, 데이터의 저장 주소를 가진다
+        // 변수 선언시 사용하는 키워드
+        // var : 전사, 함수 내에서 선언한경우 함수 안까지가 범위
+        // let : 블록 범위, 중복 선언 안된다!
+        // const : 블록 범위, 상수=> 초기화 이후에는 값을 대입할수 없다
+
+        // 함수, 분기, 반복.. => 블록으로 처리되는 범위를 구분
+        // function fn () {
+        //     // ....
+        // }
+        // if(true) {
+        //     // 처리....
+        // }
+        // while(true) {
+
+        // }
+
+        {
+            let num = 10;
+            //let num = 20;
+            //console.log(num)
+        }
+
+        //console.log('num => ', num)
+
+        {
+            const pi = 3.141592
+            //const pi = 3.14
+            //console.log('pi => ' , pi)
+            // pi = 3.14
+        }
+        //console.log('pi =>', pi)
+
+        //console.log('num3 => ', num3)
+
+        var num4   // 변수 선언만!!!
+        //console.log('num4 => ', num4)
+        
+        let num6 = 100;
+        
+
+        //console.log('num5 => ', num5)
+        //console.log('num6 => ', num6)
+
+        var num5 = 10;
+        var num5 = 10;
+
+        // 대입 연산 :   변수 = 값(리터럴) 또는 변수 
+        let num7 = num6
+        //let num7 = 1000
+        //console.log('num7 => ', num7)
+
+        // 복합 대입 연산자
+        // +=  => 변수 += 10 => 변수 = 변수 + 10
+        num8 = 100
+        num8 = num8 + 10 // => num8 = 100 + 10 => num8 = 110
+        //console.log('num8 = num8 + 10 =>', num8)
+
+        // 복합대입 연산자
+        num8 += 100 // num8 = num8 + 100 => num8 = 110 + 100 => num8 = 210
+        //console.log('num8 += 100 => ', num8)
+
+        // -= => num = num - 10  => num -= 10
+        // *= => num = num * 2   => num *= 2
+        // /= => num = num / 2   => num /= 2
+        // %= => num = num % 2   => num %= 2
+
+        // let sum = 0
+        // sum += i <= 1~10 => sum = sum + i
+
+
+        // 단항 연산자 : 하나의 변수에 하나의 부호
+        // + -
+        // ++ -- => 1씩 증가, 1씩 감소   =>  num++, num--, ++num, --num
+
+        let num9 = 0
+        let result = 0
+        //console.log('num9 => ', num9)   // 0
+        //num9++  => num9 = num9 + 1 => num9 += 1
+        //++num9
+        //result = ++num9  // 전위
+        result = num9++    // 후위
+        //console.log('num9 =>', num9, 'result => ', result)
+        //console.log('num9++ => ', num9)  // 1
+        //num9--
+        //--num9
+        //console.log('num9-- => ', num9)  // 0
+        result = num9--
+        //console.log('num9 =>', num9, 'result => ', result)
+
+        // 변수 선언 : var , let, const 
+        // 변수 : 데이터의 참조값(데이터의 메모리 주소)을 저장
+        //        다른값을 저장하는것도 가능
+
+        // 타입 : 숫자(number), 문자열(string), 논리(boolean), 함수(function)
+        //        객체(object), 배열[](object)
+        //       undefined => 선언되지않은 변수 호출, 데이터 초기화 하지 않았을 때
+        // 숫자 : 사칙연산( + - * / % ), 대입연산, 
+        //       복합대입연산자( += -= *= /= %= ) , 단항( + - ) , 
+        //       증감 연산자 ( ++ -- ) : 전위, 후위 , 1씩 증가
+        // 논리 : boolean => true / false
+        //       비교 연산자 ( == ===, !=, !==, >, <, >=, <= ) 
+        //       논리 연산자 ( ! 논리부정연산자, &&, || ) 
+
+        // 사용자가 메시지를 입력하는 함수
+        //let user_name = prompt('이름을 입력하세요') // 대기
+        //console.log('사용자가 입력한 이름 => ', user_name)
+
+        //let birth_year = prompt('태어난 년도를 입력해주세요')
+        let birth_year = '2000'
+        //console.log('birth_year', birth_year, typeof(birth_year))
+
+        let year_number = Number(birth_year)
+        //console.log('year_number => ', year_number, typeof(year_number))
+
+        // 문자열 => 숫자 타입 변경
+        // Number(문자열) => 숫자타입의 값으로 변환
+
+        let age = 2024 - year_number
+
+        console.log('성인 판별 => ', age >= 19)
+
+        // 문자열로 변환 : string
+        // 숫자 -> 문자열, bool -> 문자열
+        let num10 = 100;
+        //console.log('num10 => ', num10, typeof(num10))
+        let number_str1 = String(num10)
+        //console.log('number_str1', number_str1, typeof(number_str1))
+        let number_str2 = num10 + ''  // 숫자 + 문자열 => 문자열 + 문자열 => 문자열
+        //console.log('number_str2', number_str2, typeof(number_str2))
+
+        let check = true
+        //console.log('check => ', check, typeof(check))
+        let chk_str1 = String(check)
+        //console.log('chk_str1 => ', chk_str1, typeof(chk_str1))
+        let chk_str2 = check + ''  // bool + string => string + string => string
+        //console.log('chk_str2 => ', chk_str2, typeof(chk_str2))
+
+
+        // string -> bool, number -> bool
+        // Boolean(값) => 논리값
+        // 0, '', null, undefined, NaN => false
+        // ! 논리부정 연산자 : ! 논리값
+        console.log('!1 => ', !1)  // !true => false
+        console.log('!\'\'', !'')
+        console.log('!\'aaa\'', !'aaa')
+
+        console.log(Boolean(1))      // true
+        console.log(Boolean('abc'))  // true
+        console.log(Boolean([]))     // true
+        console.log(Boolean({}))     // true
+        console.log(Boolean(0))      // false
+        console.log(Boolean(NaN))    // false
+        console.log(Boolean(''))     // false
+        let num111 // undefined
+        console.log(Boolean(num111)) // false
+        console.log(Boolean(null))   // null
+
+
+    
+        
+
+
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
