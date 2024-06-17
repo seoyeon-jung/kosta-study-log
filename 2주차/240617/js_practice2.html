@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>하이로우 게임</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+    input[type="number"] {
+        width: 50px;
+    }
+</style>
+</head>
+<body>
+    <h1>하이로우 게임</h1>
+    <p>1부터 100 사이의 숫자를 맞춰보세요.</p>
+    <p id="message"></p>
+    <input type="number" id="guess" min="1" max="100">
+    <button onclick="checkGuess()">제출</button>
+
+    <script>
+        // 정답 숫자 랜덤 설정
+        const randomNumber = Math.floor(Math.random() * 100) + 1;
+        console.log(randomNumber); // 정답 확인용
+
+        let attempts = 0;
+        const maxAttempts = 10;
+
+        function checkGuess() {
+            const userGuess = parseInt(document.getElementById('guess').value);
+            const message = document.getElementById('message');
+
+            if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+                message.textContent = "1에서 100 사이의 숫자를 입력하세요.";
+                return;
+            }
+
+            attempts++;
+
+            if (userGuess === randomNumber) {
+                message.textContent = `축하합니다! ${randomNumber}을(를) 맞췄습니다!`;
+                gameOver();
+            } else if (userGuess < randomNumber) {
+                message.textContent = `${userGuess}보다 큰 숫자입니다. (${maxAttempts - attempts} 번 남음)`;
+            } else {
+                message.textContent = `${userGuess}보다 작은 숫자입니다. (${maxAttempts - attempts} 번 남음)`;
+            }
+
+            if (attempts === maxAttempts) {
+                message.textContent = `기회를 모두 사용했습니다. 정답은 ${randomNumber}였습니다.`;
+                gameOver();
+            }
+        }
+
+        function gameOver() {
+            document.getElementById('guess').disabled = true;
+            document.querySelector('button').disabled = true;
+        }
+    </script>
+</body>
+</html>
