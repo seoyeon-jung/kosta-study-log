@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+        //fn1()
+
+
+        // 함수 : 특정 목적을 수행학 위한 코드들의 집합
+        // 필요에 따라 값을 받아서 처리 ( 매개변수 정의 )
+        // 필요에 따라 처리된 결과를 반환 ( return  값 )
+
+        // function 식별자() {} => 선언적 함수 정의
+
+        // fn1 함수 => 안녕하세요 alert 을 출력하는 함수
+        function fn1(){
+            alert('안녕하세요')
+        }
+
+        function fn2(uname){
+            alert('안녕하세요! ' + uname + '입니다.')
+        } 
+        
+        // 나이를 입력 받아서 성인 여부를 출력하는 함수
+        function check_age(age){
+            if(age>=19){
+                alert('성인 입니다. 입장이 가능합니다.')
+            } else {
+                alert('미성년자는 출입이 불가합니다.')
+            }
+        }
+
+        // 출생년도를 입력받아서 성인 여부를 판단하고 
+        // 성인일 때 true, 미성년일 때  false 함수
+        function chk_age(age){
+
+            // let result = false;
+            // if (age >= 19){
+            //     result = true
+            // }
+            // return result
+            return age >= 19;
+        }
+        let chk = chk_age(30)
+        //fn1()
+        //fn2('손흥민')
+        //check_age(25)
+
+        //fn3()
+
+        // 함수 => 1급 객체
+        const fn3 = function(){
+            alert('HI~!!!')
+        }
+
+        //fn3()
+
+        // 숫자 두개를 전달 받아서 사칙 연산의 결과를 출력하는 함수
+        function cals (num1, num2){
+            console.log('더하기', num1+num2)
+            console.log('빼기', num1-num2)
+            console.log('곱하기', num1*num2)
+            console.log('나누기', num1/num2)
+            console.log('나머지', num1%num2)
+        }
+        cals(10, '삼')
+
+        
+
+
+
+
+
+
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

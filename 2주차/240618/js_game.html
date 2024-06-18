@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>하이로우 게임</h1>
+    <h6>1 ~ 100 사이 숫자를 맞춰보세요.</h6>
+    <input type="number" id="guess" placeholder="숫자를 입력해주세요" min="1" max="100"  />
+    <button onclick="guessNum()">제출</button>
+
+    <!-- 입력창 -->
+    <p id="message"></p>
+
+    <script>
+        const random_num = Math.floor(Math.random() * 100) + 1;
+        console.log(random_num) // 정답 확인해보기
+
+        let chances = 0;
+
+        function guessNum() {
+            const user_num = parseInt(document.getElementById('guess').value);
+            const message = document.getElementById('message');
+
+            if (isNaN(user_num) || user_num < 1 || user_num > 100) {
+                message.textContent = '1에서 100 사이 숫자를 입력해야 합니다!'
+                return;
+            }
+            
+            chances++;
+
+            if (user_num === random_num) {
+                message.textContent = `축하합니다! ${random_num}을(를) 맞췄습니다!`;
+                gameOver();
+            }
+            else if (user_num < random_num) {
+                message.textContent = `${user_num}보다 큰 숫자입니다. (${10 - chances} 번 남음)`;
+            }
+            else if (user_num > random_num) {
+                message.textContent = `${user_num}보다 작은 숫자입니다. (${10 - chances} 번 남음)`;
+            }
+
+            if (chances === 10) {
+                message.textContent = `기회를 모두 사용했습니다. 정답은 ${random_num}입니다.`
+            }
+        }
+
+        function gameOver() {
+            document.getElementById('guess').disabled = true;
+            document.querySelector('button').disabled = true;
+        }
+    </script>
+</body>
+</html>

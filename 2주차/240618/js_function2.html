@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+        // 매개변수 : 함수가 호출될 때 받는 값을 저장하는 변수
+        // 가변 매개변수 : 호출 할 때 매개변수의 개수가 고정이 아닌 가변일 때 사용
+
+        function test1(...items){
+            console.log(items)
+        }
+
+        test1(11,22)
+        test1(13,26,23,40)
+        test1(11,22,34,45,57,6,78,83,91)
+
+
+        // 전달되는 값들 중 가장 큰수를 반환하는 함수
+        function getMaxNum(...nums){
+            let maxNum = nums[0]
+            for(num of nums){
+                if(num > maxNum){
+                    maxNum=num
+                }
+            }
+            return maxNum
+        }
+
+        console.log(getMaxNum(1,12,5,9))
+
+        function test2(name, num, ...nums){
+
+        }
+        test2(1,5,7,9,0,2,3)
+
+        // 기본 매개변수
+        function test3(name, age=19, gender='M'){
+            //age = age || 30
+            //gender = gender || 'M'
+            console.log(name)
+            console.log(age)
+            console.log(gender)
+        }
+        console.log('================')
+        test3('king')
+        console.log('================')
+        test3('king', 20)
+        console.log('================')
+        test3('king', 20, 'F')
+
+        // 매개변수로 시급과 시간을 입력받아 급여를 계산하는 함수를 만들어 봅시다
+        // • 함수 이름: earnings
+        // • 매개변수: name(이름), wage(시급), hours(시간)
+        // • 함수의 역할: 이름, 시급, 시간을 출력하고, 
+        //               시급과 시간을 곱한 최종 급여 출력
+        // • 만약 wage와 hours를 입력하지 않고 실행하면 wage에 최저 임금이 들어가고, 
+        //      hours에 법정근로시간 1주일 40시간이 기본 매개변수로 입력
+
+        function earnings(name , wage=20000, hours=40){
+            console.log("====================")
+            console.log(`이     름 : ${name}`)
+            console.log(`시     급 : ${wage}원`)
+            console.log(`근로 시간 : ${hours} 시간`)
+            console.log(`급 여 액 : ${wage*hours}원`)
+        }
+
+        earnings('손흥민')
+        earnings('이강인', 15000)
+        earnings('김민재', 25000, 30)
+
+
+
+
+
+        
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
