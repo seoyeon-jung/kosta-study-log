@@ -4,11 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script>
+        // JSON : JSON 타입의 형식 변환
+        // object => JSON, JSON => object
+
+        let menu = {
+            productName : 'americano',
+            price : 3000,
+            ctgy : 'coffe'
+        }
+        console.log(menu, typeof(menu))
+        // object => JSON
+        let json_string = JSON.stringify(menu)
+        console.log(json_string)
+        console.log(typeof(json_string))
+
+        // JSON => Object
+        let obj_json = JSON.parse(json_string)
+        console.log(obj_json)
+        console.log(typeof(obj_json))
+
+        let menus = [
+            {name : '아메리카노', price : 3000},
+            {name : '블랙 티', price : 4000},
+            {name : '밀크' , price : 5000}
+        ]
+
+        let menus_json = JSON.stringify(menus)
+        console.log(menus_json)
+        console.log( JSON.parse(menus_json) )
+
+
+
+
+
+
+    </script>
 </head>
 <body>
-    <script>
-        var child = window.open('', 'child', 'width=300', 'height=400')
-        var html = '<h1 onclick="self.close();">윈도우 닫기</h1>'
-    </script>
+    
 </body>
 </html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        // 새로운 브라우저 window 생성
+        //window.open()
+        //window.open('https://www.naver.com', 'newWin', 'width=300, height=400')
+        var child = window.open('', 'child', 'width=300, height=400')
+        var html = '<h1 onclick="self.close();">윈도우 닫기</h1>'
+        child.document.write('<h1>부모 윈도우에서 텍스트 추가</h1>'+ html)
+    </script>
+    
+</body>
+</html>

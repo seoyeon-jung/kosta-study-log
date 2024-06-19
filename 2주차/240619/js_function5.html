@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        // 타이머 함수
+        // setInterval(callbackFn, ms) => id 반환
+        // clearInterval(타이머 아이디)
+        // setTimeout(callbackFn, ms) => id 반환
+        // clearTimeout(타이머 아이디)
+
+        // 1초 후에  출력 메시지
+        let id1 = setTimeout(
+            ()=>console.log('3초 후에 출력되는 메시지'),
+            3000 
+        )
+
+        // 2초마다 반복 
+        let n = 0
+        let id2 = setInterval(
+            () => {
+                // 실행 코드
+                console.log('2초마다 출력되는 메시지'+ n++)
+                // 반복 종료 조건
+                if(n == 3){
+                    console.log('3번 반복 후 반복을 멈춘다.')
+                    clearInterval(id2)
+                }
+            }, 2000
+        )
+
+
+    </script>
+
+    <script>        
+    </script>
+
+</head>
+<body>
+    
+</body>
+</html>

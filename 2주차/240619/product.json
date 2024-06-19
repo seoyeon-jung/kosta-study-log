@@ -1,0 +1,7 @@
+{
+    "productName" : "Americano",
+    "price" : 3000,
+    "ctgy" : "coffe",
+    "event" : true,
+    "option" : ["shot", "2shot"]
+}

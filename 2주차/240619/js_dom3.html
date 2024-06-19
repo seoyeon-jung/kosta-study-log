@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrap {
+            display: flex;            
+        }
+        .box {
+            border : 1px solid #AAA;
+            width : 150px;
+            height: 150px;
+        }
+    </style>
+    <script>
+
+        let menus = [
+            {name : '아메리카노', price : 3000},
+            {name : '블랙 티', price : 4000},
+            {name : '밀크' , price : 5000}
+        ]
+        // load
+        document.addEventListener('DOMContentLoaded', ()=>{
+            // 1. 타깃(새롭게 위치할 위치) 엘리먼트 캐스팅
+            const wrap = document.querySelector('#wrap')
+            // 2. 새로운 엘리먼트 객체 생성
+            //const newEl = document.createElement('h2');
+            //    속성, 스타일..
+            //newEl.textContent = '동적으로 생성한 h2 tag'
+            //newEl.style.textAlign = 'center'
+            //newEl.style.color = 'blue'
+            //newEl.style.backgroundColor= 'yellow'
+            // 3. 타깃에 새로운 엘리먼트 추가
+            //wrap.appendChild(newEl)
+
+            // 이미지 태그 생성
+            //const newImg = document.createElement('img')
+            //newImg.setAttribute('src', '/image/mini.jpg')
+            //wrap.appendChild(newImg)
+
+            // menus 반복 해서 apeendChild
+            menus.forEach((item, index) => {
+                // div > h3(상품 명) , p(가격)
+                const newDiv = document.createElement('div')
+                newDiv.setAttribute('class', 'box')
+                const newh3 = document.createElement('h3')
+                newh3.textContent=item.name
+                newDiv.appendChild(newh3)
+                const newp = document.createElement('p')
+                newp.textContent=`${item.price} 원`
+                newDiv.appendChild(newp)
+                wrap.appendChild(newDiv)
+
+            })
+
+
+        })
+
+    </script>
+</head>
+<body>
+    <h3>Menu</h3>
+    <div id="wrap"></div>
+    
+</body>
+</html>

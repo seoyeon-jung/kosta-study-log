@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // 기본 자료형 객체 선언( 생성 )
+        // 숫자, 문자열, 불
+
+        // Number(), String(), Boolean()
+
+        new Boolean(true)
+
+        // new String('문자열')
+        let obj_string = new String('  안녕하세요   ')
+        console.log(obj_string, obj_string.length)
+        console.log(obj_string.trim(), obj_string.trim().length)
+        let obj_phoneNumber = new String('010-9999-7777')
+        console.log(obj_phoneNumber.split('-'))
+        console.log(obj_phoneNumber.replaceAll('-', '.'))
+
+        //////////////////////////////////////////
+
+        const obj_num = new Number(100.123456)
+        console.log(obj_num, obj_num.toString())
+        console.log(obj_num.toFixed(2))
+
+        // isNaN() => NaN 판단, isFinite() => 무한대 수 판별
+        
+
+        let priNum = 1000;
+        console.log(priNum.toString())
+
+        ///////////////////////////////////////////////////////
+        // 배열 : new Array() => []
+        //        new Array(3) =>
+        //        new Array(1,2,3,4,5) => [1,2,3,4,5]
+        let arr1 = [1,2,3,4,5]
+        console.log(arr1)
+        let arr2 = new Array()
+        console.log(arr2)
+        let arr3 = new Array(10)
+        console.log(arr3)
+        let arr4 = new Array(1,2,3,4,5)
+        console.log(arr4)
+
+        //Date : 날짜
+        /////////////////////////////////////////////////////////////////
+        // {} => 속성, 메서드, 속성이름 : 속성 값(자바스크립트에서 사용하는 값)
+        // new String(), new Number(), new Boolean, new Array(), new Date()
+
+        
+
+
+
+
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

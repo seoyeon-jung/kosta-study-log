@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // 객체 표현 => {} object
+        // 객체 : 속성, 메서드
+        // 변수, 메서드 구성 => 묶음
+        const menu1 = {
+            productName : 'Americano',
+            price : 3000,
+            ctgy : 'Coffee'
+        }
+        console.log('menu1 > ' , menu1)
+        // 배열 -> arr[index]
+        console.log('제품 이름 >> ', menu1['productName'])
+        console.log('제품 이름 >> ', menu1.productName)
+
+        // 객체의 속성은 변수와 같이 모든 타입의 자료형을 가질 수 있다.
+        const nume2 = {
+            productName : 'Americano',
+            price : 3000,
+            ctgy : 'Coffee',
+            makeCoffe : () => {
+                console.log('원두 20g과 뜨거운 물 120ml 섞어서 만듭니다.')
+            }
+        }
+
+        // 객체의 메서드 호출
+        nume2.makeCoffe()
+
+        // 객체 자신의 멤버 참조
+        const menu3 = {
+            productName : 'Americano',
+            price : 3000,
+            ctgy : 'Coffee',
+            makeCoffe : function() {
+                console.log(`${this.productName}는 원두 20g과 뜨거운 물 120ml 섞어서 만듭니다.`)
+            }
+        }
+        menu3.makeCoffe()
+
+        // 객체의 속성을 동적으로 추가
+        menu3.event = false
+        console.log(menu3)
+        if(menu1.event){
+            alert('이벤트 상품입니다.')
+        }
+        // } else {
+        //     alert('이벤트 미 대상 상품!')
+        // }
+
+        // 속성 제거
+        delete menu3.event
+        console.log(menu3)
+
+        // 객체 정의 
+        // 1. 데이터만 가지는 객체
+        // 2. 데이터와 기능을 함께 가지는 객체
+
+        let cart = []
+        cart.push({pname: 'AAAA', price:1000, point:10})
+        let menus = [
+            {pname: 'AAAA', price:1000, point:10},
+            {pname: 'BBBB', price:2000, point:1},
+            {pname: 'CCCC', price:3000, point:1},
+            {pname: 'DDDD', price:4000, point:1},
+            {pname: 'EEEE', price:1500, point:1}
+        ]
+        menus.forEach((val)=> {console.log(val)})
+
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
