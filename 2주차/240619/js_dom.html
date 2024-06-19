@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 브라우저 주소창
+        //location.href="https://naver.com"
+
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     console.log('문서 객체를 모두 읽으면 이벤트가 발생')
+        //     let h1_el = document.getElementById('h1')
+        //     console.log(h1_el.innerHTML)
+        // })
+
+        // querySelector : css 선택자를 이용해서 캐스팅
+
+        // 속성 컨트롤
+        // const a_el = document.querySelector('a');
+        // let href_str = a_el.getAttribute('href')
+        // console.log(href_str)
+
+        // document.addEventListener('DOMContentLoaded', () => {
+        //     // 1. 타깃(새롭게 시작할 위치) 엘리먼트 캐스팅
+        //     const wrap = document.querySelector('#wrap')
+        //     // 2. 새로운 엘리먼트 객체 생성
+        //     const newEl = document.createElement('h2')
+        //     // 속성, 스타일링
+        //     newEl.textContent = '동적으로 생성한 h2 태그'
+        //     newEl.style.textAlign = 'center'
+        //     newEl.style.color = 'blue'
+        //     newEl.style.backgroundColor = 'lightgray'
+        //     // 3. 타깃에 새로운 엘리멘트 추가
+        //     wrap.appendChild(newEl)
+
+        //     // 이미지 태그 생성
+        //     const newImg = document.createElement('img');
+        //     newImg.setAttribute('src', '/poster.jpg')
+        //     wrap.appendChild(newImg)
+        //})
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const wrap = document.querySelector('#wrap')
+
+            // menu 반복해서 appendchild
+            menus.forEach((item, index) => {
+                // div 밑에 h3(상품명), p (가격)
+                const newDiv = document.createElement('div')
+                const newh3 = document.createElement('h3')
+                newh3.textContent = item.name
+                newDiv.appendChild(newh3)
+                const newp = document.createElement('p')
+                newp.textContent = `${item.price}원`
+                newDiv.appendChild(newp)
+            })
+
+            wrap.appendChild(menus)
+        })
+    </script>
+    
+    <h2>title</h2>
+    <div id="wrap"></div>
+</body>
+</html>
