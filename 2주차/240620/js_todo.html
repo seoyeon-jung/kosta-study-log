@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const input_newTodo = document.querySelector('#newTodo')
+            const add_btn = document.querySelector('#addBtn')
+            const todo_list = document.querySelector('#todoList')
+
+            // 카운트 변수
+            let keyCount = 0
+
+            add_btn.addEventListener('click', () => {
+                if(input_newTodo.value.trim() === '') {
+                    alert('할일을 입력해주세요!!!')
+                    return
+                }
+                //alert(input_newTodo.value.trim())
+                //  div > checkbox , span, button
+                const div_new = document.createElement('div')
+                const key = keyCount++
+                div_new.setAttribute('data-key', key)
+
+                const checkbox = document.createElement('input')
+                checkbox.type= 'checkbox'
+                checkbox.addEventListener('change', (event) => {
+                    div_new.style.textDecoration =  event.currentTarget.checked ? 'line-through' : ''
+                })
+
+                const span_todostr = document.createElement('span')
+                span_todostr.textContent=input_newTodo.value
+
+                const button_del = document.createElement('button')
+                button_del.textContent='할일 삭제'
+                button_del.addEventListener('click', (event) => {
+                    // 삭제 대상 -> div
+                    const div_del = document.querySelector(`[data-key="${key}"]`)
+                    todo_list.removeChild(div_del)
+                })
+
+                div_new.appendChild(checkbox)
+                div_new.appendChild(span_todostr)
+                div_new.appendChild(button_del)
+
+                todo_list.appendChild(div_new)
+
+                input_newTodo.value=''
+                input_newTodo.focus()
+
+            })
+
+        })
+    </script>
+</head>
+<body>    
+    <!-- 사용자가 할일을 입력하면 리스트에 추가 화면 -->
+    <h1>Todo List</h1>
+    할일 추가 :
+    <input type="text" id="newTodo" >
+    <button id="addBtn">할일 추가</button>
+    <hr>
+    <div id="todoList"></div>
+    
+</body>
+</html>

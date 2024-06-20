@@ -1,0 +1,95 @@
+div,
+h1,
+form,
+header,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+header > h1 {
+  margin: 20px;
+}
+
+#reg,
+#edit {
+  padding: 20px;
+}
+
+#reg td,
+#edit td {
+  width: 150px;
+}
+
+#reg input,
+#edit input {
+  width: 130px;
+  padding: 10px;
+}
+
+#reg label,
+#edit label {
+  display: block;
+  background-color: black;
+  color: floralwhite;
+  padding: 5px;
+}
+
+#reg input[type="submit"],
+#edit input[type="submit"] {
+  font-size: 1.2em;
+  font-weight: bold;
+  height: 70px;
+}
+
+h2.title {
+  border-bottom: 1px solid #ddd;
+  padding: 5px;
+  margin: 10px 0;
+}
+
+.listarea {
+  padding: 20px;
+}
+
+.listtable {
+  width: 100%;
+  border: 1px solid lightgray;
+  border-collapse: collapse;
+}
+
+.listtable th,
+.listtable td {
+  border: 1px solid lightgray;
+  padding: 8px;
+  text-align: center;
+}
+
+.listtable th {
+  background-color: black;
+  color: cornsilk;
+}
+
+.listtable td {
+  text-align: center;
+}
+
+#edit {
+  display: none;
+}
+
+.listtable td button {
+  border: none;
+  background-color: transparent;
+  color: #4747f9;
+  text-decoration: underline;
+}
+
+.listtable td button:hover {
+  color: #9b9bf9;
+}

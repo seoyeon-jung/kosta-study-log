@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // keykup: 키가 떨어질 때
+        // document.addEventListener('DOMContentLoaded', () => {
+        //     const textarea = document.querySelector('textarea')
+        //     textarea.addEventListener('keyup', (e) => {
+        //         const str_len = e.currentTarget.value.length;
+        //         const cnt = document.getElementById('cnt')
+        //         cnt.textContent = str_len
+        //     })
+        // })
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const select = document.querySelector('select')
+            const h2_print = document.querySelector('.print')
+
+            select.addEventListener('change', (event) => {
+                const options = event.currentTarget.options;
+                const index = event.currentTarget.options.selectedIndex;
+                h2_print.textContent = `selected : ${options[index]}`
+            })
+        })
+    </script>
+</head>
+<body>
+    <!-- 글자수 세기 -->
+    <!-- <h1>
+        <span id="cnt"></span> / 100
+    </h1>
+    <textarea cols="20" rows="10"></textarea> -->
+
+    <!-- 선택한 옵션 출력하기 -->
+    <h2 class="print"></h2>
+    <select name="" id="">
+        <option value="">HTML5</option>
+        <option value="">CSS</option>
+        <option value="">JavaScript</option>
+        <option value="">jquery</option>
+        <option value="">React.js</option>
+    </select>
+</body>
+</html>

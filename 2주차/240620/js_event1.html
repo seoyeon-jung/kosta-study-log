@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // function delEl() {
+        //     const div = document.querySelector('div')
+        //     const h3 = document.querySelector('div>h3');
+
+        //     div.removeChild(h3)
+        // }
+
+        const delBtn = document.querySelector('div>input[type="button"]')
+        delBtn.onclick = (event) => {
+            const div = document.querySelector('div')
+            const h3 = document.querySelector('div>h3');
+
+            div.removeChild(h3)
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <h3>삭제 대상</h3>
+        <!-- <input type="button" onclick="delEl()" value="삭제" /> -->
+         <input type="button" value="삭제" />
+    </div>
+</body>
+</html>
