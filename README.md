@@ -22,4 +22,5 @@
 06.17 [JavaScript 기초](./2주차/240617/README.md)  
 06.18 [JavaScript 기초](./2주차/240618/README.md)  
 06.19 [JavaScript 기초](./2주차/240619/README.md)  
-06.20 [JavaScript 기초](./2주차/240620/README.md)
+06.20 [JavaScript 기초](./2주차/240620/README.md)  
+06.21 [JavaScript, JQuery](./2주차/240621/README.md)
