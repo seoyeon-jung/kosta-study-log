@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+
+    <script>
+        // 탐색 : selector, filter()
+        // $(selector).filter(selector)
+        // $(selector).filter(callback)
+        $(document).ready(()=>{
+
+            $('table tr').filter(':even').css('background-color', 'yellow')
+
+            $('h2').css('background', 'orange').filter(':odd').css('color', 'white')
+            
+            $('h1').eq(3).css('color', 'red')
+            $('h1').first().css('background', 'green')
+            $('h1').last().css('background', 'green')
+
+            $('h3').filter((index, item)=>{
+                console.log(index, item)
+                return index%3 == 0
+            }).css('color', 'blue')
+
+        })
+
+
+    </script>
+
+</head>
+<body>
+
+    <h3> header 13 </h3>
+    <h3> header 23 </h3>
+    <h3> header 33 </h3>
+    <h3> header 43 </h3>
+    <h3> header 53 </h3>
+    <h3> header 63 </h3>
+    <h3> header 73 </h3>
+    <h3> header 83 </h3>
+    <h3> header 93 </h3>
+
+
+
+
+    <h1> header 1 </h1>
+    <h1> header 1 </h1>
+    <h1> header 1 </h1>
+    <h1> header 1 </h1>
+    <h1> header 1 </h1>
+
+    <h2> header 2 </h2>
+    <h2> header 2 </h2>
+    <h2> header 2 </h2>
+    <h2> header 2 </h2>
+    <h2> header 2 </h2>
+    
+    
+
+
+
+    <table border="1">
+        <tr>
+            <td>1111</td>
+            <td>1111</td>
+        </tr>
+        <tr>
+            <td>1111</td>
+            <td>1111</td>
+        </tr>
+        <tr>
+            <td>1111</td>
+            <td>1111</td>
+        </tr>
+        <tr>
+            <td>1111</td>
+            <td>1111</td>
+        </tr>
+        <tr>
+            <td>1111</td>
+            <td>1111</td>
+        </tr>
+        <tr>
+            <td>1111</td>
+            <td>1111</td>
+        </tr>
+        <tr>
+            <td>1111</td>
+            <td>1111</td>
+        </tr>
+    </table>
+
+    
+</body>
+</html>

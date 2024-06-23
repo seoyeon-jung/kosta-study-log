@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+
+    <style>
+        .img {
+            border: 3px solid blue;
+        }
+    </style>
+
+    <script>
+        $().ready( () => {
+
+            // 문서객체 생성
+            $('<h1></h1>').html('안녕하세요1234').appendTo('body')  // <h1>안녕하세요!!!!</h1>
+            $('<h1>안녕하세요!!!!</h1>').appendTo('body')
+
+            $('<img>').attr('src', '/image/mini.jpg').addClass('img').prependTo('body')
+
+            // $(A).appendTo(B)     : 타깃 B
+            // $(A).prependTo(B)    : 타깃 B
+            // $(A).append(B)       : 타깃 A
+            // $(A).prepend(B)      : 타깃 A
+
+            // $(selector).append(content,content,content,...)
+            // $(selector).append((index) => {})
+
+            let html1 = '<a href="#">test</a>'
+            let html2 = '<p>TEST</p>'
+            let html3 = '<div>DIV TEST</div>'
+
+            $('body').append(html1, html2, html3, '<hr>')
+
+            let productList = []
+            let cart= []
+            
+          let links = [
+            { name : '네이버', url : 'https://www.naver.com' },
+            { name : '구글', url : 'https://www.google.com' },
+            { name : '페이스북', url : 'https://www.facebook.com' }
+          ]
+
+          $.each(links, function(index, item){
+
+            let html = 
+            `
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.url}</td>                
+            </tr>
+            `
+            $('#list').append(html)
+          })
+
+        })
+    </script>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>이름</th>
+                <th>경로</th>
+            </tr>
+        </thead>
+        <tbody id="list">
+
+        </tbody>
+    </table>
+    
+</body>
+</html>

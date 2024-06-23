@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+
+    <style>
+        .box {
+            background-color: aquamarine;
+            color:blue;
+            float: left;
+            width: 100px;
+            height: 100px;
+            border: 1px solid #000;
+            margin: 10px;
+        }
+        .title {
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        // 문서 개체 컨트롤 : 
+        // css(), attr(), removeAttr() addClass(), removeClass()
+        // html(), text()
+        // remove(), empty()
+        $().ready(()=>{
+
+
+            //$('h2').addClass('box')
+            //$('h2').removeClass('title')
+
+            console.log('경로 : ', $('a').attr('href'))  // getter
+            $('a').attr('href', 'https://www.facebook.com')
+
+            //$('img').attr('src', '/image/mini.jpg')
+            // $('img').attr({
+            //     src : '/image/mini.jpg',
+            //     width: 100,
+            //     height: 100
+            // })
+
+            $('img').attr('height', function(index){
+                return (index+1) * 100
+            })
+
+            $('img').last().removeAttr('src')
+
+            // attr(속성이름) : read
+            // attr(속성이름, 값) : set
+            // attr(속성이름, callback) : set
+            // attr({}) : 여러개의 속성을 한번에 설정
+
+            // css(속성이름) : read
+            // css(속성이름, 값 || callback) : set
+            // css({})
+
+            // html() : innerHtml
+            // text() : textContent
+
+            //read
+            console.log('html() => ' , $('#menu1').html())
+            console.log('text() => ' , $('#menu2').text())
+
+            //$('#menu1').html('<h1>안녕하세요</h1>')
+            //$('#menu2').text('<h1>안녕하세요</h1>')
+
+            $('div').html(function(index, html){
+                console.log(index, html)
+                $(this).html(`<h1>${html + index}</h1>`)
+
+            })
+
+            // 엘리먼트 삭제 : 부모 엘리먼트 캐스팅 삭제 대상 캐스팅 무보에게 삭제요청
+            $('#menu3').remove()
+            $('#menu2').empty()
+
+        })
+    </script>
+</head>
+<body>
+
+    <div id="menu1"><span>Menu Text1</span></div>
+    <div id="menu2">
+        <span>Menu Text2</span>
+    </div>
+    <div id="menu3">
+        <span>Menu Text3</span>
+    </div>
+
+
+
+
+
+    <img src="/image/mini.jpg">
+    <img src="/image/mini.jpg">
+    <img src="/image/mini.jpg">
+
+    <a href="https://www.naver.com">naver</a>
+
+    <h2 class="title">box - 1</h2>
+    <h2 class="title">box - 1</h2>
+    <h2 class="title">box - 1</h2>
+    <h2 class="title">box - 1</h2>
+    <h2 class="title">box - 1</h2>
+    
+</body>
+</html>

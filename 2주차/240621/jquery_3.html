@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+
+    <script>
+
+        let xml = `
+            <links>
+                <link>
+                    <name>네이버</name>
+                    <url>https://www.naver.com</url>
+                </link>                
+                <link>
+                    <name>구글</name>
+                    <url>https://www.google.com</url>
+                </link>
+                <link>
+                    <name>페이스북</name>
+                    <url>https://www.facebook.com</url>
+                </link>
+            </links>
+        `
+
+        $().ready(()=>{
+            
+            // 문자열 => xml 문서 객체로변환
+            // $.parseXML(문자열)
+            let xmlDoc = $.parseXML(xml)
+
+            let html_doc = ''
+
+            // 요소를 찾는 메서드 -> find(엘리먼트 이름) 'link'
+            $(xmlDoc).find('link').each(function(index, item) {
+                console.log(index, item)
+                let name = $(item).find('name').text()
+                let url = $(item).find('url').text()
+                console.log(name, url)
+                html_doc +=
+                `
+                <div class="box">
+                    <h1>${name}</h1>
+                    <p>${url}</p>
+                </div>
+                `                
+            })
+
+            $('body').html(html_doc)
+
+
+        })
+    </script>
+    <style>
+        .box {
+            border: 1px solid #AAA;
+        }
+    </style>
+</head>
+<body>
+    
+</body>
+</html>

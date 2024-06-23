@@ -3,17 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script
-    src="https://code.jquery.com/jquery-3.7.1.js"
-    integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-    crossorigin="anonymous"></script>
     <title>Document</title>
-</head>
-<body>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+
     <script>
+
+        $().ready(()=>{
+            
+        })
+        // 페이지 로드가 완료 되고 나서 실행
+        // $() => jquery 객체를 생성해준다
         $(document).ready(function(){
-            let output = ''
+            // 페이지의 모든 콘텐츠가 로드된 후 실행
+            // window.onload = function(){}
+
+            // document.querySelectorAll('h2').forEach((item)=>{
+            //     item.style.color='red'
+            // })
+            $('h2').css('color', 'blue')  //set / get
+          // 캐스팅.메서드 
+          // 캐스팅 => jquery 객체 생성
+          //////////////////////////////////////
+          // input casting
+
+          //$('input[type=text]').val('안녕하세요') // setter
+          //let  input_str= $('input[type=text]').val()
+          let  input_str= $('input:text').val()
+          console.log(input_str)
+
+          setTimeout(()=>{
+            const selected_val = $('select>option:selected').val()
+            console.log('selected_val >', selected_val)
+            let  input_str= $('input:text').val()
+            console.log(input_str)
+            const checked_val = $('input:checkbox:checked').val()
+            console.log('checked_val >>', checked_val)
+
+            if(!checked_val){
+                //alert('확인하세요!!!!!!!!!')
+            }
+
+          } , 1)
+
+          // forEach.(콜백(item, index, arr))
+          // $.each() => 반복 처리 해주는 메서드
+          // $.each(배열, 콜백(index, item)   )
+          // $('selector').each(callback)
+
+          let links = [
+            { name : '네이버', url : 'https://www.naver.com' },
+            { name : '구글', url : 'https://www.google.com' },
+            { name : '페이스북', url : 'https://www.facebook.com' }
+          ]
+
+          let output = '';
+          
+          $.each(links, (index, item) => {
+            console.log(index, item)
+            output += `<a href="${item.url}">${item.name}</a>\n<br>\n`
+          })
+
+          console.log(output)
+          
+          //document.querySelector('#links').innerHTML=output
+          $('#links').html(output)
+            
+          $('h2').each(function(index, item){
+            console.log(index, item.innerHTML, $(item).html())
+          })
+
         })
     </script>
+</head>
+<body>
+
+    <div id="links"></div>
+
+
+
+    <select>
+        <option>2024</option>
+        <option>2023</option>
+        <option>2022</option>
+    </select>
+
+    <input type="checkbox"> 확인
+
+    <hr>
+
+    <input type="text" name="name" id="name" value="나는 손흥민 이다">
+
+
+    <hr>
+
+    <h2>header - 0</h2>
+    <h2>header - 1</h2>
+    <h2>header - 2</h2>
+    <h2>header - 3</h2>
+    <h2>header - 4</h2>
+    
 </body>
 </html>
