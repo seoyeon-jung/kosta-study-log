@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1, div {
+            border : 1px solid #000;
+            margin: 10px;
+        }
+        div {
+            width: 150px;
+            height: 150px;
+        }
+        #list {
+            width : 90%;
+            overflow: auto;
+        }
+        .over {
+            background-color: aquamarine;
+            color: blue;
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+
+    <script>
+
+        $(document).ready(function(){
+                
+            // 이벤트 처리 : on 메서드, 이벤트 메서드
+            // $(selector).on('이벤트이름', function(event){})
+            // $(selector).on({'이벤트이름': fn, '이벤트이름':fn, ...})
+            // $('h1').on('click', function(){
+            //     // this : 이벤트가 발생한 엘리먼트 객체를 가르킨다
+            //     $(this).html(function(index, html){
+            //         return html+'+'
+            //     })
+            // })
+            $('h1').click(function(e){
+                $(this).html(function(index, html){
+                    return html + '@'
+                })
+            })
+            $('h1').on({
+                // 속성: 이벤트 이름, 값 : 핸들러 함수
+                mouseenter : function(){
+                    $(this).addClass('over')
+                },
+                mouseleave : function(){
+                    $(this).removeClass('over')
+                }
+            })
+        
+            $('div').click(function(e){
+                // 이벤트 발생 div -> this
+                // $('h3', this) -> 이벤트가 발생한 div 안에 있는 h3 선택
+                let h3 = $('h3', this).text()
+                let p = $('p', this).text()
+
+                //alert(h3 + ' : ' + p)
+
+                // $(대상).append(동적 엘리먼트)
+                $('#list').append(`<h3> ${h3} : ${p} </h3>`)
+            })
+
+            // 기존 이벤트 제거 : a, form action
+            // 이벤트 : 중청 되어 있는 엘리먼트로 전달
+            $('a').click(function(e){
+
+                // 기본 이벤트 제거
+                //console.log(e.isDefaultPrevented())
+                //e.preventDefault();
+                //console.log(e.isDefaultPrevented())
+
+                return false;
+                
+            })
+
+            $('form').submit(function(e){
+                let uname = $('#uname').val()
+                if(uname.trim() === ''){
+                    alert('이름을 입력해주세요')
+                    e.preventDefault()
+                }
+            })
+
+        
+        
+        
+        })
+
+    </script>
+</head>
+<body>
+
+    <form action="https://www.naver.com">
+        <input type="text" name="uname" id="uname" value="cool">
+        <input type="submit">
+    </form>
+
+    <hr>
+
+    <a href="https://www.naver.com">naver</a>
+
+
+    <hr>
+
+    <div data-index="0">
+        <h3>아메리카노</h3>
+        <p>3000</p>
+        <input type="hidden" value="0">
+    </div>
+    <div>
+        <h3>라때</h3>
+        <p>4000</p>
+    </div>
+    <div>
+        <h3>블랙티</h3>
+        <p>5000</p>
+    </div>
+    <div id="list">
+
+    </div>
+
+
+    <hr>
+
+    <h1>header-0</h1>
+    <h1>header-1</h1>
+    <h1>header-2</h1>
+    
+</body>
+</html>

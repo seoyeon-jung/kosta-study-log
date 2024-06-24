@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+
+    <script>
+        $().ready(()=>{
+
+            // $.ajax({options})
+            // $.ajax(url, {options})
+
+            $.ajax({
+                url : '/data.xml',
+                success : function(data){
+                    // http Code : 200
+                    console.log('data', data)
+                    console.log('type(data)', typeof(data))
+                    //$('body').append(data)
+                    // data.forEach(item => {
+                    //     $('body').append(`<h1>${item.name} : ${item.price}</h1>`)
+                    // });
+                    // xml 파싱
+                    $(data).find('product').each(function(){
+                        let name = $(this).find('name').text()
+                        let price = $(this).find('price').text()
+                        $('body').append(`<h1> ${name} 10 : ${price}</h1>`)
+                    })
+                    
+                },
+                error : function(request, status, error){
+                    console.log(request)
+                    console.log(status)
+                    console.log(error)
+                }
+
+            })
+
+
+            setTimeout(function(){
+                // $.get('data.html', function(data){
+                //     alert(data)
+                // })
+                $.getJSON('/data.json', function(data){
+                    console.log(data)
+                })
+            }, 2000)
+            
+            
+
+
+
+
+        })
+    </script>
+</head>
+<body>
+
+    공공데이터 포털 : https://www.data.go.kr/
+    서울 열린데이터 광장 : https://data.seoul.go.kr/
+    서울시 인허가 테이터 개방 : https://www.localdata.go.kr/ 
+
+    bootstrap 무료 디자인 템플릿 : https://www.creative-tim.com/
+
+
+    
+</body>
+</html>

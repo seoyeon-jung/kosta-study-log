@@ -24,3 +24,10 @@
 06.19 [JavaScript 기초](./2주차/240619/README.md)  
 06.20 [JavaScript 기초](./2주차/240620/README.md)  
 06.21 [JavaScript, JQuery](./2주차/240621/README.md)
+
+<br/>
+<br/>
+
+## 3주차
+
+06.24 [jQuery, Bootstrap](./3주차/240624/README.md)

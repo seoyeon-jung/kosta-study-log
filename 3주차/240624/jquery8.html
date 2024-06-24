@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+
+    <script>
+        $().ready(()=>{
+            $('#msg').keyup(function(){
+                let cnt = $(this).val().length
+                let remain = 150 - cnt
+                //console.log(cnt, remain)
+                if(remain < 0 ){
+                    alert('소개글은 150자까지 작성이 가능합니다.')
+                    let str = $(this).val().substr(0, 150)
+                    $(this).val(str)
+                    $('span').text('150')
+                    return false
+                }
+                $('span').text(cnt)
+            })
+
+            $('#allCheck').change(function(){
+                if(this.checked) {
+                    $('#checkItem').children().prop('checked', true)
+                } else {
+                    $('#checkItem').children().prop('checked', false)
+                }
+            })
+
+        })
+    </script>
+</head>
+<body>
+
+    <input type="checkbox" id="allCheck">
+    <label for="allCheck">all 전체 동의</label>
+
+    <div id="checkItem">
+        <input type="checkbox"> 사이트 이용 동의 <br>
+        <input type="checkbox"> 개인정보 이용 동의 <br>
+        <input type="checkbox"> 마케팅 이용 동의 <br>
+
+    </div>
+
+
+    <hr>
+
+
+    <textarea cols="50" rows="10" id="msg"></textarea>
+    <span>0</span> / 150
+    
+</body>
+</html>
