@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import PageLayout from "./PageLayout";
 import TextInput from "../ui/TextInput";
 import Button from "../ui/Button";
-import PageLayout from "./PageLayout";
 
-function PostWritePage(props) {
-  const navigate = useNavigate();
-
-  const [title, setTitle] = useState();
-  const [content, setContent] = useState();
+function PostWrite() {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
   return (
     <PageLayout>
@@ -18,13 +15,13 @@ function PostWritePage(props) {
         onChange={(event) => setTitle(event.target.value)}
       />
       <TextInput
-        height={400}
+        height={300}
         value={content}
         onChange={(event) => setContent(event.target.value)}
       />
-      <Button title={"글 작성"} onClick={() => navigate("/")} />
+      <Button title="글작성" onClick={() => alert("글이 작성되었습니다.")} />
     </PageLayout>
   );
 }
 
-export default PostWritePage;
+export default PostWrite;

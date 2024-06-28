@@ -9,7 +9,6 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
 `;
-
 const Container = styled.div`
   width: 100%;
   max-width: 720px;

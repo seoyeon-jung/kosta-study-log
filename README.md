@@ -33,4 +33,5 @@
 06.24 [jQuery, Bootstrap](./3주차/240624/README.md)  
 06.25 [React](./3주차/240625/README.md)  
 06.26 [React](./3주차/240626/README.md)  
-06.27 [React](./3주차/240627/README.md)
+06.27 [React](./3주차/240627/README.md)  
+06.28 [React - mini blog](./3주차/240628/README.md)

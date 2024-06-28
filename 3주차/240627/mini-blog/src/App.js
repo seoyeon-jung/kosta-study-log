@@ -1,11 +1,14 @@
 import "./App.css";
-import MainPage from "./components/MainPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import BlogMain from "./components/page/BlogMain";
 
 function App() {
   return (
-    <>
-      <MainPage />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route index element={<BlogMain />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

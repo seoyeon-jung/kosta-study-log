@@ -2,22 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  padding: 1em;
+  padding: 5px;
   background-color: gray;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-`;
-
-const Block = styled.div`
-  padding: ${(props) => props.padding};
-  border: 1px solid black;
-  border-radius: 1rem;
-  background-color: ${(props) => props.bColor};
-  color: white;
-  font-size: 2rem;
-  font-weight: bold;
-  text-align: center;
 `;
 
 const Title = styled.h1`
@@ -29,43 +18,40 @@ const Title = styled.h1`
 const Button = styled.button`
   color: ${(props) => (props.dark ? "white" : "black")};
   background-color: ${(props) => (props.dark ? "black" : "white")};
-  border: 3px solid black;
+  border: 3px solid #000000;
   margin: 10px;
   padding: 5px;
 `;
 
 const RoundedButton = styled(Button)`
-  border-radius: 5px;
+  border-radius: 10px;
 `;
 
-const blockItems = [
-  { label: "홍차", padding: "1rem", backColor: "red" },
-  { label: "홍차", padding: "2rem", backColor: "green" },
-  { label: "우유", padding: "3rem", backColor: "blue" },
-];
+const Block = styled.div`
+  padding: ${(props) => props.padding};
+  border: 1px solid black;
+  border-radius: 1rm;
+  background-color: ${(props) => props.bColor};
+  color: white;
+  font-size: 2rm;
+  font-weight: bold;
+  text-align: center;
+`;
 
-const MainPage = (props) => {
+function MainPage(props) {
   return (
     <>
       <Wrapper>
-        {/*<Title>
-                안녕하세요!!!!
-            </Title>
+        <Title>mini blog</Title>
+        <Button dark>버튼</Button>
+        <RoundedButton dark>라운드버튼</RoundedButton>
 
-            <Button>ButtonA</Button>
-            <Button dark>ButtonB</Button>
-            <RoundedButton>ButtonC</RoundedButton>*/}
-
-        {blockItems.map((item, index) => {
-          return (
-            <Block key={index} padding={item.padding} bColor={item.backColor}>
-              {item.label}
-            </Block>
-          );
-        })}
+        <Block padding="30px" bColor="pink">
+          안녕하세요
+        </Block>
       </Wrapper>
     </>
   );
-};
+}
 
 export default MainPage;
