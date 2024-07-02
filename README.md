@@ -41,4 +41,5 @@
 
 ## 4주차
 
-07.01 [Git, Github](./4주차/240701/README.md)
+07.01 [Git, Github](./4주차/240701/README.md)   
+07.02 [javascript, react](./4주차/240702/README.md)
