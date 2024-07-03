@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import styled from "styled-components";
 
 const ProdInput = ({ setProducts, products }) => {
   // usestate가 너무 많으면 비효율적이다
@@ -9,6 +10,7 @@ const ProdInput = ({ setProducts, products }) => {
   const [newProduct, setNewProduct] = useState({
     name: "",
     price: 0,
+    description: "",
   });
 
   const handleChange = (e) => {
@@ -41,14 +43,15 @@ const ProdInput = ({ setProducts, products }) => {
   };
 
   return (
-    <div>
-      <input
+    <Wrapper>
+      <Input
         type="text"
         name="name"
         value={newProduct.name}
         onChange={handleChange}
+        placeholder="물건을 입력해주세요"
       />
-      <input
+      <Input
         type="number"
         name="price"
         min="0"
@@ -56,9 +59,63 @@ const ProdInput = ({ setProducts, products }) => {
         value={newProduct.price}
         onChange={handleChange}
       />
-      <button onClick={handleAddProd}>추가</button>
-    </div>
+      <Textarea
+        type="text"
+        name="description"
+        value={newProduct.description}
+        onChange={handleChange}
+        placeholder="제품 설명을 입력해주세요"
+      />
+      <Button onClick={handleAddProd}>추가</Button>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 30px;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  height: 30px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid black;
+
+  &::placeholder {
+    font-size: 12px;
+    padding: 3px;
+  }
+`;
+
+const Textarea = styled.textarea`
+  width: 100%;
+  height: 80px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid black;
+
+  &::placeholder {
+    font-size: 12px;
+    padding: 3px;
+  }
+`;
+
+const Button = styled.button`
+  width: 100%;
+  padding: 10px;
+  background-color: #000;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 70%;
+  }
+`;
 
 export default ProdInput;

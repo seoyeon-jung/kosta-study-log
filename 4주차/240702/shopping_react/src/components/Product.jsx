@@ -44,6 +44,8 @@ const Product = () => {
 
   return (
     <main>
+      <ProdInput setProducts={setProducts} products={products} />
+
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {products.map((prod) => {
           return (
@@ -56,8 +58,6 @@ const Product = () => {
           );
         })}
       </div>
-
-      <ProdInput setProducts={setProducts} products={products} />
     </main>
   );
 };

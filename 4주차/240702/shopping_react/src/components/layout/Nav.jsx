@@ -3,10 +3,10 @@ import "./Layout.css";
 
 const Nav = () => {
   const menuArr = [
-    { link: "/#", name: "HOME" },
-    { link: "/#", name: "ABOUT" },
-    { link: "/#", name: "SERVICE" },
-    { link: "/#", name: "PRODUCT" },
+    { link: "/", name: "HOME" },
+    { link: "/about", name: "ABOUT" },
+    { link: "/service", name: "SERVICE" },
+    { link: "/product", name: "PRODUCT" },
   ];
   return (
     <nav>

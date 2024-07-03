@@ -1,8 +1,6 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./News.css";
-
-export const API_KEY = "d4fdd4df1c96408290ab1366bf03c92e";
 
 const News = () => {
   const category_arr = [
@@ -19,10 +17,10 @@ const News = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [category, setCategory] = useState("business");
 
-  const getNews = async () => {
+  const getNews = useCallback(async () => {
     try {
       const res = await axios.get(
-        `https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`
+        `https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=${process.env.REACT_APP_API_KEY}`
       );
       //console.log(res.data.articles);
       const articles = res.data.articles;
@@ -31,7 +29,7 @@ const News = () => {
     } catch (error) {
       console.error(error);
     }
-  };
+  }, [category]);
 
   const handleCategory = (e) => {
     //console.log(e.target.innerText);
@@ -41,7 +39,7 @@ const News = () => {
   useEffect(() => {
     // category가 변경될 때마다 실행
     getNews();
-  }, [category]);
+  }, [getNews]);
 
   if (isLoading) {
     return <div>loading...</div>;
