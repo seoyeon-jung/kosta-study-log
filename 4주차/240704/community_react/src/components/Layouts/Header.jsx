@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { TiSocialInstagramCircular } from "react-icons/ti";
 
 const Header = () => {
+  const loginUser = localStorage.getItem("loginUser");
+
   return (
     <StyledHeader>
       <Link to="/">
@@ -12,7 +14,17 @@ const Header = () => {
       <nav>
         <Link to="/">HOME</Link>
         {/* 로그인 후에는 로그아웃으로 변경 */}
-        <Link to="/login">LOGIN</Link>
+        {loginUser ? (
+          <>
+            <Link to="/info">{loginUser}</Link>
+            <Link to="/logout">LOGOUT</Link>
+          </>
+        ) : (
+          <>
+            <Link to="/login">LOGIN</Link>
+            <Link to="/signup">SIGN UP</Link>
+          </>
+        )}
       </nav>
     </StyledHeader>
   );

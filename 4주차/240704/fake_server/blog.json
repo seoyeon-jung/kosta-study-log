@@ -1,53 +1,59 @@
 {
-    "users": [
-        {
-            "id": "1",
-            "email": "example@example.com",
-            "nickname": "아이유",
-            "password": "1234"
-        },
-        {
-            "id": "2",
-            "email": "example2@example.com",
-            "nickname": "장원영",
-            "password": "1234"
-        }
-    ],
-    "posts": [
-        {
-            "id": "1",
-            "content": "아이유입니다",
-            "like": 0,
-            "img": "/img/1.webp",
-            "userId": "1"
-        },
-        {
-            "id": "2",
-            "content": "제 애완동물입니다.",
-            "like": 0,
-            "img": "/img/2.webp",
-            "userId": "2"
-        },
-        {
-            "id": "4",
-            "content": "저는 한 마리 더 키워요",
-            "like": 0,
-            "img": "/img/3.webp",
-            "userId": "2"
-        }
-    ],
-    "comments": [
-        {
-            "id": "1",
-            "contents": "안녕하세요, 아이유님!",
-            "postId": "1",
-            "userId": "2"
-        },
-        {
-            "id": "2",
-            "contents": "와~ 그럼 두 마리 키우시는 거에요?",
-            "postId": "3",
-            "userId": "1"
-        }
-    ]
+  "users": [
+    {
+      "id": "1",
+      "email": "example@example.com",
+      "nickname": "아이유",
+      "password": "1234"
+    },
+    {
+      "id": "2",
+      "email": "example2@example.com",
+      "nickname": "장원영",
+      "password": "1234"
+    },
+    {
+      "id": "4400",
+      "email": "example3@example.com",
+      "nickname": "test",
+      "password": "12345"
+    }
+  ],
+  "posts": [
+    {
+      "id": "1",
+      "content": "아이유입니다",
+      "like": 0,
+      "img": "/img/1.webp",
+      "userId": "1"
+    },
+    {
+      "id": "2",
+      "content": "제 애완동물입니다.",
+      "like": 0,
+      "img": "/img/2.webp",
+      "userId": "2"
+    },
+    {
+      "id": "4",
+      "content": "저는 한 마리 더 키워요",
+      "like": 0,
+      "img": "/img/3.webp",
+      "userId": "2"
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "contents": "안녕하세요, 아이유님!",
+      "postId": "1",
+      "userId": "2"
+    },
+    {
+      "id": "2",
+      "contents": "와~ 그럼 두 마리 키우시는 거에요?",
+      "postId": "3",
+      "userId": "1"
+    }
+  ]
 }
