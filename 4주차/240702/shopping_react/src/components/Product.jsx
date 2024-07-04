@@ -1,10 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import axios from "axios";
 import ProdInput from "./product/ProdInput";
 import ProdBox from "./product/ProdBox";
 
+const productReducer = (state, action) => {
+  switch (action.type) {
+    case "SET_PRODUCTS":
+      return action.payload;
+    case "ADD_PRODUCT":
+      return [...state, action.payload];
+    case "EDIT_PRODUCT":
+      return state.map((p) =>
+        p.id === action.payload.id ? action.paylload : p
+      );
+    case "DELETE_PRODUCT":
+      return state.filter((p) => p.id !== action.payload);
+    default:
+      return state;
+  }
+};
+
 const Product = () => {
-  const [products, setProducts] = useState([]);
+  //const [products, setProducts] = useState([]);
+  const [products, dispatch] = useReducer(productReducer, []);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -23,7 +41,8 @@ const Product = () => {
       const res = await axios.get("http://localhost:8080/products");
       setLoading(false);
       const data = res.data;
-      setProducts(data);
+      //setProducts(data);
+      dispatch({ type: "SET_PRODUCTS", payload: data });
     } catch (err) {
       console.error(err);
       setError(true);
@@ -44,7 +63,11 @@ const Product = () => {
 
   return (
     <main>
-      <ProdInput setProducts={setProducts} products={products} />
+      <ProdInput
+        //setProducts={setProducts}
+        //products={products}
+        dispatch={dispatch}
+      />
 
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {products.map((prod) => {
@@ -52,8 +75,9 @@ const Product = () => {
             <ProdBox
               key={prod.id}
               prod={prod}
-              setProducts={setProducts}
+              //setProducts={setProducts}
               products={products}
+              dispatch={dispatch}
             />
           );
         })}

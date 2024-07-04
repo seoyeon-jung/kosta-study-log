@@ -54,3 +54,30 @@ const [state, dispatch] = useReducer(reducer, initialValue);
    - initial value : 초기값
    - dispatch: aciton 객체를 파라미터로 받아, reducer 함수를 호출하는 함수
    - dispatch(action객체)
+
+
+<br/>
+<br/>
+<br/>
+
+# 리액트 dispatch 실습
+### [shopping_react 바로가기](../240702/shopping_react/README.md)
+- product CRUD를 `useReducer()` 사용하여 변경해보기
+```javascript
+const productReducer = (state, action) => {
+  switch (action.type) {
+    case "SET_PRODUCTS":
+      return action.payload;
+    case "ADD_PRODUCT":
+      return [...state, action.payload];
+    case "EDIT_PRODUCT":
+      return state.map((p) =>
+        p.id === action.payload.id ? action.paylload : p
+      );
+    case "DELETE_PRODUCT":
+      return state.filter((p) => p.id !== action.payload);
+    default:
+      return state;
+  }
+};
+```

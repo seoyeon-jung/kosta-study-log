@@ -2,7 +2,8 @@ import axios from "axios";
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const ProdInput = ({ setProducts, products }) => {
+//{products, setProducts}
+const ProdInput = ({ dispatch }) => {
   // usestate가 너무 많으면 비효율적이다
   //     const [name, setName] = useState("");
   //   const [price, setPrice] = useState(0);
@@ -36,7 +37,8 @@ const ProdInput = ({ setProducts, products }) => {
         newProduct
       );
       const newProd = res.data;
-      setProducts([...products, newProd]);
+      //setProducts([...products, newProd]);
+      dispatch({ type: "ADD_PRODUCT", payload: newProd });
     } catch (err) {
       console.error(err);
     }

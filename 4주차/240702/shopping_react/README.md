@@ -9,3 +9,5 @@
 - product 삭제
 ## route 실습
 - `react-router-dom` 활용하여 route 생성
+## dispatch 실습
+- `useReducer()` 사용하여 CRUD 리팩토링

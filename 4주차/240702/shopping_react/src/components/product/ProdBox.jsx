@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const ProdBox = ({ prod, products, setProducts }) => {
+// products, setProducts
+const ProdBox = ({ prod, dispatch }) => {
   const [isUpdateMode, setIsUpdateMode] = useState(false);
   const navigate = useNavigate();
 
@@ -26,10 +27,11 @@ const ProdBox = ({ prod, products, setProducts }) => {
       // patch : 일부에 대한 변경
       const editProduct = { ...product, id: prod.id };
       await axios.put(`http://localhost:8080/products/${prod.id}`, product);
-      const updateProducts = products.map((p) =>
-        p.id === prod.id ? editProduct : p
-      );
-      setProducts(updateProducts);
+      // const updateProducts = products.map((p) =>
+      //   p.id === prod.id ? editProduct : p
+      // );
+      //setProducts(updateProducts);
+      dispatch({ type: "EDIT_PRODUCT", payload: editProduct });
 
       //getProducts();
 
@@ -52,11 +54,12 @@ const ProdBox = ({ prod, products, setProducts }) => {
       await axios.delete(`http://localhost:8080/products/${prod.id}`);
       //getProducts();
 
-      const newProducts = products.filter((p) => {
-        return p.id !== prod.id;
-      });
+      // const newProducts = products.filter((p) => {
+      //   return p.id !== prod.id;
+      // });
+      //setProducts(newProducts);
 
-      setProducts(newProducts);
+      dispatch({ type: "DELETE_PRODUCT", payload: prod.id });
     } catch (err) {
       console.error(err);
     }
