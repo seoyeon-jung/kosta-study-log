@@ -30,22 +30,36 @@
       "id": "1",
       "content": "아이유입니다",
       "like": 0,
-      "img": "/img/1.webp",
+      "img": [],
       "userId": "1"
     },
     {
       "id": "2",
       "content": "제 애완동물입니다.",
       "like": 0,
-      "img": "/img/2.webp",
+      "img": [
+        "/img/1.webp",
+        "/img/2.webp"
+      ],
       "userId": "2"
     },
     {
-      "id": "4",
+      "id": "3",
       "content": "저는 한 마리 더 키워요",
       "like": 0,
-      "img": "/img/3.webp",
+      "img": [
+        "/img/1.webp",
+        "/img/2.webp",
+        "/img/3.webp"
+      ],
       "userId": "2"
+    },
+    {
+      "id": "7ddb",
+      "userId": "1",
+      "like": 0,
+      "img": [],
+      "content": "test"
     }
   ],
   "comments": [

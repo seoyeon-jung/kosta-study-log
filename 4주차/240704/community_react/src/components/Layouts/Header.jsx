@@ -13,6 +13,8 @@ const Header = () => {
       </Link>
       <nav>
         <Link to="/">HOME</Link>
+        <Link to="/post">TIMELINE</Link>
+        <Link to="/search">SEARCH</Link>
         {/* 로그인 후에는 로그아웃으로 변경 */}
         {loginUser ? (
           <>
