@@ -17,6 +17,12 @@
       "email": "example3@example.com",
       "nickname": "test",
       "password": "12345"
+    },
+    {
+      "id": "bf6a",
+      "email": "test@test.com",
+      "nickname": "test2",
+      "password": "12345"
     }
   ],
   "posts": [

@@ -1,9 +1,9 @@
 import React from "react";
-import styled from "styled-components";
 import useInput from "../../hooks/useInput";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Button from "../UI/Button";
+import { Button } from "@mui/material";
+import { FormControl, OutlinedInput } from "@mui/material";
 
 const Login = () => {
   const { form, handleChange } = useInput({
@@ -37,43 +37,38 @@ const Login = () => {
   return (
     <>
       <h1>로그인 화면</h1>
-      <StyledLoginBox>
-        <div className="input-group">
-          <input
+      <form>
+        <FormControl
+          sx={{ width: "100%", display: "block", marginBottom: "10px" }}
+        >
+          <OutlinedInput
             type="email"
             name="email"
             value={email}
             onChange={handleChange}
           />
-          <input
+        </FormControl>
+        <FormControl
+          sx={{ width: "100%", display: "block", marginBottom: "10px" }}
+        >
+          <OutlinedInput
             type="password"
             name="password"
             value={password}
             onChange={handleChange}
           />
-        </div>
-        <Button color="#4557f5" onClick={handleLogin}>
+        </FormControl>
+        <Button
+          variant="contained"
+          type="button"
+          sx={{ display: "block", width: "100%", marginTop: "10px" }}
+          onClick={handleLogin}
+        >
           로그인
         </Button>
-      </StyledLoginBox>
+      </form>
     </>
   );
 };
-
-const StyledLoginBox = styled.div`
-  display: flex;
-  .input-group {
-    display: flex;
-    flex-direction: column;
-
-    input {
-      border: none;
-      border-radius: 6px;
-      background-color: #cff4f8;
-      padding: 0.8rem;
-      margin: 5px;
-    }
-  }
-`;
 
 export default Login;

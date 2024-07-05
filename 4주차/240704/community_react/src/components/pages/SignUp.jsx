@@ -1,8 +1,19 @@
-import styled from "styled-components";
 import axios from "axios";
 import { useState } from "react";
-import Button from "../UI/Button";
+import {
+  Box,
+  Button,
+  FormGroup,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { styled } from "@mui/system";
+import { FormControl, OutlinedInput } from "@mui/material";
 import useInput from "../../hooks/useInput";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const SignUp = () => {
   const { form, handleChange, handleReset } = useInput({
@@ -12,9 +23,20 @@ const SignUp = () => {
     password_chk: "",
   });
   const { email, nickname, password, password_chk } = form;
+
   const [isDuplicate, setIsDuplicate] = useState(false);
   const [errors, setErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
 
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (e) => {
+    e.preventDefault();
+  };
+
+  // 이메일 중복체크
   const handleDuplicate = async () => {
     if (email.trim()) {
       const url = `${process.env.REACT_APP_SERVER_ADDR}/users?email=${email}`;
@@ -23,6 +45,7 @@ const SignUp = () => {
         if (!res.data.length) {
           setErrors({});
           setIsDuplicate(true);
+          alert("사용가능한 이메일입니다");
         } else {
           setErrors({ email: "이미 존재하는 이메일입니다." });
           setIsDuplicate(false);
@@ -33,9 +56,19 @@ const SignUp = () => {
     }
   };
 
+  const resetDuplicate = (e) => {
+    setIsDuplicate(false);
+    handleChange(e);
+  };
+
   const validate = () => {
     let isValid = true;
     const newErrors = {};
+
+    if (!isDuplicate) {
+      newErrors.email = "중복 체크 해주세요";
+    }
+
     for (const [key, value] of Object.entries(form)) {
       // 빈값 여부 체크
       if (!value.trim()) {
@@ -51,12 +84,11 @@ const SignUp = () => {
     console.log(newErrors);
     setErrors(newErrors);
     return isValid;
-    // email 중복 체크
   };
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    if (validate() && isDuplicate) {
+    if (isDuplicate && validate()) {
       const url = `${process.env.REACT_APP_SERVER_ADDR}/users`;
       const user = { email, nickname, password };
       try {
@@ -76,119 +108,153 @@ const SignUp = () => {
   return (
     // 회원가입할 때, { email, nickname, password, password_chk}
     <>
-      <h1>회원가입</h1>
-      <JoinForm>
-        <div className="input-group">
-          <label htmlFor="email">이메일</label>
-          <div>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={email}
-              onChange={handleChange}
-            />
-
-            <Button type="button" color="#0084c2" onClick={handleDuplicate}>
-              중복 확인
-            </Button>
-            {errors.email && <ErrorMsg>{errors.email}</ErrorMsg>}
-            {isDuplicate && <SuccessMsg>사용 가능한 이메일입니다.</SuccessMsg>}
-          </div>
-        </div>
-        <div className="input-group">
-          <label htmlFor="nickname">닉네임</label>
-          <div>
-            <input
-              id="nickname"
-              name="nickname"
-              value={nickname}
-              onChange={handleChange}
-            />
-            {errors.nickname && <ErrorMsg>{errors.nickname}</ErrorMsg>}
-          </div>
-        </div>
-        <div className="input-group">
-          <label htmlFor="password">비밀번호</label>
-          <div>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={password}
-              onChange={handleChange}
-            />
-            {errors.password && <ErrorMsg>{errors.password}</ErrorMsg>}
-          </div>
-        </div>
-        <div className="input-group">
-          <label htmlFor="password_chk">비밀번호 확인</label>
-          <div>
-            <input
-              type="password"
-              id="password_chk"
-              name="password_chk"
-              value={password_chk}
-              onChange={handleChange}
-            />
-            {errors.password_chk && <ErrorMsg>{errors.password_chk}</ErrorMsg>}
-          </div>
-        </div>
-        <div className="btn-group">
+      <Typography variant="h4">회원가입</Typography>
+      <Box
+        component={"form"}
+        my={4}
+        p={2}
+        borderRadius={4}
+        boxShadow={"0 0 4px gray"}
+        sx={{ "& > :not(style)": { m: 1, width: "100%" } }}
+        noValidate
+        autoComplete="off"
+      >
+        <FormGroup
+          sx={{ flexDirection: "row", justifyContent: "space-between" }}
+        >
+          <TextField
+            label="이메일"
+            variant="outlined"
+            autoFocus
+            required
+            type="email"
+            id="email"
+            name="email"
+            value={email}
+            onChange={resetDuplicate}
+            error={errors.email ? true : false}
+            helperText={errors.email}
+          />
           <Button
-            type="button"
-            onClick={() => {
-              handleReset();
-              setErrors({});
-            }}
-            color="#ff8282"
+            onClick={handleDuplicate}
+            variant="contained"
+            style={{ marginLeft: "5px" }}
           >
-            초기화
+            중복 확인
           </Button>
-          <Button color="#5f97f9" onClick={handleSignUp}>
-            회원가입
-          </Button>
-        </div>
-      </JoinForm>
+        </FormGroup>
+
+        <TextField
+          label="닉네임"
+          variant="outlined"
+          sx={{ width: "100%", marginBottom: "15px", display: "block" }}
+          required
+          id="nickname"
+          name="nickname"
+          value={nickname}
+          onChange={handleChange}
+          error={errors.nickname ? true : false}
+          helperText={errors.nickname}
+        />
+        <FormControl
+          sx={{ m: 1, width: "100%", display: "block" }}
+          variant="outlined"
+        >
+          <InputLabel
+            sx={errors.password && { color: "#d32f2f" }}
+            htmlFor="password"
+          >
+            비밀번호 *
+          </InputLabel>
+          <OutlinedInput
+            type={showPassword ? "text" : "password"}
+            id="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+            required
+            autoComplete="new-password"
+            label="비밀번호"
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleTogglePassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? (
+                    <FaEye style={{ width: "15px", height: "15px" }} />
+                  ) : (
+                    <FaEyeSlash style={{ width: "15px", height: "15px" }} />
+                  )}
+                </IconButton>
+              </InputAdornment>
+            }
+            error={errors.password ? true : false}
+          />
+        </FormControl>
+        <FormControl
+          sx={{ m: 1, width: "100%", display: "block" }}
+          variant="outlined"
+        >
+          <InputLabel
+            sx={errors.password && { color: "#d32f2f" }}
+            htmlFor="password_chk"
+          >
+            비밀번호 확인 *
+          </InputLabel>
+          <OutlinedInput
+            type={showPassword ? "text" : "password"}
+            id="password_chk"
+            name="password_chk"
+            value={password_chk}
+            onChange={handleChange}
+            required
+            autoComplete="new-password-chk"
+            label="비밀번호 확인"
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleTogglePassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? (
+                    <FaEye style={{ width: "15px", height: "15px" }} />
+                  ) : (
+                    <FaEyeSlash style={{ width: "15px", height: "15px" }} />
+                  )}
+                </IconButton>
+              </InputAdornment>
+            }
+            error={errors.password_chk ? true : false}
+          />
+          <ErrorMsg>{errors.password || errors.password_chk}</ErrorMsg>
+        </FormControl>
+        <Button
+          variant="contained"
+          type="button"
+          sx={{ marginTop: "10px" }}
+          onClick={handleSignUp}
+        >
+          회원 가입
+        </Button>
+      </Box>
     </>
   );
 };
 
-const JoinForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  .input-group {
-    display: flex;
-    justify-content: space-between;
-    width: 90%;
-    margin: 1rem auto;
-    height: 2rem;
-    label {
-      margin-right: 1rem;
-    }
-    input {
-      border: none;
-      border-radius: 4px;
-      background-color: #b8f2f9;
-      padding: 0.8rem;
-    }
-  }
-  .btn-group {
-    padding-top: 2rem;
-    margin: 0 auto;
-  }
-`;
-
-const ErrorMsg = styled.div`
-  color: #ff5555;
-  font-size: 0.8rem;
-  margin-top: 0.2rem;
-`;
-
-const SuccessMsg = styled.div`
-  color: #3a7102;
-  font-size: 0.8rem;
-  margin-top: 0.2rem;
-`;
+const ErrorMsg = styled("p")({
+  color: "#d32f2f",
+  fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+  fontWeight: 400,
+  fontSize: "0.75rem",
+  lineHeight: 1.66,
+  letterSpacing: "0.03333em",
+  textAlign: "left",
+  margin: "3px 41px 0 14px",
+});
 
 export default SignUp;
