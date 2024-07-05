@@ -60,6 +60,19 @@
       "like": 0,
       "img": [],
       "content": "test"
+    },
+    {
+      "id": "73ac",
+      "userId": "1",
+      "like": 0,
+      "img": [],
+      "content": "test test",
+      "user": {
+        "id": "1",
+        "email": "example@example.com",
+        "nickname": "아이유",
+        "password": "1234"
+      }
     }
   ],
   "comments": [

@@ -14,6 +14,7 @@ import { styled } from "@mui/system";
 import { FormControl, OutlinedInput } from "@mui/material";
 import useInput from "../../hooks/useInput";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { userApi } from "../../api/services/users";
 
 const SignUp = () => {
   const { form, handleChange, handleReset } = useInput({
@@ -39,9 +40,10 @@ const SignUp = () => {
   // 이메일 중복체크
   const handleDuplicate = async () => {
     if (email.trim()) {
-      const url = `${process.env.REACT_APP_SERVER_ADDR}/users?email=${email}`;
+      //const url = `${process.env.REACT_APP_SERVER_ADDR}/users?email=${email}`;
       try {
-        const res = await axios.get(url);
+        //const res = await axios.get(url);
+        const res = await userApi.getUserByEmail(email);
         if (!res.data.length) {
           setErrors({});
           setIsDuplicate(true);
@@ -89,10 +91,11 @@ const SignUp = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     if (isDuplicate && validate()) {
-      const url = `${process.env.REACT_APP_SERVER_ADDR}/users`;
+      //const url = `${process.env.REACT_APP_SERVER_ADDR}/users`;
       const user = { email, nickname, password };
       try {
-        const res = await axios.post(url, user);
+        //const res = await axios.post(url, user);
+        const res = await userApi.postUser(user);
         if (res.status === 201) {
           alert("회원가입 완료");
         } else {
