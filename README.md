@@ -46,3 +46,9 @@
 07.03 [react](./4주차/240703/README.md)   
 07.04 [react](./4주차/240704/README.md)   
 07.05 [react](./4주차/240705/README.md)
+
+<br/>
+<br/>
+
+## 5주차
+07.08 [Java](./5주차/240708/README.md)
