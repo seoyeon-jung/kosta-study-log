@@ -1,5 +1,7 @@
 ## 목차
 1. [Statement](#statement)
+2. [참조 타입](#참조-타입)
+3. [문자열 타입](#문자열string-타입)
 
 <br/>
 <br/>
@@ -154,3 +156,190 @@ Outter: for (char upper = 'A'; upper <= 'Z'; upper++) {
 - 반복문인 for문, while문, do-while문에서만 사용된다.
 - continue문이 실행되면 for 문의 증감식 또는 while, do-while문의 조건식으로 바로 이동하게 된다.
 - break문은 반복문을 종료하지만, continue문은 해당 반복을 건너뛰고 다음 반복을 계속해서 수행한다는 점에서 다르다.
+
+<br/>
+<br/>
+<br/>
+
+# 참조 타입
+![alt text](image-2.png)
+- 객체의 메모리 주소를 참조하는 타입
+- 배열, 열거, 클래스, 인터페이스 타입
+- 기본 타입으로 선언된 변수는 값 자체를 저장하고 있지만, 참조 타입으로 선언된 변수는 **객체가 생성된 메모리 주소** 를 저장한다.   
+
+![alt text](image-3.png)
+- 변수들은 모두 **스택(Stack)** 이라는 메모리 영역에 생성된다.
+- 기본 타입 변수는 스택 영역에 직접 값을 저장하는 반면, 참조 타입 변수는 스택 영역에 **힙 메모리 영역의 주소를 저장**한다.
+<hr/>
+
+## JVM 구동 시 운영 체제에서 할당받은 메모리 영역
+![alt text](image-4.png)
+#### 메소드 영역
+- 바이트코드 파일 내용이 저장되는 영역 (이클립스의 bin폴더)
+- 클래스 별로 상수, 정적 필드, 생성자 코드 등이 저장된다.
+#### 힙 영역
+- 객체가 생성되는 영역
+- 객체의 메모리 주소는 메소드 영역과 스택 영역에서 참조된다.
+#### 스택 영역
+- 메소드를 호출할 때마다 생성되는 프레임이 저장되는 영역
+- 프레임 내부의 변수 스택에 변수가 생성되고 제거된다.
+
+<br/>
+<br/>
+
+## 참조 타입 변수의 동등 비교
+- 참조 타입 변수의 ==, != 연산자는 값을 비교하는 것이 아니라 메모리 주소를 비교하는 것
+- 번지가 같다면 동일한 객체를 참조하는 것이고, 다르다면 다른 객체를 참조하는 것이다.
+
+<br/>
+<br/>
+
+## null과 NullPointException
+- 참조 타입 변수는 아직 메모리 주소를 저장하고 있지 않다는 의미로 null 값을 가질 수 있다.
+- null 값으로 초기화된 변수는 스택 영역에 생성되기 때문에 ==, != 연산자로 null 값 비교가 가능하다.
+
+```java
+    String name = "정서연";
+	String noName = null;
+
+	System.out.println(name == noName); // false
+	// null 값이지만 비교 가능
+
+	// 참조 데이터 타입에서 가장 많ㄹ이 발생하는 Exception 은 NullPointerException
+	// null 인 상태에서 접근할 때 발생한다.
+	// System.out.println(noName.charAt(0));
+```
+- 프로그램 실행 도중에 발생하는 오류를 예외(Exception)라고 부른다.
+- 참조타입 변수 사용 시, 가장 많이 발생하는 예외 중 하나는 `NullPointerException`이다.
+- `NullPointerException`은 변수가 null인 상태에서 객체의 데이터나 메소드를 사용하려 할 때 발생
+```java
+    String[] names = { "A", "B", "C" };
+	//String[] names = { "A", "B", "C", null };
+
+	for (int i = 0; i < 4; i++) {
+		String name = names[i];
+		System.out.println(name.charAt(0));
+		// A, B, C 출력 이후 에러 발생
+		// Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 3
+		// out of bounds for length 3
+		// at com.reference.basic.ReferenceExample3.main(ReferenceExample3.java:19)
+	}
+```
+- 경우에 따라서는 참조 타입 변수에 일부러 null을 대입하기도 한다.
+- 변수에 null을 대입하면 메모리 주소를 잃게 되므로 더 이상 객체를 사용할 수 없게 된다.
+- 즉, 힙(heap) 메모리에는 있지만, 위치 정보를 알 수 없게 되었기 때문에 사용이 불가능해진다.
+- Java는 이런 객체를 쓰레기(Garbage)로 취급하고, 가비지콜렉터(GarbageCollector)를 실행시켜 자동으로 제거한다.
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+# 문자열(String) 타입
+- String 변수에 문자열 리터럴을 대입하는 것이 일반적이지만, new 연산자로 직접 String 객체를 생성하고 대입할 수도 있다.
+- 이 경우 서로 다른 메모리 주소를 가지게 된다.
+- 내부 문자열만을 비교하기 위해서는 `equals()` 메소드를 사용 해야 한다.
+```java
+String name1 = "정서연";
+String name2 = "정서연";
+
+if (name1 == name2) {
+	System.out.println("name1과 name2는 참조가 같음");
+} else {
+	System.out.println("name1과 name2는 참조가 다름");
+}
+
+String name3 = new String("정서연");
+String name4 = new String("정서연");
+
+if (name3 == name4) {
+	System.out.println("name3과 name4는 참조가 같음");
+} else {
+	System.out.println("name3과 name4는 참조가 다름");
+}
+
+if (name1.equals(name4)) {
+	System.out.println("name1과 name4는 문자열이 같음");
+}
+
+// name1과 name2는 참조가 같음
+// name3과 name4는 참조가 다름
+// name3과 name4는 참조가 다름
+```
+- String 변수에 빈 문자열("")을 대입할 수도 있다.
+- 빈 문자열도 String 객체로 생성되기 때문에 equals() 메소드를 사용해야 한다.
+- 특정 위치의 문자를 얻고자 한다면 `charAt()` 메소드를 이용할 수 있다.
+  - 인덱스란 0번째부터 문자열 길이 -`가지의 문자열 내부 위치 번호를 의미한다.
+- 문자의 개수를 알고 싶다면 `length()` 메소드를 사용한다.
+```java
+        String subject = "자바 프로그래밍";
+		char var = subject.charAt(3);
+		int len = subject.length();
+
+		System.out.println(var); // 프
+		System.out.println(len); // 8
+```
+- 특정 문자열을 다른 문자열로 대체하고 싶다면 `replace()` 메소드를 사용한다.
+- `replace()` 메소드는 기존 문자열은 그대로 두고, 대체할 새로운 문자열을 반환한다.
+- String 문자열은 변경이 불가능한 특성을 갖고 있다.
+```java
+    String subject = "자바 프로그래밍";
+	String subject2 = subject.replace("자바", "java");
+
+	System.out.println(subject); // 자바 프로그래밍
+	System.out.println(subject2); // java 프로그래밍
+```
+- 특정한 문자열을 잘라내어 가져오고 싶다면 `substring()` 메소드를 사용한다.
+```java
+    String address = "cik@java.co.kr";
+	String userId = address.substring(0, 3);
+	String companyName = address.substring(4, 8);
+	String domainAddr = address.substring(4);
+
+	System.out.println("userId: " + userId); // cik
+	System.out.println("companyName: " + companyName); // java
+	System.out.println("domainADdr: " + domainAddr); // java.co.kr
+```
+- 특정 문자열의 위치를 찾고자 할 때는 `indexOf()` 메소드를 사용한다.
+- `indexOf()` 메소드는 주어진 문자열이 시작되는 인덱스를 반환한다.
+- 존재하지 않으면 -1을 반환한다.
+- 혹은 `index < 0` 으로 조건을 제시하면 없을 때의 조건을 만들 수 있다.
+```java
+		String lyrics = "떳다 떳다 비행기 날아라 날아라";
+
+		int flyIndex = lyrics.indexOf("날아라");
+		System.out.println(flyIndex + "번째 글자: " + lyrics.charAt(flyIndex));
+		// 10번째 글자: 날
+
+		int highIndex = lyrics.indexOf("높이");
+		if (highIndex == -1) {
+			System.out.println("없는 글자입니다.");
+		}
+		// 없는 글자입니다.
+```
+- 특정 문자열의 위치가 아닌, 단순히 포함되어 있는지 여부를 확인하기 위해서는 `contains()` 메소드를 사용한다.
+- `contain()` 메소드는 원하는 문자열이 포함되어 있으면 true, 그렇지 않으면 false를 반환한다.
+```java
+		Scanner sc = new Scanner(System.in);
+		System.out.print("책 제목을 입력하세요: ");
+		String title = sc.nextLine();
+
+		sc.close();
+
+		if (title.contains("자바") || title.contains("Java") || title.contains("java")) {
+			System.out.println("Java와 관련된 책이군요.");
+		} else {
+			System.out.println("Java와 관련없는 책이군요.");
+		}
+```
+- 특정 문자로 분리하기 위해서는 `split()` 메서드를 사용한다.
+- `split()` 메소드는 문자열로 구성된 배열을 반환한다.
+```java
+		String rainbow = "빨,주,노,초,파,남,보";
+		String[] rainbowArr = rainbow.split(",");
+
+		for (int i = 0; i < rainbowArr.length; i++) {
+			String color = rainbowArr[i];
+			System.out.println(color);
+		}
+```
