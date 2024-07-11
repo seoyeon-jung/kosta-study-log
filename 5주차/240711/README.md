@@ -9,6 +9,7 @@
     - [배열 정렬](#배열-정렬)
     - [배열 출력](#배열-출력)
 - [스택과 힙](#스택과-힙)
+- [열거 타입(Enumeration Type)](#열거-타입enumeration-type)
 
 <br/>
 <br/>
@@ -270,3 +271,66 @@ System.out.println(Arrays.toString(arr));
 
 # 스택과 힙
 ![alt text](프레젠테이션1.jpg)
+
+<br/>
+<br/>
+<br/>
+
+# 열거 타입(Enumeration Type)
+- 요일, 계절, 방향 등과 같이 한정된 값을 갖는 타입
+- 특정한 값들의 집합을 정의하기 때문에 잘못된 값을 사용하지 않도록 강제할 수 있다.
+- 열거 타입을 사용하면 코드의 의미가 명확해지고 가독성이 높아진다.
+- 열거 타입(Enum)을 사용하면 값의 변경이나 추가가 필요한 경우, enum의 정의만 수정하면 되므로 유지보수가 용이하다.
+- 열거 타입(Enum)을 사용하기 위해서는 열거 타입으로 소스파일(.java)을 생성하고 한정된 값을 코드로 정의해야 한다.
+- 열거 타입의 이름은 첫 문자를 대문자로 하는 PascalCase로 지어주는 것이 관례이다.
+```java
+package type.enumeration;
+public enum Week {
+SUNDAY,
+MONDAY,
+TUESDAY,
+WEDNESDAY,
+THURSDAY,
+FRIDAY,
+SATURDAY
+}
+```
+- 대문자 알파벳으로 정의하는 것이 관례
+- 여러 단어로 구성될 경우에는 단어 사이에 언더스코어(_)로 연결
+- 열거 타입도 하나의 데이터 타입이므로 변수를 선언하고 사용해야 한다.
+```java
+// enum type 예제
+
+package com.enumeration;
+
+import java.util.Calendar;
+
+public class EnumExample3 {
+	public static void main(String[] args) {
+		// Calendar 클래스 사용
+		Calendar now = Calendar.getInstance();
+		int week = now.get(Calendar.DAY_OF_WEEK);
+
+		// 오늘의 요일을 출력하는 프로그램 구현
+		Week today = null;
+
+		today = switch (week) {
+		case 1 -> Week.SUNDAY;
+		case 2 -> Week.MONDAY;
+		case 3 -> Week.TUESDAY;
+		case 4 -> Week.WEDNESDAY;
+		case 5 -> Week.THURSDAY;
+		case 6 -> Week.FRIDAY;
+		case 7 -> Week.SATURDAY;
+		default -> null;
+		};
+
+		if (today == Week.SUNDAY) {
+			System.out.println("쉬는 날입니다.");
+		} else {
+			System.out.println("열심히 공부하세요.");
+		}
+	}
+}
+
+```
