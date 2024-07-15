@@ -9,6 +9,9 @@
   - [Setter](#setter)
   - [Getter](#getter)
 - [싱글톤 패턴](#싱글톤-패턴)
+- [상속](#상속)
+- [오버라이딩](#오버라이딩)
+    - [오버라이딩 규칙](#오버라이딩-규칙)
 
 <br/>
 <br/>
@@ -423,4 +426,147 @@ System.out.println(5 * myCar.getSpeed());
   1. 공통된 자원을 관리하거나 설정값을 유지할 수 있다.
   2. 불필요한 객체 생성을 방지하여 메모리를 절약할 수 있다.
 
-- ㄸ
+
+<br/>
+<br/>
+<br/>
+
+# 상속
+![alt text](image.png)
+- 부모 클래스의 필드와 메소드를 자식 클래스에게 물려주는 것
+- 상속을 하면, 이미 잘 개발되어있는 클래스를 재사용해서 새로운 클래스를 만들기 때문에 중복된 코드를 줄여준다.
+- 부모 클래스를 수정하면 자식 클래스에도 반영되기 때문에 클래스의 수정도 최소화할 수 있다.
+- 프로그램에서 자식이 부모를 선택해 상속을 받는다.   
+<br/>
+```java
+public class Child extends Parents() {}
+```
+<br/>
+
+- 자바는 다중 상속을 허용하지 않기 때문에 하나의 부모 클래스만을 상속할 수 있다.
+
+<br/>
+
+```java
+package com.oop.inheritance;
+
+public class Parent {
+	String eyeColor = "갈색";
+
+	void walk() {
+		System.out.println("뒤뚱뒤뚱");
+	}
+}
+```
+```java
+package com.oop.inheritance;
+
+public class Child extends Parent {
+	String job = "개발자";
+
+	void Hello() {
+		System.out.println("안녕하세요");
+	}
+}
+```
+```java
+package com.oop.inheritance;
+
+public class InheritanceExample {
+
+	public static void main(String[] args) {
+		Parent parent = new Parent();
+		System.out.println(parent.eyeColor); // 갈색
+		parent.walk(); // 뒤뚱뒤뚱
+
+		System.out.println();
+
+		Child child = new Child();
+		System.out.println(child.job); // 개발자
+		child.Hello(); // 안녕하세요
+		System.out.println(child.eyeColor); // 갈색
+		child.walk(); // 뒤뚱뒤뚱
+
+	}
+
+}
+```
+- 자식 객체를 생성하면 부모 객체가 먼저 생성되고 나서 자식 객체가 생성된다.
+- 만약 부모 클래스에서 매개변수를 갖는 생성자가 있고, 기본 생성자를 생성하지 않았다면 `super(매개값,…)` 형태로 코드를 직접 넣어야 한다.
+- 해당 코드는 매개값의 타입과 개수가 일치하는 부모 생성자를 찾아 호출하게 된다.
+
+<br/>
+
+```java
+	public Phone(String model, String color) {
+		System.out.println("Phone 생성자(모델, 색상)");
+		this.model = model;
+		this.color = color;
+	}
+```
+<br/>
+
+```java
+	// phone 에 model, color 가 존재하기 때문에 사용 가능
+	public SmartPhone(String model, String color) {
+		// 부모에게 맡김
+		super(model, color);
+		System.out.println("스마트폰 생성자");
+
+	} // => 생략 불가능
+```
+
+<br/>
+<br/>
+<br/>
+
+# 오버라이딩
+![alt text](image-1.png)
+- 메소드 오버라이딩(method overriding) : 부모 클래스의 메소드를 자식 클래서에서 재정의해서 사용하는 것
+### 오버라이딩 규칙
+1. 부모 메소드의 선언부(리턴타입, 메소드이름, 매개변수)와 동일해야 한다.
+2. 접근 제한을 더 강하게 오버라이딩하는 것은 불가능하다.
+3. 새로운 예외를 throws 할 수 없다.
+<hr/>
+
+- public > protected > (default) > private 순으로 접근 제한이 강해진다.
+- `@Override` 어노테이션 : 컴파일 시 정확히 오버라이딩 되었는지 체크해준다. (생략 가능) 
+- 이클립스는 오버라이딩 메소드 자동생성을 지원한다.
+  - 자식클래스에서 Source- Override/ImplementMethods  선택
+  
+<br/>
+
+```java
+public class Calculator {
+	public double getCircleArea(double r) {
+		System.out.println("Calculator 객체에서 원의 넓이를 구한다.");
+		return 3.14 * r * r;
+	}
+
+}
+```
+```java
+public class Computer extends Calculator {
+	@Override
+	public double getCircleArea(double r) {
+		System.out.println("Computer 객체에서 원의 넓이를 구한다");
+		return Math.PI * r * r;
+	}
+
+}
+```
+```java
+public class ComputerExample {
+
+	public static void main(String[] args) {
+		int r = 10;
+
+		Calculator calc = new Calculator();
+		System.out.println(calc.getCircleArea(r)); // 314.0
+
+		Computer com = new Computer();
+		System.out.println(com.getCircleArea(r)); // 314.1592653589793
+	}
+
+}
+```

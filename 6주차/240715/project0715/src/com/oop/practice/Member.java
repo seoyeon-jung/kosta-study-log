@@ -1,15 +1,11 @@
 package com.oop.practice;
 
 public class Member {
-	private String name;
-	private String id;
-	private String password;
-	private int age;
+	String name, id, password;
+	int age;
 
-	public Member(String name, String id, String password, int age) {
+	Member(String name, String id) {
 		this.name = name;
 		this.id = id;
-		this.password = password;
-		this.age = age;
 	}
 }
