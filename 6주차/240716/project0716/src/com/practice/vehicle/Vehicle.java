@@ -5,6 +5,11 @@ public class Vehicle {
 	protected double oilTankSize;
 	protected double efficiency;
 
+	// 기본 생성자
+	public Vehicle() {
+		super();
+	}
+
 	// maxWeight, oilTankSize, efficiency 받는 생성자
 	public Vehicle(int maxWeight, double oilTankSize, double efficiency) {
 		setMaxWeight(maxWeight);
@@ -38,7 +43,7 @@ public class Vehicle {
 
 	@Override
 	public String toString() {
-		return maxWeight + " \t " + oilTankSize + " \t ";
+		return maxWeight + "\t\t" + oilTankSize + "\t\t";
 	}
 
 }

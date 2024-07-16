@@ -1,6 +1,10 @@
 package com.practice.vehicle;
 
 public class Truck extends Car {
+	// 기본 생성자
+	public Truck() {
+		super();
+	}
 
 	// maxWeight, oilTankSize, efficiency 받는 생성자
 	public Truck(int maxWeight, double oilTankSize, double efficiency) {
@@ -41,6 +45,6 @@ public class Truck extends Car {
 	// toString() : 부모의 toString()에 연비를 추가하여 리턴
 	@Override
 	public String toString() {
-		return super.toString() + " \t " + getEfficiency();
+		return super.toString() + "\t\t" + getEfficiency();
 	}
 }

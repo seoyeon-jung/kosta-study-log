@@ -7,7 +7,7 @@ public class VehicleTest {
 
 		// 초기 트럭의 정보를 출력
 		System.out.println("최대적재중량 \t 오일탱크크기 \t 잔여오일량 \t 현재적재중량 \t 연비");
-		System.out.println("==========".repeat(8));
+		System.out.println("==========".repeat(7));
 		System.out.println(car);
 
 		// 50L 주유 후 트럭의 정보를 출력한다

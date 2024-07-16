@@ -4,6 +4,11 @@ public class Car extends Vehicle {
 	private double restOil;
 	private int curWeight;
 
+	// 기본 생성자
+	public Car() {
+		super();
+	}
+
 	// maxWeight, oilTankSize, efficiency 받는 생성자
 	public Car(int maxWeight, double oilTankSize, double efficiency) {
 		super(maxWeight, oilTankSize, efficiency);
@@ -31,7 +36,7 @@ public class Car extends Vehicle {
 	// [조건] 오일 탱크 크기를 넘어서지 않을 것
 	public void addOil(int oil) {
 		if (restOil + oil <= getOilTankSize()) {
-			restOil += oil;
+			setRestOil(restOil + oil);
 		} else {
 			System.out.println("오일을 추가할 수 없습니다.");
 		}
@@ -41,7 +46,7 @@ public class Car extends Vehicle {
 	public void moving(int distance) {
 		double oilConsumed = distance / getEfficiency();
 		if (oilConsumed <= restOil) {
-			restOil -= oilConsumed;
+			setRestOil(restOil - oilConsumed);
 		} else {
 			System.out.println("오일량이 0입니다.");
 		}
@@ -51,7 +56,7 @@ public class Car extends Vehicle {
 	// [조건] 최대 적재 중량을 넘어서지 않을 것
 	public void addWeight(int weight) {
 		if (curWeight + weight <= maxWeight) {
-			curWeight += weight;
+			setCurWeight(curWeight + weight);
 		} else {
 			System.out.println("최대 적재 중량을 넘어섰습니다.");
 		}
@@ -60,6 +65,6 @@ public class Car extends Vehicle {
 	// toString() : 부모의 toString()에 잔여오일량과 현재적재중량을 추가하여 리턴
 	@Override
 	public String toString() {
-		return super.toString() + restOil + " \t " + curWeight;
+		return super.toString() + restOil + "\t\t" + curWeight;
 	}
 }
