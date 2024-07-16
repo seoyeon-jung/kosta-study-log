@@ -37,6 +37,11 @@ public class VehicleTest {
 		System.out.println();
 		System.out.println("요금: " + cost + "원");
 
+		// 900Kg 적재 후 연비 구하기
+		car.addWeight(900);
+		System.out.println("\n900Kg 추가 적재 후");
+		System.out.println("연비: " + car.getEfficiency());
+
 	}
 
 }

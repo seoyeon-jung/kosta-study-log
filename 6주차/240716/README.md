@@ -11,7 +11,9 @@
 - [instanceof](#instanceof)
 - [Object 클래스](#object-클래스)
     - [toString() 메소드 재정의](#tostring-메소드-재정의)
-- [](#)
+- [추상 클래스](#추상-클래스)
+- [추상 메소드](#추상-메소드)
+- [인터페이스](#인터페이스)
 
 <br/>
 <br/>
@@ -390,10 +392,12 @@ public class InheritanceExample {
     - 쉽게 toString() 메소드를 재사용할 수 있다.
     ![alt text](image-4.png)
     </div>
-</detials>
+</details>
+
+<br/>
 
 
-- 예시
+[예시]
 ```java
 	// toString() : 부모의 toString()에 잔여오일량과 현재적재중량을 추가하여 리턴
 	@Override
@@ -408,4 +412,229 @@ public class InheritanceExample {
 <br/>
 <br/>
 
-#
+# 추상 클래스
+- 객체를 생성할 수 있는 클래스를 실체 클래스라고 한다.
+- 실체 클래스들의 공통적인 필드나 메소드를 추출해서 선언한 클래스를 추상클래스라 한다.
+- 추상클래스는 실체 클래스의 부모 역할을 한다.
+- 클래스 선언에 `abstract` 키워드를 붙이면 추상 클래스가 된다.
+- 추상 클래스는 직접 객체를 생성할 수 없다.
+- 추상 클래스는 다른 클래스를 상속할 수 있다.
+- 추상 클래스는 추상 메소드를 가질 수 있다.(없어도 된다)
+
+# 추상 메소드
+- 자식 클래스들이 가지고 있는 공통 메소드를 뽑아내어 추상클래스로 만들 때, 실행 내용이 자식마다 달라지는 경우가 있을 수 있다.
+- 이런 경우를 해결하기 위해, 추상클래스에는 추상메소드를 선언할수 있도록 되어있다.
+- 추상메소드는 abstract 키워드가 붙고, 메소드 실행내 용({})이 없는 것이 특징이다.
+- 추상 메소드는 정적 메소드가 될 수 없다.
+```java
+package com.oop.abstract1;
+
+public abstract class Animal {
+	abstract void sound(); // abstract 는 실행 내용이 없다.
+}
+```
+```java
+package com.oop.abstract1;
+
+public class AnimalExample {
+    public static void main(String[] args) {
+        // 추상 클래스는 인스턴스화하지 못한다.
+        //Animal animal = new Animal();
+    }
+}
+```
+- 실행 내용이 있어야 메소드를 호출할 수 있기 때문에, 자식 클래스에서 메소드를 구현해줘야 한다.
+- 오버라이딩이 필수다.
+```java
+package com.oop.abstract1;
+
+public class Pig extends Animal {
+
+	@Override
+	void sound() {
+		// 자식이 직접 사용해야 한다.
+		System.out.println("꿀꿀");
+	}
+}
+```
+```java
+public class AnimalExample {
+	public static void main(String[] args) {
+		// 추상 클래스는 인스턴스화하지 못한다.
+		// Animal animal = new Animal();
+
+		Pig p = new Pig();
+		Monkey m = new Monkey();
+		Panda pd = new Panda();
+		Rabbit r = new Rabbit();
+
+//		p.sound();
+//		m.sound();
+//		pd.sound();
+//		r.sound();
+
+//		Animal[] aniArr = { p, m, pd, r };
+//		for (Animal animal : aniArr) {
+//			animal.sound();
+//		}
+
+		animalSound(p);
+		animalSound(m);
+		animalSound(pd);
+		animalSound(r);
+
+	}
+
+	public static void animalSound(Animal a) {
+		a.sound();
+	}
+}
+
+```
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+# 인터페이스
+- 두 장치를 연결하는 접속기라는 뜻을 가지고 Java에서 인터페이스는 두 객체를 연결하는 역할
+
+![alt text](image-5.png)
+![alt text](image-6.png)
+
+<br/>
+
+- 인터페이스는 다형성 구현에 주로 사용되는 기술이다.
+- 상속을 통해 다형성을 구현할 수 있지만, 인터페이스를 통해 구현하는 경우가 더 많다.
+- 인터페이스는 `.java` 파일로 작성되고, `.class` 파일로 컴파일되기 때문에 물리적 형태는 클래스와 동일하다.
+  ```java
+  interface 인터페이스명 { }
+  public interface 인터페이스명 { }
+  ```
+- 중괄호 안에는 인터페이스가 가지는 멤버들을 선언할 수 있다.
+  ```java
+  package com.oop.interface1;
+    public interface RemoteControl {
+        // public 추상 메소드
+        public void turnOn();
+    }
+    ```
+
+![alt text](image-7.png)
+
+- 인터페이스는 다중 구현이 가능하다. (여러 개 구현할 수 있다)
+- 인터페이스도 참조 타입에 속하므로 타입이 될 수 있다.
+- 인터페이스를 통해 구현 객체를 사용하려면 인터페이스 변수에 구현 객첼르 대입해야 한다.
+- 인터페이스는 `public static final` 특성을 갖는 불변의 상수 필드만을 가질 수 있다.
+- 인터페이스에서 선언된 필드는 모두 `public static final` 특성을 갖기 때문에 이를 생략하더라도 자동적으로 컴파일 과정에서 붙게 된다.
+- 상수는 구현 객체와 관련이 없는 인터페이스 소속 멤버이므로, 바로 접근해서 값을 얻을 수 있다.
+- 인터페이스는 추상 메서드를 멤버로 가질 수 있다.
+- 추상메소드는 중괄호가 없는 메소드이기 때문에
+ 인터페이스에서 선언된 추상 메소드는 `public abstract`를 생략하더라도 자동으로 컴파일 과정에서 붙게 된다.
+
+<hr/>
+
+[인터페이스 예시]
+```java
+package com.oop.interface1;
+
+public interface RemoteControl {
+	// public 정적 상속 필드
+	public static final int MAX_VOLUME = 10;
+	/* public static final */int MIN_VOLUME = 0;
+
+	// public 추상 메서드
+	public /* abstract */ void turnOn();
+
+}
+```
+```java
+package com.oop.interface1;
+
+public class TV implements RemoteControl {
+
+	@Override
+	public void turnOn() {
+		System.out.println("TV를 켭니다");
+	}
+
+}
+```
+```java
+package com.oop.interface1;
+
+public class Radio implements RemoteControl {
+
+	@Override
+	public void turnOn() {
+		System.out.println("Radio를 켭니다");
+	}
+
+}
+```
+```java
+package com.oop.interface1;
+
+public class RemoteControlExample {
+	public static void main(String[] args) {
+//		TV tv = new TV();
+//		Radio rd = new Radio();
+//
+//		tv.turnOn();
+//		rd.turnOn();
+
+		RemoteControl rc = new Radio();
+		rc.turnOn();
+		rc = new TV();
+		rc.turnOn();
+
+		// RemoteControl.MIN_VOLUME = 10;
+		// => The final field RemoteControl.MIN_VOLUME cannot be assigned
+		// RemoteControl.MAX_VOLUME = 10;
+		// => The final field RemoteControl.MAX_VOLUME cannot be assigned
+		System.out.println(RemoteControl.MAX_VOLUME);
+	}
+}
+```
+
+<br/>
+<hr/>
+<br/>
+
+- 인터페이스에서는 완전한 실행 코드를 가진 디폴트 메소드를 선언할 수 있다. (java 8 이상)
+- `default` 키워드를 반드시 명시해야 인터페이스 내부에서 구현되는 메소드를 만들 수 있다.
+- 구현 클래스에서는 디폴트 메소드도 재정의해서 자신에 맞게 오버라이딩할 수 있다.
+- 오버라이딩을 할 경우에는 public을 반드시 붙여야 하고, default는 생략해야 한다.
+```java
+	// default 메소드 (음소거 해제 후에도 소리는 0)
+	default void setMute(boolean mute) {
+		if (mute) {
+			System.out.println("음소거되었습니다.");
+			setVolume(MIN_VOLUME);
+		} else {
+			System.out.println("음소거 해제되었습니다.");
+		}
+	}
+```
+```java
+	// 음소거 해제 후에 다시 설정된 volume 으로 돌아가도록 오버라이드
+	@Override
+	public void setMute(boolean mute) {
+		if (mute) {
+			System.out.println("음소거되었습니다.");
+			this.memoryVolume = volume;
+			setVolume(MIN_VOLUME);
+		} else {
+			System.out.println("음소거 해제되었습니다.");
+			setVolume(memoryVolume);
+		}
+	}
+```
+
+<br/>
+<hr/>
+<br/>
+
+- 인터페이스에는 구현 객체 없이 호출되는 정적 메소드 선언도 가능하다.
+- 정적 메소드는 public 또는 private으로 제한할 수 있으며, public의 경우에는 접근 제한자 생략이 가능하다.
