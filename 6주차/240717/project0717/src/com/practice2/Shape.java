@@ -1,0 +1,43 @@
+package com.practice2;
+
+public abstract class Shape {
+	int width, height;
+	String colors;
+
+	public Shape() {
+	}
+
+	public Shape(int width, int height, String colors) {
+		setWidth(width);
+		setHeight(height);
+		setColors(colors);
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public String getColors() {
+		return colors;
+	}
+
+	public void setColors(String colors) {
+		this.colors = colors;
+	}
+
+	// 넓이 구하기 (abstract method)
+	public abstract double getArea();
+
+}
