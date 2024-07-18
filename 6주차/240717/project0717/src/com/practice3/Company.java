@@ -23,6 +23,16 @@ public class Company {
 		}
 	}
 
+//	public Employee[] hire(String employeeName, int salary) {
+//		if (employeeCount < employeeArr.length) {
+//			employeeArr[employeeCount] = new Employee(employeeName, salary);
+//			employeeCount++;
+//		} else {
+//			System.out.println("직원을 추가할 수 없습니다.");
+//		}
+//		return employeeArr;
+//	}
+
 	// 연봉 합계 메소드 (int)
 	private int calcSumSalary() {
 		int sum = 0;
