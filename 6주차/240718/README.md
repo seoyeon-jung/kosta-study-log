@@ -1,4 +1,5 @@
 ## 목차
+
 - [중첩 클래스 - 바깥 클래스에 접근](#중첩-클래스---바깥-클래스에-접근)
 - [중첩 인터페이스 (Nested Interface)](#중첩-인터페이스-nested-interface)
 - [익명 객체(Anonymous Object)](#익명-객체anonymous-object)
@@ -7,12 +8,19 @@
 - [라이브러리(Library)와 모듈(Module)](#라이브러리library와-모듈module)
 	- [라이브러리](#라이브러리)
 		- [라이브러리 생성해보기](#라이브러리-생성해보기)
+	- [예외 종류에 따른 처리](#예외-종류에-따른-처리)
+	- [예외 클래스의 상속 구조](#예외-클래스의-상속-구조)
+		- [일반 예외 클래스](#일반-예외-클래스)
+		- [실행 예외 클래스](#실행-예외-클래스)
+	- [리소스 자동 닫기](#리소스-자동-닫기)
+	- [예외 떠넘기기](#예외-떠넘기기)
+	- [사용자 정의 예외](#사용자-정의-예외)
+
 
 <br/>
 <br/>
 <br/>
 <br/>
-
 # 중첩 클래스 - 바깥 클래스에 접근
 - 인스턴스 멤버 클래스는 바깥 클래스가 생성되어야 생성이 가능하다는 특징이 있다.
 - 따라서 바깥 클래스의 모든 필드와 메소드에 접근 가능하다.
@@ -361,6 +369,7 @@ public class HomeExample {
 <br/>
 <br/>
 
+
 # 라이브러리(Library)와 모듈(Module)
 - 라이브러리
   - 프로그램 개발 시 활용할 수 있는 클래스와 인터페이스들을 모아놓은 것을 의미
@@ -390,4 +399,307 @@ public class HomeExample {
    ![alt text](image.png)   
    ![alt text](image-1.png)   
    ![alt text](image-2.png)
-5. 
+5. 새로운 프로젝트 생성
+6. 새 프로젝트에서 [Build Path > Configue Build Path] 클릭
+7. Libraries  탭에 `JARs and class folders on the build path`에서 `Classpath` 항목을 선택하고, `Add External JARs` 버튼 클릭
+   ![alt text](image-3.png)
+8. Main 클래스에 적용해보기
+   ```java
+   package my_application;
+
+	import pack1.A;
+	import pack2.B;
+
+	public class Main {
+
+		public static void main(String[] args) {
+			A a = new A();
+			a.method();
+
+			B b = new B();
+			b.method();
+		}
+
+	}
+	```
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+# 예외 처리 - 예외와 예외 클래스
+- 컴퓨터 하드웨어의 고장으로 인해 프로그램 실행에 오류가 발생하는 것을 Java에서는 에러(error)라고 한다.
+- 프로그램을 아무리 견고하게 잘 만들어도, 이런 에러는 대처할 방법이 없다.
+- Java에서도 `예외(Exception)`이라고 부르는 오류가 있다. 잘못된 사용 또는 코딩으로 인한 프로그램 오류를 의미한다.
+- 예외가 발생하면 프로그램이 곧바로 종료된다는 점에서 에러와 동일하지만, 예외는 처리를 통해 프로그램의 실행 상태를 유지할 수 있다.
+
+![alt text](image-4.png)
+- `일반 예외(Exception)` : 컴파일러가 예외처리 코드 여부를 검사하는 예외
+- `실행 예외(Runtime Exception)` : 컴파일러가 예외처리 코드 여부를 검사하지 않는 예외
+
+<br/>
+<br/>
+
+## 예외 처리 코드
+- 예외가 발생했을 때 프로그램의 갑작스러운 종료를 막고 정상 실행을 유지할 수 있도록 처리하는 코드
+- `try - catch - finally` 블록으로 구성된다
+- 이 블록은 생성자 내부와 메소드 내부에서 작성된다.
+
+<br/>
+
+![alt text](image-5.png)
+- try 블록에서 작성한 코드가 예외 없이 정상 실행되면, catch 블록은 실행되지 않고 finally  블록이 실행
+- 예외가 발생하면 catch 블록이 바로 실행되고, 연이어 finally 블록이 실행된다.
+- finally는 옵션으로 생략이 가능하다.
+
+<hr/>
+
+[예시]
+```java
+public class ExceptionExample1 {
+
+	public static void main(String[] args) {
+		System.out.println("프로그램 시작");
+
+		printLength("exception");
+		printLength(null);
+
+		System.out.println("프로그램을 종료합니다.");
+
+	}
+
+	private static void printLength(String data) {
+		int len = data.length();
+		System.out.println("글자 수 : " + len);
+	}
+
+}
+```
+![alt text](image-6.png)
+=> 에러가 발생한다.
+
+```java
+public class ExceptionExample1 {
+
+	public static void main(String[] args) {
+		System.out.println("프로그램 시작");
+
+		printLength("exception");
+		printLength(null);
+		printLength("PLEASE SHOW ME");
+
+		System.out.println("프로그램을 종료합니다.");
+
+	}
+
+	private static void printLength(String data) {
+		try {
+			int len = data.length();
+			System.out.println("글자 수 : " + len);
+		} catch (NullPointerException e) {
+			// 예외 출력 방법 3가지
+			// 1. e.printStackTrace(); : 에러 내용 출력 후 다시 진행
+			e.printStackTrace();
+
+			// 2. System.err.println(e.getMessage());
+			System.err.println(e.getMessage());
+			// Cannot invoke "String.length()" because "data" is null 출력
+
+			// 3. e.toString()
+			System.err.println(e.toString());
+			// java.lang.NullPointerException: Cannot invoke "String.length()" because
+			// "data" is null
+		}
+	}
+
+}
+```
+![alt text](image-7.png)
+
+<br/>
+<br/>
+
+ ## 예외 종류에 따른 처리
+- try 블록에는 다양한 종류의 예외가 발생할 수 있는데, 이 경우 다중 catch를 이용해 발생하는 예외에 따라 처리를 다르게 할 수 있다.
+- catch 블록의 예외 클래스는 try  블록에서 발생된 예외의 종류를 말하는데, 해당 타입의 예외가 발생하면 catch 블록이 선택되어 실행된다.
+```java
+public class ExceptionExample3 {
+
+	public static void main(String[] args) {
+		String[] classArr = { "java.lang.String", null };
+		try {
+			for (String s : classArr) {
+				Class.forName(s);
+				System.out.println(s + "이 존재합니다.");
+			}
+		} catch (ClassNotFoundException e) {
+			System.out.println("클래스를 찾을 수 없습니다.");
+		} catch (NullPointerException e) {
+			System.out.println("값이 null입니다.");
+		}
+
+		System.out.println("프로그램을 종료합니다.");
+	}
+
+}
+```
+- 만약 두 개 이상의 예외를 하나의 catch  블록으로 동일하게 예외 처리 하고 싶다면, catch  블록에 예외 클래스를 기호( | )로 연결하면 된다.
+```java
+public class ExceptionExample4 {
+
+	public static void main(String[] args) {
+		String[] strArr = { "80", "90", null, "1oo" };
+
+		for (int i = 0; i <= strArr.length; i++) {
+			try {
+				String str = strArr[i];
+				int value = Integer.parseInt(str);
+				System.out.println("strArr[" + i + "] : " + value);
+			} catch (ArrayIndexOutOfBoundsException e) {
+				System.out.println("배열 인덱스가 초과됨: " + e.getMessage());
+			} catch (NumberFormatException | NullPointerException e) {
+				System.out.println("데이터에 이상이 있음: " + e.getMessage());
+			} catch (Exception e) {
+				System.out.println("실행에 문제가 있습니다.");
+			}
+		}
+	}
+
+}
+```
+```
+strArr[0] : 80
+strArr[1] : 90
+데이터에 이상이 있음: Cannot parse null string
+데이터에 이상이 있음: For input string: "1oo"
+배열 인덱스가 초과됨: Index 4 out of bounds for length 4
+```
+
+## 예외 클래스의 상속 구조
+### 일반 예외 클래스
+- 예외 처리를 하지 않으면 문법 오류를 발생시켜 컴파일 자체가 불가능하다
+- InterruptedException : 일정 시간 동안 해당 쓰레드를 일시정지 상태로 만드는 Thread의 정적 메서드
+- **ClassNotFountException : 해당 클래스의 정보를 담고 있는 Class 타입의 객체를 리턴
+- FileNotFoundException : 파일을 읽을 때 해당 경로에 팔이 없을 때 발생
+- CloneNotSupportedException : 
+### 실행 예외 클래스
+- ArithmeticException : 연산 자체가 불가능할 때 발생하는 실행 예외
+- ClassCastException : 다운캐스팅이 불가능한 상황에서 다운캐스팅을 시도할 때 발생
+- ArrayIndexOutOfBoundsException : 배열의 인덱스를 잘못 사용했을 때 발생
+- NumberFormatException : 문자열을 정수값으로 변환할 때 숫자 형식이 아닐 때 반환 실패
+
+<br/>
+<br/>
+
+## 리소스 자동 닫기
+- 리소스(resource) : 데이터를 제공하는 객체
+- 리소스는 사용하기 위해 열고(Open), 사용을 한 뒤에는 닫아야(Close) 한다.
+- 리소스를 사용하다가 예외가 발생한 경우에도 안전하게 리소스를 닫아주는 것이 중요하다.
+- try­ - with - ­resources 블록을 사용하는 것인데, 예외 발생 여부와 상관없이 리소스를 자동으로 닫아준다.
+- try -­ with - ­resources 블록을 사용하기 위해서는 AutoCloseable 인터페이스를 구현해서 close() 메소드를 재정의해야 한다.
+```java
+try(FileInputStream fis = new FileInputStream("file.txt")) {
+	// ...
+} catch(IOException e) {
+	// ...
+}
+```
+- Java 9 이상부터는 외부 리소스 변수를 try 블록에 사용할 수 있다.
+
+
+_리소스 관련 에러처리는 뒤에서 다시 알아봄_
+
+<br/>
+<br/>
+
+## 예외 떠넘기기
+- 메소드를 호출한 곳으로 예외를 떠넘길 수 있는데 이때 사용하는 키워드가 `throws`이다.
+- `throws`는 메소드 선언부 끝에 작성하는데, 떠넘길 예외 클래스를 쉼표로 구분해서 나열해주면 된다.
+```java
+public class ExceptionExample5 {
+
+	public static void main(String[] args) {
+		try {
+			findClass();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private static void findClass() throws ClassNotFoundException {
+		Class.forName("java.lang.String2");
+	}
+
+}
+```
+- 만약 예외를 떠넘기려 할 때, 나열해야 할 예외 클래스가 많은 경우에는 쉼표(,)로 연결해서 작성하거나, `throws Exception`이나 `throws Throwable` 만으로 모든 예외를 간단히 떠넘길 수 있다.
+- main() 메소드에서도 예외를 떠넘길 수 있는데, 그렇게 하게 되면 결국 JVM에서 최종적으로 예외를 처리하게 된다. 
+- JVM은 예외의 내용을 콘솔에 출력하는 것으로 처리한다.
+
+<br/>
+<br/>
+
+## 사용자 정의 예외
+- 존재하지 않는 예외를 직접 예외 클래스로 정의해서 사용하는 것을 사용자 정의 예외라고 한다.
+- 사용자 정의 예외는 컴파일러가 체크하는 일반 예외로 선언할 수도 있고, 컴파일러가 체크하지 않는 실행 예외로 선언할 수도 있다.
+- 통상적으로 일반 예외는 Exception의 자식 클래스로 선언하고, 실행 예외는 Runtime Exception의 자식 클래스로 선언한다.
+```java
+public class MyException extends Exception {
+	public MyException() {
+		super();
+	}
+
+	public MyException(String message) {
+		super(message);
+	}
+}
+```
+```java
+// 은행 클래스
+public class Bank {
+
+	...
+
+	// 은행에는 계좌 클래스가 있다
+	class Account {
+
+		...
+
+		public void withdraw(int money) throws MyException {
+			if (this.balance >= money) {
+				this.balance -= money;
+			} else {
+				throw new MyException("잔액이 부족합니다.");
+			}
+		}
+
+	}
+
+}
+```
+```java
+public class BankExample {
+	public static void main(String[] args) {
+		Bank b = new Bank("기업은행");
+		Bank.Account acc1000 = b.openAccount();
+
+		try {
+			acc1000.deposit(100000);
+			System.out.println(acc1000);
+			acc1000.deposit(100000);
+			System.out.println(acc1000);
+			acc1000.withdraw(10000);
+			System.out.println(acc1000);
+			acc1000.withdraw(1000000);
+			System.out.println(acc1000);
+		} catch (MyException e) {
+			e.printStackTrace();
+		}
+	}
+}
+```
+![alt text](image-8.png)
