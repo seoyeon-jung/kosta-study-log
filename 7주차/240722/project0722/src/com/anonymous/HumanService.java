@@ -1,8 +1,6 @@
 package com.anonymous;
 
-//@FunctionalInterface
+@FunctionalInterface // 추상 메소드 달랑 하나 있는 인터페이스
 public interface HumanService {
-	public default void run() {
-		System.out.println("농사를 짓는다");
-	}
+	void run();
 }

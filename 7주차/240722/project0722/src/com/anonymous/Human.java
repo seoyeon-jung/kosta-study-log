@@ -12,15 +12,14 @@ public class Human {
 	}
 
 	public void work() {
-		System.out.println("농사를 짓는다");
+		System.out.println("농사를 짓는다.");
 	}
 
-	public void run() {
+	public void start() {
 		if (hs != null) {
 			hs.run();
 		} else {
 			work();
 		}
 	}
-
 }

@@ -29,6 +29,7 @@ public class ThreadStateExample {
 		System.out.println("스레드 상태2: " + state); // RUNNABLE
 
 		try {
+			// CPU를 해당 10억번 작업 스레드가 모두 사용하도록 메인 스레드 대기
 			thread.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
