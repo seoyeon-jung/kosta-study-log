@@ -34,13 +34,14 @@ public class StudentManagementSystem {
 	// 만약 students에 id가 같은 학생이 있으면 제거
 	// studentIds에서도 제거
 	public void removeStudent(String id) {
-		for (Student student : students) {
-			if (student.getId().equals(id)) {
-				students.remove(student);
-				studentIds.remove(id);
-				return;
-			}
-		}
+//		for (Student student : students) {
+//			if (student.getId().equals(id)) {
+//				students.remove(student);
+//				studentIds.remove(id);
+//				return;
+//			}
+//		}
+		students.removeIf(s -> s.getId().equals(id));
 		System.out.println("제거할 수 없습니다.");
 	}
 
@@ -52,6 +53,9 @@ public class StudentManagementSystem {
 		for (Student student : students) {
 			if (student.getId().equals(id)) {
 				student.setName(newName);
+//				for(Map.Entry<String, Double> entry : newGrades.entrySet()) {
+//					student.updateGrade(subject, grade);
+//				}
 				newGrades.forEach((subject, grade) -> student.updateGrade(subject, grade));
 				return;
 			}
