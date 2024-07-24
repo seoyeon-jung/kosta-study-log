@@ -18,19 +18,19 @@ public class BookExample {
 
 		System.out.println("제목을 기준으로 정렬 합니다.");
 		bm.sortBooksBy(BookComparator.byTitle());
-		bm.books.forEach(System.out::println);
+		bm.getBooks().forEach(System.out::println);
 
 		System.out.println("\n 작가를 기준으로 정렬 합니다.");
 		bm.sortBooksBy(BookComparator.byAuthor());
-		bm.books.forEach(System.out::println);
+		bm.getBooks().forEach(System.out::println);
 
 		System.out.println("\n 출판연도를 기준으로 정렬 합니다.");
 		bm.sortBooksBy(BookComparator.byYear());
-		bm.books.forEach(System.out::println);
+		bm.getBooks().forEach(System.out::println);
 
 		System.out.println("\n 총 페이지 수를 기준으로 정렬 합니다.");
 		bm.sortBooksBy(BookComparator.byPages());
-		bm.books.forEach(System.out::println);
+		bm.getBooks().forEach(System.out::println);
 
 		Stack<Book> stack = bm.getStack();
 		System.out.println("\n 스택 출력");
@@ -54,6 +54,7 @@ public class BookExample {
 
 		TreeSet<Book> bookTreeSet = bm.getBookTreeSet();
 		System.out.println("\n 트리셋 출력");
+		// bookTreeSet.forEach(b -> System.out.println(b));
 		bookTreeSet.forEach(System.out::println);
 	}
 
