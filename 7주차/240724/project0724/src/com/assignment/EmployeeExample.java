@@ -25,16 +25,15 @@ public class EmployeeExample {
 		System.out.println("\n급여 필터링 (>= 70000):");
 		system.filterBySalary(employees, 70000).forEach(System.out::println);
 
-		// System.out.println("\n부서별 평균 급여:");
-		// system.getAverageSalaryByDepartment(employees).forEach((dept, avgSalary) ->
-		// System.out.println(dept + ": " + avgSalary)
-		// );
+		System.out.println("\n부서별 평균 급여:");
+		system.getAverageSalaryByDepartment(employees)
+				.forEach((dept, avgSalary) -> System.out.println(dept + ": " + avgSalary));
 
 		System.out.println("\n직원명 정렬:");
 		system.sortEmployeesByName(employees).forEach(System.out::println);
 
-		// System.out.println("\nID로 찾기:");
-		// system.findEmployeeById(employees, 3).ifPresent(System.out::println);
+		System.out.println("\nID로 찾기:");
+		system.findEmployeeById(employees, 3).ifPresent(System.out::println);
 
 	}
 
