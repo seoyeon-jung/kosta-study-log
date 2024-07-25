@@ -1,9 +1,12 @@
 package com.practice;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class PostSystemImpl implements PostSystem {
@@ -59,6 +62,22 @@ public class PostSystemImpl implements PostSystem {
 		return p == null ? 0 : p.getId();
 
 		// return posts.stream().mapToInt(Post::getId).max().getAsInt();
+	}
+
+	@Override
+	public void insertPost(List<Post> pList) {
+		System.out.println("게시글 작성");
+		Scanner sc = new Scanner(System.in);
+		System.out.print("제목 입력 : ");
+		String title = sc.nextLine();
+		System.out.print("내용 입력 : ");
+		String content = sc.nextLine();
+		System.out.print("이름 입력 : ");
+		String author = sc.nextLine();
+		pList.add(new Post(getHighestPostId(pList) + 1, title, content, author, LocalDateTime.now(),
+				new ArrayList<Comment>()));
+
+		sc.close();
 	}
 
 }

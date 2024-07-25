@@ -25,4 +25,8 @@ public interface PostSystem {
 
 	// 게시글 번호 중 가장 높은 게시글 번호를 반환하는 메소드
 	public int getHighestPostId(List<Post> posts);
+
+	// 게시물 추가 메소드 (Scanner로 입력 받아서 추가하기)
+	public void insertPost(List<Post> pList);
+
 }

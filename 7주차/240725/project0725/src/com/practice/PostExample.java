@@ -14,29 +14,16 @@ public class PostExample {
 		List<Comment> cList2 = Arrays.asList(new Comment(3, 2, "정말 유익합니다.", "윈터", LocalDateTime.now().minusDays(3)),
 				new Comment(4, 2, "감사합니다.", "지젤", LocalDateTime.now().minusHours(2)));
 
-		List<Comment> cList3 = Arrays.asList(new Comment(3, 2, "정말 유익합니다.", "윈터", LocalDateTime.now().minusDays(3)),
-				new Comment(4, 2, "감사합니다.", "지젤", LocalDateTime.now().minusHours(2)));
-
-		List<Comment> cList4 = Arrays.asList(new Comment(3, 2, "정말 유익합니다.", "윈터", LocalDateTime.now().minusDays(3)),
-				new Comment(4, 2, "감사합니다.", "지젤", LocalDateTime.now().minusHours(2)));
-
-		List<Post> pList = Arrays.asList(
-				new Post(1, "Java를 잡아라", "Java는 객체지향 프로그래밍 언어입니다", "윈터", LocalDateTime.now().minusDays(7), cList1),
-				new Post(2, "스트림 파헤치기", "Stream API는 내부 반복자입니다.", "카리나", LocalDateTime.now().minusDays(6), cList2),
-				new Post(3, "Spring, 개발자에게 봄이 오다", "Spring을 사용하기 전에는 매우 추웠어요", "닝닝", LocalDateTime.now().minusDays(2),
-						new ArrayList<Comment>()));
+		List<Post> pList = new ArrayList<>();
+		pList.add(new Post(1, "Java를 잡아라", "Java는 객체지향 프로그래밍 언어입니다", "윈터", LocalDateTime.now().minusDays(7), cList1));
+		pList.add(new Post(2, "스트림 파헤치기", "Stream API는 내부 반복자입니다.", "카리나", LocalDateTime.now().minusDays(6), cList2));
+		pList.add(new Post(3, "Spring, 개발자에게 봄이 오다", "Spring을 사용하기 전에는 매우 추웠어요", "닝닝", LocalDateTime.now().minusDays(2),
+				new ArrayList<Comment>()));
 
 		PostSystem ps = new PostSystemImpl();
 
-//		System.out.println("게시물 작성");
-//		Scanner sc = new Scanner(System.in);
-//		System.out.println("제목 입력 : ");
-//		String title = sc.next();
-//		System.out.println("내용 입력 : ");
-//		String content = sc.next();
-//		System.out.println("이름 입력 : ");
-//		String author = sc.next();
-//		ps.insertPost(pList, title, content, author); // 기존에 있는 pList에 글 추가
+		ps.insertPost(pList);
+		System.out.println();
 
 		System.out.println("윈터님이 작성한 게시물 보기");
 		ps.filterPostsByAuthor(pList, "윈터").forEach(System.out::println);
