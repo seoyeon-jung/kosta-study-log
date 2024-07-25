@@ -12,10 +12,7 @@ public class FileExample3 {
 		String inputImage = "C:\\Users\\WD\\image.jpg";
 		String outputImage = "C:\\Users\\WD\\image2.jpg";
 
-//		FileInputStream finput = new FileInputStream(inputImage);
-//		BufferedInputStream br = new BufferedInputStream(finput);
-//		FileOutputStream foutput = new FileOutputStream(outputImage);
-//		BufferedOutputStream bw = new BufferedOutputStream(foutput);
+		// try-catch-resource
 
 		BufferedInputStream br = new BufferedInputStream(new FileInputStream(inputImage));
 		BufferedOutputStream bw = new BufferedOutputStream(new FileOutputStream(outputImage));
