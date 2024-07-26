@@ -26,6 +26,18 @@
       - [논리 연산자](#논리-연산자)
       - [LIKE](#like)
       - [와일드 카드](#와일드-카드)
+      - [BETWEEN ~ AND](#between--and)
+      - [IN](#in)
+    - [행의 개수 제한](#행의-개수-제한)
+  - [수치 연산](#수치-연산)
+  - [함수](#함수)
+    - [산술 함수](#산술-함수)
+    - [함수 연산](#함수-연산)
+    - [산술 함수](#산술-함수-1)
+    - [문자열 함수](#문자열-함수)
+    - [날짜 함수](#날짜-함수)
+    - [NULL 관련 함수](#null-관련-함수)
+    - [IF 함수](#if-함수)
 
 <br/>
 <br/>
@@ -62,7 +74,7 @@
 - 열 = 컬럼, 필드, 속성, 애트리뷰트
 - 행 = 로우, 튜플, 레코드
 
-![alt text](image.png)
+![alt text](./capture/image.png)
 
 <br/>
 <br/>
@@ -188,6 +200,7 @@ SELECT [ALL | DISTINCT] 열이름
 - TIME : 7시 10분 25초와 같이 시분초의 데이터를 저장할 수 있는 시간 자료형
 
 <br/>
+<br/>
 
 ## 테이블 검색
 ### 열 지정 검색
@@ -216,7 +229,7 @@ WHERE
 - 데이터가 조회되는 방식을 수정하거나 계산을 수행하고자 할 때, 산술표현식을 사용한다.
 - SELECT 문에서 산술표현식은 FROM 절을 제외한 모든 절에서 사용 가능하다.
 
-![alt text](image.png)
+![alt text](./capture/image-21.png)
 
 ### 컬럼 연결 (concat)
 ```sql
@@ -228,13 +241,13 @@ FROM
 - 매개변수를 연결한 문자열을 반환하는 함수
 - 한 개 이상의 매개변수를 가질 수 있다.
 
-![alt text](image-1.png)
+![alt text]./capture/(image-1.png)
 
 ### DISTNICT
 - 특별히 명시되지 않는다면 SELECT문은 중복되는 행을 제거하지 않고, 결과를 반환한다.
 - 결과에서 중복되는 행을 제거하기 위해서는 SELECT 뒤에 DISTINCT를 입력해야 한다
 
-![alt text](image-2.png)
+![alt text](./capture/image-22.png)
 
 ### 정렬 (ORDER BY)
 - SELECT 문에서 순서에 대한 지정이 없는 경우에는 DBMS의 순서를 따른다.
@@ -245,7 +258,7 @@ FROM
 - 2개 이상의 컬럼으로 정렬을 지정할 수도 있다.
   - 이 경우 첫 번재 기준 컬럼의 값이 같으면 두 번째 기준 컬럼을 통해 정렬을 하게 된다.
 
-![alt text](image-3.png)
+![alt text](./capture/image-23.png)
 
 ### 조건문 (WHERE)
 - WHERE 절을 이용해 조건을 지정할 수 있다.
@@ -259,16 +272,16 @@ FROM
   - A <> B, A != B, NOT (A = B) [같지 않다]
 - 문자열 또는 날짜의 비교는 따옴표로 감싸주어야 한다.
 
-![alt text](image-4.png)
+![alt text](./capture/image-40.png)
 
 #### NULL
 - 값이 입력되어 있지 않은 특수한 상태로,
 값을 알 수 없거나, 아직 결정할 수 없다는 의미이기에 0, " "과는 다르다.
 - NULL 여부를 표현할 때는 = NULL, != NULL 이 아닌 `IS NULL`, `IS NOT NULL`을 사용한다
-![alt text](image-5.png)
+![alt text](./capture/image-25.png)
 
 #### 논리 연산자
-   ![alt text](image-7.png)
+   ![alt text](./capture/image-26.png)
   - 두 개 이상의 조건을 동시에 점검할 때는 AND, OR 연산자를 사용한다.
   - AND는 두 조건이 모두 참인 결과를 반환하며,
   - OR는 두 조건 중 하나라도 참인 결과를 반환한다.
@@ -282,5 +295,107 @@ FROM
 - `_` : 한 개의 임의 문자
 - 와일드카드에 사용되는 문자를 검색할 때는 `\` 또는 `ESCAPE`를 이용
 
-![alt text](image-8.png)
+![alt text](./capture/image-28.png)
 
+#### BETWEEN ~ AND
+- 두 사이의 범위를 제한할 때는 BETWEEN ~ AND 구문을 사용한다.
+- 범위 조건은 수치값에 대해 사용하지만, 문자열이나 날짜 등에도 사용할 수 있다.
+
+![alt text](./capture/image-29.png)
+
+#### IN
+- IN 연산자는 불연속적인 값 여러 개의 목록을 가지고, 목록에 요소와 일치하는 데이터를 조회한다.
+- NOT과 결합해서 사용 가능하다.
+
+![alt text](./capture/image-30.png)
+
+### 행의 개수 제한
+- SELECT 문 맨 뒤에 LIMIT를 작성하여 행의 개수를 제한할 수 있다.
+- MySQL에서는 LIMIT를 이용하지만, ORACLE에서는 ROWNUM이라는 개념을 이용하고, MS-SQL에서는 TOP를 이용한다.
+- 기본 형식 : `LIMIT [건너뛸 개수,] 조회할 개수`
+- 건너뛸 개수를 생략하면 0이 기본값이다.
+
+![alt text](./capture/image-31.png)
+
+<br/>
+<br/>
+
+## 수치 연산
+- WHERE 구에서 연산하기
+- ORDER BY 구에서 연산하기
+
+![alt text](./capture/image-32.png)
+
+- 일반 프로그래밍과는 달리, SQL에서 NULL의 연산은 모두 NULL이 된다.
+![alt text](./capture/image-33.png)
+
+<br/>
+<br/>
+
+## 함수
+### 산술 함수
+- ABS(x): 인수 x의 절대값을 반환
+- CEILING(x): x보다 크거나 같은 최소 정수를 반환
+- FLOOR(x): x보다 작거나 같은 최대 정수를 반환
+- ROUND(x): x를 가장 가까운 정수로 반올림
+- CONV(x, y, z): x를 y진수에서 z 진수로 변환
+- PI(): 원주율 π 값을 반환
+- MOD(x, y): x를 y로 나눈 나머지를 반환
+- POW(x, y): x의 y 거듭제곱 값을 반환
+- SQRT(x): x의 제곱근을 반환
+- RAND(): 0과 1 사이의 무작위 숫자를 반환
+- SIGN(x): x가 양수면 1, 음수면 -1, 0이면 0을 반환
+- TRUNC(x): x의 소수점 이하를 잘라내어 정수 부분만 반환
+
+### 함수 연산
+- 함수명 뒤에 괄호 안의 인수들이 연산 대상이 되어 함수명에 따른 연산을 진행한다.
+
+![alt text](./capture/image-37.png)
+
+### 산술 함수
+![alt text](./capture/image-35.png)
+![alt text](./capture/image-36.png)
+### 문자열 함수
+- LENGTH(str): 문자열의 길이를 문자 수로 반환
+- CONCAT(str1, str2, ...): 여러 문자열을 결합하여 하나의 문자열로 반환
+- CONCAT_WS(separator, str1, str2, ...): 여러 문자열을 결합하여 하나의 문자열로 반환
+- INSTR(str, substr), LOCATE(substr, str): 문자열에서 서브 문자열의 위치를 찾아 반환
+- REPEAT(str, count): 문자열을 지정된 횟수만큼 반복하여 반환
+- REPLACE(str, oldstr, newstr): 문자열에서 oldstr을 newstr로 모두 치환
+- REVERSE(str): 문자열을 뒤집어 반환
+- UPPER(str), LOWER(str): 문자열을 대문자 또는 소문자로 변환
+- LTRIM(str), RTRIM(str), TRIM(str): 문자열의 왼쪽, 오른쪽, 또는 양쪽의 공백을 제거
+- LEFT(str, len), RIGHT(str, len): 문자열의 왼쪽 또는 오른쪽에서 len만큼의 문자를 반환
+- SUBSTRING(str, start, length) : 문자열에서 일부를 추출 (start는 1부터 시작)
+
+<hr/>
+
+- 문자열 결합 함수 (CONCAT)
+![alt text](./capture/image-38.png)
+
+### 날짜 함수
+- ADDDATE(date, INTERVAL expr unit) : 지정된 날짜(date)에 특정 기간(expr unit)을 더함
+- SUBDATE(date, INTERVAL expr unit) : 지정된 날짜(date)에 특정 기간(expr unit)을 뺌
+- ADDTIME(time, INTERVAL expr unit) : 지정된 시간(time)에 특정 기간(expr unit)을 더함
+- SUBTIME(time, INTERVAL expr unit): 지정된 시간(time)에 특정 기간(expr unit)을 뺌
+- CURRENT_DATE(), CURDATE(): 현재 날짜를 반환
+- CURRENT_TIME(), CURTIME(): 현재 시간을 반환
+- NOW(), LOCALTIME(), LOCALTIMESTAMP(), CURRENT_TIMESTAMP(): 현재 날짜와 시간을 반환
+- YEAR(date), MONTH(date), DAY(date) : 주어진 날짜에서 각각의 구성 요소를 반환
+- HOUR(time), MINUTE(time), SECOND(time), 주어진 시간에서 각각의 구성 요소를 반환
+- DAYOFWEEK(date): 주어진 날짜의 요일을 반환 (1 = 일요일, 2 = 월요일, ..., 7 = 토요일)
+- QUARTER(date): 주어진 날짜의 분기(quarter)를 반환
+- STR_TO_DATE(str, format): 문자열로 표시된 날짜를 날짜 형식으로 변환
+- DATEDIFF(date1, date2): 두 날짜 사이의 일 수 차이를 반환
+- TIMEDIFF(time1, time2): 두 시간 사이의 시간 차이를 반환
+- LAST_DAY(date): 주어진 날짜의 해당 월의 마지막 날짜를 반환
+
+![alt text](./capture/image-39.png)
+
+### NULL 관련 함수
+- IFNULL(x, y) : x 값이 NULL이 아니면 x를 반환하고, x 값이 NULL이면 y를 반환
+- NULLIF(x, y) : x 값과 y 값이 같으면 NULL을 반환하고, 다르면 x를 반환
+- COALESCE(x, y, z, …) : 인자 값들 중 최초 NULL이 아닌 값을 반환, 모두 NULL이면 NULL 반환
+### IF 함수
+- 수식이 참 또는 거짓인지 결과에 따라서 2중 분기
+![alt text](./capture/image-20.png)
