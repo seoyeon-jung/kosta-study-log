@@ -81,4 +81,4 @@
 <br/>
 
 ## 8주차
-07.29 [SELECT (심화) 연산, 함수, 그룹화, 집계](./8주차/240729/README.md)
+07.29 [SELECT (집합 연산자, 서브쿼리, 조인), INSERT, DELETE, UPDATE](./8주차/240729/README.md)
