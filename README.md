@@ -81,4 +81,5 @@
 <br/>
 
 ## 8주차
-07.29 [SELECT (집합 연산자, 서브쿼리, 조인), INSERT, DELETE, UPDATE](./8주차/240729/README.md)
+07.29 [SELECT (집합 연산자, 서브쿼리, 조인), INSERT, DELETE, UPDATE](./8주차/240729/README.md)   
+07.30 [테이블, 데이터 모델링, 데이터베이스 설계(정규화)](./8주차/240730/README.md)

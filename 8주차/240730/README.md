@@ -34,6 +34,15 @@
   - [무결성 제약 조건 (Integrity Constraint)](#무결성-제약-조건-integrity-constraint)
   - [함수적 종속(Functional Dependency)](#함수적-종속functional-dependency)
   - [이상 현상 (Anomaly)](#이상-현상-anomaly)
+  - [정규화 (Data Nomalization)](#정규화-data-nomalization)
+    - [제 1 정규화](#제-1-정규화)
+    - [제 2 정규화](#제-2-정규화)
+    - [제 3 정규화](#제-3-정규화)
+    - [보이스-코드 정규화 (BCNF)](#보이스-코드-정규화-bcnf)
+    - [제 4 정규화](#제-4-정규화)
+    - [제 5 정규화](#제-5-정규화)
+    - [정규화의 장점](#정규화의-장점)
+    - [정규화의 단점](#정규화의-단점)
 
 <br/>
 <br/>
@@ -91,22 +100,22 @@
 
 ## 실습
 - workbench 테이블 보는 방법
-![alt text](image.png)
-![alt text](image-1.png)
+![alt text](./image/image.png)
+![alt text](./image/image-1.png)
 
 - 테이블 생성
-  ![alt text](image-2.png)
+  ![alt text](./image/image-2.png)
 - 테이블에 컬럼 생성/삭제
-  ![alt text](image-3.png)
+  ![alt text](./image/image-3.png)
 - 테이블 기존 컬럼 자료형과 이름 변경
- ![alt text](image-4.png)
+ ![alt text](./image/image-4.png)
 - 테이블 기존 컬럼 자료형만 변경
-![alt text](image-5.png)
+![alt text](./image/image-5.png)
 - worbench에서 직접 테이블 생성
-![alt text](image-6.png)
-![alt text](image-7.png)
+![alt text](./image/image-6.png)
+![alt text](./image/image-7.png)
 - enum 타입 데이터 추가
- ![alt text](image-8.png)
+ ![alt text](./image/image-8.png)
 
 <br/>
 <br/>
@@ -118,19 +127,19 @@
 - 기본은 NULL을 허용하는 것이며, 
 - 컬럼 제약조건에 NOT NULL을 설정하면, NULL 입력 불가
 
-![alt text](image-9.png)
+![alt text](./image/image-9.png)
 ### 기본값
 - 필드 값을 입력하지 않았을 때, 자동으로 입력할 값을 설정할 수 있다
 - 숫자형은 0, 문자열은 비워두거나 N/A 등을 많이 사용한다.
 - DEFAULT 키워드와 함께 기본값을 지정
 
-![alt text](image-10.png)
+![alt text](./image/image-10.png)
 ### 체크
 - 필드의 값 종류 제한
 - 컬럼 선언문에 CHECK 키워드와 함께 컬럼값으로 가능한 값을 지정
 
-![alt text](image-11.png)
-![alt text](image-12.png)
+![alt text](./image/image-11.png)
+![alt text](./image/image-12.png)
 ### 제약조건의 키
 - 슈퍼키(Super Key)
   - 각 행을 유일하게 식별할 수 있는 하나 또는 그 이상의 속성들의 집합
@@ -150,8 +159,8 @@
 <br/>
 
 [예제]
-![alt text](image-13.png)
-![alt text](image-14.png)
+![alt text](./image/image-13.png)
+![alt text](./image/image-14.png)
 ### UNIQUE
 - 필드의 중복값을 방지하여 모든 필드가 고유한 값을 가지도록 강제
 - 기본키와 차이점
@@ -170,8 +179,8 @@
 <br/>
 
 [예제]
-![alt text](image-15.png)
-![alt text](image-16.png)
+![alt text](./image/image-15.png)
+![alt text](./image/image-16.png)
 
 <br/>
 <br/>
@@ -219,7 +228,7 @@ DELETE FROM tEmployee WHERE name = "아이린";
 - 기본 키와 참조 키 간의 관계가 항상 유지됨을 보장한다.
 - 외래키를 설정하면 무결성을 깨뜨리는 일을 만들지 않는다.
 
-![alt text](image-17.png)
+![alt text](./image/image-17.png)
 ### 참조 무결성 옵션
 - 참조된 행이 삭제되거나 업데이트될 때 수행할 작업을 지정
 - `ON DELETE { NO ACTION | CASCADE | SET NULL | SET DEFAULT }`
@@ -303,7 +312,7 @@ DELETE FROM tEmployee WHERE name = "아이린";
 - 교수는 과목을 강의하고 학생에 대해 전공지도를 하는데 일부는 학과의 학과장이 되고 학과마다 학과장
 은 한 명씩 있음
 
-![alt text](image-18.png)
+![alt text](./image/image-18.png)
 
 <hr/>
 
@@ -384,3 +393,53 @@ DELETE FROM tEmployee WHERE name = "아이린";
     - 중복된 데이터들 중 일부만 수정하여 데이터가 불일치하게 되는 모순이 발생하는 문제
 - 삭제 이상(Deletion Anomaly)
     - 데이터를 삭제하면 필요한 데이터까지 함께 삭제하여 데이터가 손실되는 연쇄 삭제 문제
+
+<br/>
+<br/>
+
+## 정규화 (Data Nomalization)
+- 논리 데이터 모델을 일관성이 있고 안정성 있는 자료 구조로 만드는 단계
+- 데이터의 일관성, 최소한의 데이터 중복, 최대한의 데이터 유연성을 위한 방법으로 데이터를 분해하는 과정
+- 데이터 모델의 독립성을 확보하기 위한 방법
+- 정규화를 수행하면 비지니스의 변경에 유연하게 대처해서 데이터 모델의 변경을 최소화 할 수 있음
+- 1차 정규화부터 BCNF(Boyce-Codd Normal Form)을 포함한 5차 정규화까지로 구성
+### 제 1 정규화
+- 한 릴레이션을 구성하는 모든 도메인이 원자값으로 구성
+
+![alt text](./image/image-19.png)
+### 제 2 정규화
+- 제 1정규화를 만족하면서 모든 속성이 기본키에 완전 함수 종속이 되도록 테이블을 분해
+
+![alt text](./image/image-20.png)
+### 제 3 정규화
+- 제 2정규화를 만족하면서 이행적 함수 종속 관계를 없애고 비이행적 함수 종속 관계를 만족하도록 분해
+- 기본키의 직접적인 종속을 따른다.
+- 기본키에 각각 종속시킨다.
+
+![alt text](./image/image-21.png)
+### 보이스-코드 정규화 (BCNF)
+- 제 3 정규형을 만족하면서 모든 결정자가 후보키가 되도록 테이블을 분해
+
+![alt text](./image/image-22.png)
+### 제 4 정규화
+- BCNF를 만족하면서 테이블에서 다치 종속 관계를 제거
+- 다치 종속(Multi-valued Dependency) : 같은 테이블 내의 독립적인 두 개 이상의 컬럼이 또 다른 컬럼에 종속되는 것
+
+![alt text](./image/image-23.png)
+
+### 제 5 정규화
+-  제4정규화를 만족하면서 후보키를 통하지 않은 조인종속(Join Dependency)을 제거
+- 조인 종속(Joint Dependency) : 여러 개의 테이블로 분해 후, 다시 조인했을 때 데이터 손실이 없고 필요 없는 데이터가 생기는 것
+- 필요없는 데이터가 생길 수도 있다.
+- 제 5정규화까지 하는 경우는 거의 없다. (너무 복잡해지기 때문)
+
+![alt text](./image/image-24.png)
+### 정규화의 장점
+- 업무 변경에 유연한 대처가 가능, 높은 확장성
+- 인덱스 수의 감소
+- 속성 추가의 가능성이 높을 때 사용
+### 정규화의 단점
+- 빈번한 Join 연산의 증가
+- 부자연스러운 DB
+- 조회/검색 위주의 응용시스템에 부적합
+- 기억장치의 성능이 좋아지고, 저렴해지면서 정규화의 중요성이 저하되고, 성능을 우선 시하게 되는 경향이 있다.
