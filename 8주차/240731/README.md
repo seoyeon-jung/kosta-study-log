@@ -29,7 +29,7 @@
 - JDBC Driver : JDBC 인터페이스를 구현한 것으로 DBMS마다 별도로 라이브러리를 다운받아 사용한다.
 - DB 연결을 위해서는 IP 주소, DBMS 포트번호, 사용자 이름 및 비밀번호, 접속하려는 DB 이름이 필요하다.
 
-![alt text](image.png)
+![alt text](./image/image.png)
 
 - DB를 연결하기 위해서는 JDBC Driver를 먼저 메모리로 로딩하는 작업이 필요하다.
 - JDBC Driver 클래스의 static 블록이 실행되면, DriverManager에 JDBC Driver 객체를 등록한다.
@@ -115,7 +115,7 @@ while (rs.next()) {
 - 또한 여러 개의 DB 중 사용할 DB의 이름과 사용자 인증을 위한 계정과 비밀번호도 필요하다.
 ## 1. JDBC 드라이버 로딩
 - Class.forName( ) 메소드는 문자열로 주어진 JDBC Driver 클래스를 Build Path에서 찾고, 메모리에 로딩한다.
-![alt text](image-1.png)
+![alt text](./image/image-1.png)
 - 이 과정에서 JDBC Driver 클래스의 static 블록이 실행되면서 DriverManager에 JDBC Driver 객체를 등록하게 된다.
 - 만약 Build Path에서 JDBC Driver 클래스를 찾지 못하면 ClassNotFoundException을 발생시킨다.
 ```java
@@ -182,13 +182,13 @@ public class DBConnection {
 }
 ```
 ## Statement [실습]
-![alt text](image-2.png)
-![alt text](image-3.png)
+![alt text](./image/image-2.png)
+![alt text](./image/image-3.png)
 - Statement는 정적인 메소드에서만 사용해야 한다.
 - 만약 로그인 할 때, 아이디만 제대로 입력한다면 로그인이 될 수도 있기 때문이다.
 - 그래서 Statement 대신 PreparedStatement를 사용한다.
 ## PreparedStatement [실습]
-![alt text](image-5.png)
+![alt text](./image/image-5.png)
 
 <br/>
 <br/>
@@ -196,8 +196,8 @@ public class DBConnection {
 <br/>
 
 # DB 연결 - 데이터 삽입
-![alt text](image-6.png)
-![alt text](image-7.png)
+![alt text](./image/image-6.png)
+![alt text](./image/image-7.png)
 - 값을 `?(물음표)`로 대체한 매개변수화 된 INSERT문으로 데이터 저장
 - `PreparedStatement`를 통해 입력받은 문자열을 실행한다.
 - Connection의 `prepareStatement()` 메소드로부터 PreparedStatement 구현 객체를 얻을 수 있다.
@@ -209,11 +209,11 @@ SQL문이 실행되면서 users 테이블에 1개의 행이 저장된다.
 - 만약 PreparedStatement를 더 이상 사용하지 않는다면, close( ) 메소드를 호출해 메모리를 해제해준다
 ## 게시판 데이터 삽입하기 [실습]
 - 사용자 번호 설정 후 글 작성하기
-![alt text](image-8.png)
-![alt text](image-9.png)
+![alt text](./image/image-8.png)
+![alt text](./image/image-9.png)
 
 - 사용자 아이디 번호 입력 받아 글 작성하기
-![alt text](image-10.png)
+![alt text](./image/image-10.png)
 
 <br/>
 <br/>
@@ -221,8 +221,8 @@ SQL문이 실행되면서 users 테이블에 1개의 행이 저장된다.
 <br/>
 
 # DB 연결 - 데이터 수정
-![alt text](image-11.png)
-![alt text](image-12.png)
+![alt text](./image/image-11.png)
+![alt text](./image/image-12.png)
 
 <br/>
 <br/>
@@ -230,7 +230,7 @@ SQL문이 실행되면서 users 테이블에 1개의 행이 저장된다.
 <br/>
 
 # DB 연결 - 데이터 삭제
-![alt text](image-13.png)
+![alt text](./image/image-13.png)
 
 <br/>
 <br/>
@@ -238,7 +238,7 @@ SQL문이 실행되면서 users 테이블에 1개의 행이 저장된다.
 <br/>
 
 # DB 연결 - 데이터 읽기
-![alt text](image-14.png)
+![alt text](./image/image-14.png)
 - ResultSet은 SELECT 문에 기술된 컬럼으로 구성되어 있는 행의 집합이다.
 - 만약 가져오려는 데이터가 1개의 행으로 구성된 경우에는 while 대신에 if를 사용할 수 있다.
 - 만약 SQL 컬럼명에 별명이 있다면, 별명이 컬럼 이름이 된다.

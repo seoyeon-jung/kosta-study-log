@@ -5,9 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-public class DBConnection2 {
+import com.model.User;
+
+public class DBConnection3 {
 	// static으로 선언하고, 필요한 때에 재할당해서 사용하면 된다.
 	public static Connection connection = null;
 	public static PreparedStatement pstmt = null;
@@ -41,16 +45,19 @@ public class DBConnection2 {
 	}
 
 	// 회원 전체 조회 (R)
-	public static void getAllUsers() throws SQLException {
+	public static List<User> getAllUsers() throws SQLException {
 		System.out.println("\n =============== 회원 전체 조회 ===============");
 		// 탈퇴한 회원은 전체 회원에 포함되지 않으므로 WHERE문을 추가해야 한다.
 		sql = "SELECT * FROM users WHERE deleted_at IS NULL"; // sql에 재할당
 		rs = connection.prepareStatement(sql).executeQuery();
 
+		// userList를 만들어서 그 리스트 안에 전체 회원들 데이터를 넣는다.
+		List<User> userList = new ArrayList<>();
 		while (rs.next()) {
-			System.out.println(rs.getInt("id") + "\t" + rs.getString("name") + "\t" + rs.getString("email") + "\t"
-					+ rs.getString("password"));
+			User u = new User(rs.getInt("id"), rs.getString("name"), rs.getString("email"), rs.getString("password"));
+			userList.add(u);
 		}
+		return userList;
 
 	}
 
@@ -184,7 +191,9 @@ public class DBConnection2 {
 					addUser();
 					break;
 				case 2:
-					getAllUsers();
+					// 회원들의 이름만 출력할 수 있다.
+					List<User> allUsers = getAllUsers();
+					allUsers.stream().forEach(u -> System.out.println(u.getName()));
 					break;
 				case 3: {
 					getAllPosts();
@@ -209,7 +218,12 @@ public class DBConnection2 {
 				}
 			}
 
-		} catch (ClassNotFoundException e) {
+		}
+//		catch (InputMismatchException e) {
+//			System.out.println("잘못된 접근입니다. 숫자를 입력하세요.");
+//			// 바로 프로그램이 종료된다.
+//		} 
+		catch (ClassNotFoundException e) {
 			// JDBC 드라이버 로딩 실패
 			e.printStackTrace();
 			System.out.println("JDBC Driver 로딩 실패");
