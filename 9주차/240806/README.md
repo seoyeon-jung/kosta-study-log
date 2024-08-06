@@ -1,34 +1,34 @@
 ## 목차
 - [서블릿 (Servlet)](#서블릿-servlet)
-  - [redirect](#redirect)
-    - [프로젝트 생성 시](#프로젝트-생성-시)
-    - [서블릿 생성 시](#서블릿-생성-시)
-  - [dispatch](#dispatch)
-  - [쿠키](#쿠키)
-    - [쿠키의 특징](#쿠키의-특징)
-    - [실습](#실습)
-  - [세션](#세션)
-    - [세션의 특징](#세션의-특징)
-    - [실습](#실습-1)
+	- [redirect](#redirect)
+		- [프로젝트 생성 시](#프로젝트-생성-시)
+		- [서블릿 생성 시](#서블릿-생성-시)
+	- [dispatch](#dispatch)
+	- [쿠키](#쿠키)
+		- [쿠키의 특징](#쿠키의-특징)
+		- [실습](#실습)
+	- [세션](#세션)
+		- [세션의 특징](#세션의-특징)
+		- [실습](#실습-1)
 - [JSP](#jsp)
-  - [JSTL/EL](#jstlel)
-  - [커스텀 태그](#커스텀-태그)
-  - [EL (Expression Lanugage)](#el-expression-lanugage)
-  - [JSTL](#jstl)
-    - [실습](#실습-2)
-    - [JSTL 여러 문법 예제](#jstl-여러-문법-예제)
+	- [JSTL/EL](#jstlel)
+	- [커스텀 태그](#커스텀-태그)
+	- [EL (Expression Lanugage)](#el-expression-lanugage)
+	- [JSTL](#jstl)
+		- [실습](#실습-2)
+		- [JSTL 여러 문법 예제](#jstl-여러-문법-예제)
 - [JSTL 이용한 로그인/로그아웃 실습](#jstl-이용한-로그인로그아웃-실습)
 - [빌드 도구](#빌드-도구)
 - [Maven 프로젝트 생성하기](#maven-프로젝트-생성하기)
 - [MVC 패턴](#mvc-패턴)
-  - [모델 (Model)](#모델-model)
-    - [DAO (Data Access Object)](#dao-data-access-object)
-    - [DO (Data Object) / 엔티티(Entity) 클래스](#do-data-object--엔티티entity-클래스)
-  - [뷰 (View)](#뷰-view)
-  - [컨트롤러 (Controller)](#컨트롤러-controller)
-    - [컨트롤러 설계](#컨트롤러-설계)
-      - [URL 파라미터를 이용](#url-파라미터를-이용)
-      - [프론트 컨트롤러 이용](#프론트-컨트롤러-이용)
+	- [모델 (Model)](#모델-model)
+		- [DAO (Data Access Object)](#dao-data-access-object)
+		- [DO (Data Object) / 엔티티(Entity) 클래스](#do-data-object--엔티티entity-클래스)
+	- [뷰 (View)](#뷰-view)
+	- [컨트롤러 (Controller)](#컨트롤러-controller)
+		- [컨트롤러 설계](#컨트롤러-설계)
+			- [URL 파라미터를 이용](#url-파라미터를-이용)
+			- [프론트 컨트롤러 이용](#프론트-컨트롤러-이용)
 
 <br/>
 <br/>
@@ -87,7 +87,7 @@ public class RedirectServlet extends HttpServlet {
 		doGet(request, response);
 	}
 ```
-![alt text](image-1.png)
+![alt text](./image/image-1.png)
 
 - `sendRedirect`를 통한 화면 전환은 별도의 데이터를 추가로 전달할 수 없다.
 - 주소가 변경된다
@@ -102,16 +102,16 @@ public class RedirectServlet extends HttpServlet {
 - http://localhost:8080/프로젝트명/image.jpg
 - => 프로젝트 내 `src/main/webapp` 폴더에 있는 image.jpg을 열어서 보여준다.
 
-![alt text](image-2.png)
+![alt text](./image/image-2.png)
 
 ### 서블릿 생성 시
 - URL Mapping: `@WebServlet("/서블릿매핑")`
 - http://localhost:8080/프로젝트명/서블릿매핑
 
 ## dispatch
-![alt text](image-3.png)
-![alt text](image-4.png)
-![alt text](image-5.png)
+![alt text](./image/image-3.png)
+![alt text](./image/image-4.png)
+![alt text](./image/image-5.png)
 ## 쿠키
 - 클라이언트에 저장하는 작은 정보를 의미한다.
 - 서버의 요청에 의해 브라우저가 저장하게 되며, 서버가 요청할 때 제공하는 형식이다.
@@ -122,9 +122,9 @@ public class RedirectServlet extends HttpServlet {
 - 'name=value' 형식이며 유효 기간, 요청 경로, 도메인 지정 등의 부가 속성을 포함한다.
 - 주로 자바스크립트를 통해 처리하지만 HttpOnly 설정으로 서버에서만 사용할 수 있도록 설정할 수 있다.
 ### 실습
-![alt text](image-6.png)
-![alt text](image-7.png)
-![alt text](image-8.png)
+![alt text](./image/image-6.png)
+![alt text](./image/image-7.png)
+![alt text](./image/image-8.png)
 ## 세션
 - 클라이언트가 웹 애플리케이션 서버에 접속할 대 서버 쪽에 생성되는 공간이다.
 - 내부적으로는 세션 아이디를 통해 참조된다.
@@ -136,9 +136,9 @@ public class RedirectServlet extends HttpServlet {
 - 사용자마다 생성되는 공간으로, 동시에 많은 사용자가 접속하는 경우 충분한 메모리를 비롯한 세션 관리 대책이 필요하다.
 
 ### 실습
-![alt text](image-9.png)
-![alt text](image-10.png)
-![alt text](image-11.png)
+![alt text](./image/image-9.png)
+![alt text](./image/image-10.png)
+![alt text](./image/image-11.png)
 
 <br/>
 <br/>
@@ -182,9 +182,9 @@ ${dataMap["data"]}
   - 저장 후 `webapp/WEB-INF/lib` 폴더에 복사
 - JSTL을 JSP에서 사용하기 위해서는 taglib 지시어를 추가해야 한다.
 ### 실습
-![alt text](image-12.png)
-![alt text](image-13.png)
-![alt text](image-14.png)
+![alt text](./image/image-12.png)
+![alt text](./image/image-13.png)
+![alt text](./image/image-14.png)
 ### JSTL 여러 문법 예제
 ```jsp
 	<c:set var="title" value="<h1>JSP</h1>" />
@@ -258,25 +258,25 @@ ${dataMap["data"]}
 # JSTL 이용한 로그인/로그아웃 실습
 - JSPServlet
 
-![alt text](image-15.png)
+![alt text](./image/image-15.png)
 
 - jstl.jsp
 
-![alt text](image-16.png)
+![alt text](./image/image-16.png)
 
 - LoginServlet
 
-![alt text](image-17.png)
+![alt text](./image/image-17.png)
 
 - LogoutServlet
 
-![alt text](image-18.png)
+![alt text](./image/image-18.png)
 
 - 로그인/로그아웃 화면
 
-![alt text](image-19.png)
-![alt text](image-20.png)
-![alt text](image-21.png)
+![alt text](./image/image-19.png)
+![alt text](./image/image-20.png)
+![alt text](./image/image-21.png)
 
 <br/>
 <br/>
@@ -299,9 +299,9 @@ ${dataMap["data"]}
 # Maven 프로젝트 생성하기
 1. dynamic web proejct 생성
 2. 프로젝트 마우스 우클릭 수 configure > Convert to Maven Project 클릭   
-![alt text](image-22.png)
+![alt text](./image/image-22.png)
 3. Maven 프로젝트로 변경
-![alt text](image-23.png)
+![alt text](./image/image-23.png)
    - Group Id : 프로젝트 고유 식별자로 기본 패키지 이름 규칙에 따라 작성
    - Artifact Id : 생성되는 jar(war) 파일의 이름으로 소문자로 작성
    - Version : 버전 관리 번호
@@ -311,7 +311,7 @@ ${dataMap["data"]}
 - lombok 라이브러리 추가해보기
   - [라이브러리 추가](https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.34)
   - pom.xml에 추가
-  ![alt text](image-24.png)
+  ![alt text](./image/image-24.png)
 
 
 <br/>
@@ -320,7 +320,7 @@ ${dataMap["data"]}
 <br/>
 
 # MVC 패턴
-![alt text](image-25.png)
+![alt text](./image/image-25.png)
 - Model - View - Controller
 - 주로 GUI 기반 애플리케이션 개발에 사용되는 디자인 패턴이다.
 - 현재 백엔드 기반 웹 애플리케이션 개발의 기본 모델이 되었다.
@@ -363,10 +363,10 @@ ${dataMap["data"]}
 - 비교적 간단한 방법이지만, 파라미터 구조가 변경되면 HTML, JSP, 컨트롤러 모두 수정해야 한다는 단점이 있다.
 
 [예제]
-![alt text](image-27.png)
-![alt text](image-26.png)
-![alt text](image-28.png)
-![alt text](image-29.png)
+![alt text](./image/image-27.png)
+![alt text](./image/image-26.png)
+![alt text](./image/image-28.png)
+![alt text](./image/image-29.png)
 #### 프론트 컨트롤러 이용
 - 모든 요청의 진입점이 되는 컨트롤러를 만들고, 여기에서 서브 컨트롤러를 호출하는 구조이다.
 - 보다 복잡한 구조를 체계적으로 처리할 수 있다는 장점이 있다.
