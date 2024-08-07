@@ -48,13 +48,47 @@ public class NewsDAOImpl implements NewsDAO {
 
 	@Override
 	public News getNews(int id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM news WHERE id = ?";
+		News news = null;
+
+		try (Connection conn = DBPool.getDBPool(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				String title = rs.getString("title");
+				String img = rs.getString("img");
+				String date = rs.getString("date");
+				String content = rs.getString("content");
+
+				news = new News(id, title, img, date, content);
+			}
+		}
+		return news;
+
 	}
 
 	@Override
 	public void deleteNews(int id) throws Exception {
-		// TODO Auto-generated method stub
+		String sql = "DELETE FROM news WHERE id = ?";
+		try (Connection conn = DBPool.getDBPool(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
+			pstmt.setInt(1, id);
+			pstmt.executeUpdate();
+		}
+
+	}
+
+	@Override
+	public void modifyNews(News news) throws Exception {
+		String sql = "UPDATE news SET title = ?, img = ?, date = NOW(), content = ? WHERE id = ?";
+		try (Connection conn = DBPool.getDBPool(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
+
+			pstmt.setString(1, news.getTitle());
+			pstmt.setString(2, news.getImg());
+			pstmt.setString(3, news.getContent());
+			pstmt.setInt(4, news.getId());
+			pstmt.executeUpdate();
+		}
 
 	}
 

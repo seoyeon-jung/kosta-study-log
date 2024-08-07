@@ -27,6 +27,9 @@ public class ListController implements NewsController {
 				return;
 			} else if (action != null && action.equals("deleteNews")) {
 				System.out.println("기사 삭제");
+				ns.deleteNews(req);
+				res.sendRedirect(req.getRequestURI());
+				return;
 			} else {
 				System.out.println("기사 전체 보기");
 				List<News> list = ns.getAll();
@@ -34,6 +37,7 @@ public class ListController implements NewsController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			req.setAttribute("error", e);
 		}
 
 		String view = "/WEB-INF/views/NewsList.jsp";

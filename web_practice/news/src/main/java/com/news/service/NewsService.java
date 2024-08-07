@@ -19,6 +19,9 @@ public interface NewsService {
 
 	// 뉴스 기사 삭제
 	void deleteNews(HttpServletRequest req) throws Exception;
+
+	// 뉴스 기사 수정
+	void moodifyNews(HttpServletRequest req) throws Exception;
 }
 
 // controller 에서 기사 추가를 하면 request 안에 기사 추가하는 내용드링 잇다
