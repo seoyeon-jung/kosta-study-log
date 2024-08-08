@@ -13,7 +13,7 @@ create table movie (
 	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	title VARCHAR(255) not null,
 	summary VARCHAR(255) not null,
-	gerne VARCHAR(255) not null,
+	genre VARCHAR(255) not null,
 	director VARCHAR(255) not null,
 	actors VARCHAR(255) not null,
 	poster VARCHAR(255) not null,
