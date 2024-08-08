@@ -20,6 +20,7 @@ public class MovieServlet extends HttpServlet {
 	public MovieServlet() {
 		controllerMap.put("/movie/movieList", new ListController());
 		controllerMap.put("/movie/movie", new ViewController());
+		controllerMap.put("/movie/post", new PostController());
 	}
 
 	@Override

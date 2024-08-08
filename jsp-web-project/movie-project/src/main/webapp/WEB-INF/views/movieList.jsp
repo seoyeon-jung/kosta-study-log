@@ -14,47 +14,14 @@
         <div class="header-title">
             영화 리스트
         </div>
-        <button class="btn btn-outline-primary collapse-button" data-bs-toggle="collapse" data-bs-target="#addMovie" aria-expanded="false" aria-controls="addMovie">
-			영화 추가하기
-		</button>
+        <a href="/movie/post">
+	        <button class="btn btn-outline-primary collapse-button">
+				영화 추가하기
+			</button>
+		</a>
     </header>
     
-    <!-- 영화 작성 버튼 (toggle) -->
-	<div class="collapse form-signin w-100 h-auto" id="addMovie">
-		<form action="/movie/movieList?action=addMovie" method="post" enctype="multipart/form-data">
-			<div class="form-floating">
-				<input type="text" name="title" class="form-control" id="floatingInput" placeholder="영화 제목" />
-				<label for="floatingInput">영화 제목</label>
-			</div>
-			<div class="form-floating">
-				<textarea class="form-control" name="summary" rows="5" cols="50" id="floatingInput" placeholder="줄거리"></textarea>
-				<label for="floatingInput">줄거리</label>
-			</div>
-			<div class="form-floating">
-				<input type="text" name="genre" class="form-control" id="floatingInput" placeholder="장르" />
-				<label for="floatingInput">장르</label>
-			</div>
-			<div class="form-floating">
-				<input type="text" name="director" class="form-control" id="floatingInput" placeholder="감독" />
-				<label for="floatingInput">감독</label>
-			</div>
-			<div class="form-floating">
-				<input type="text" name="actors" class="form-control" id="floatingInput" placeholder="출연진" />
-				<label for="floatingInput">출연진</label>
-			</div>
-			<div class="form-floating">
-				<input type="file" name="poster" class="form-control" id="floatingInput" placeholder="포스터" />
-				<label for="floatingInput">포스터</label>
-			</div>
-			<div class="form-floating">
-				<input type="date" name="release_date" class="form-control" id="floatingInput" placeholder="영화 개봉일" />
-				<label for="floatingInput">개봉일</label>
-			</div>
-			<div class="d-flex flex-wrap align-items-center justify-content-center py-3 mb-6 border-bottom fs-4">
-				<button class="btn btn-success mt-4">영화 등록하기</button>
-			</div>
-		</form>
-	</div>
+	
 	
 	<!-- 영화 리스트 -->
 	<div class="album py-5 bg-light">
@@ -101,6 +68,6 @@
 		</div>
 		
 
-
+		
 </body>
 </html>
