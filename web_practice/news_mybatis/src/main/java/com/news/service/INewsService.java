@@ -79,7 +79,10 @@ public class INewsService implements NewsService {
 		NewsDTO news = newsDAO.getNewsById(id);
 		news.setTitle(title);
 		news.setContent(content);
-		news.setImg(img);
+
+		if (img != null) {
+			news.setImg(img);
+		}
 
 		newsDAO.updateNews(news);
 
