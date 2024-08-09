@@ -27,13 +27,17 @@
 						<li class="
 							list-group-item list-group-item-action
 							d-flex justify-content-between
-							align-items-center">
-							<a href="/news/newsView?id=${news.getId()}">[${s.count}] ${news.getTitle()}</a>
+							align-items-center"
+							onClick="location.href='/news/detail?id=${news.getId()}'"
+							role="button"
+							>
+							<span>[${s.count}] ${news.getTitle()}</span>
 							<div>
 								<span>${news.getDate()}</span>
-								<a href="/news/newsList?action=deleteNews&id=${news.getId()}">
-									<span class="badge bg-secondary"> &times; </span>
-								</a>
+								<form action="/news/delete" method="post" class="d-inline">
+									<input name="id" type="hidden" value="${news.getId()}"/>
+									<button class="badge bg-secondary"> &times; </button>
+								</form>
 							</div>
 						</li>
 					</c:forEach>
@@ -50,6 +54,10 @@
 				<button class="btn-close" data-bs-dismiss="alert"></button>
 			</div>
 		</c:if>
+		
+		<a href="news/add" class="btn btn-outline-secondary">
+			기사 작성
+		</a>
 	</div>
 </body>
 </html>

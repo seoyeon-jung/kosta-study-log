@@ -34,12 +34,13 @@
 - mapper 태그의 namespace 속성 설정
 - sql문을 담은 태그 설정
 	- id 속성 설정
-	- parameter type 속성 설정 (별칭 설정 시 별칭으로 사용 가능
+	- parameter type 속성 설정 (별칭 설정 시 별칭으로 사용 가능)
 - 가져오는 파라미터값 설정 ${} 형태와 #{} 형태 사용
 	- ${} : 데이터에 따른 ''(문자열) 처리를 해주지 않는다. (statement 방식)
 	- #{} : 자동으로 데이터 타입 처리 (prearedstatement 방식)
 
 ![alt text](image-1.png)
+![alt text](image-5.png)
 
 <br/>
 <br/>

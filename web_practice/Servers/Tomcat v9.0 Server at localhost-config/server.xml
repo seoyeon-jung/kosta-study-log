@@ -162,9 +162,11 @@
 
       
       
-      <Context docBase="C:\\Users\\WD" path="/img" reloadable="true"/>
       
-      <Context docBase="news_mybatis" path="/" reloadable="true" source="org.eclipse.jst.jee.server:news_mybatis"/></Host>
+      <Context docBase="C:\\Users\\WD\\news" path="/img" reloadable="true"/>
+      
+      <Context docBase="news_mybatis" path="/" reloadable="true" source="org.eclipse.jst.jee.server:news_mybatis"/>
+      </Host>
     </Engine>
   </Service>
 </Server>

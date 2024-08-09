@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.news.model.NewsDTO;
 
-public interface NewService {
+public interface NewsService {
 	// 뉴스 기사 전체 보기
 	List<NewsDTO> getAll() throws Exception;
 
@@ -14,7 +14,7 @@ public interface NewService {
 	void addNews(HttpServletRequest req) throws Exception;
 
 	// 뉴스 기사 보기
-	void getNews(HttpServletRequest req) throws Exception;
+	NewsDTO getNews(HttpServletRequest req) throws Exception;
 
 	// 뉴스 기사 삭제
 	void removeNews(HttpServletRequest req) throws Exception;

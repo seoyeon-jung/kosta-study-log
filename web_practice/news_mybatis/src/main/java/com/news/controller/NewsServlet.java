@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 // 해당 서블릿 경로 설정
-@WebServlet("/news")
+@WebServlet("/news/*")
 // 이미지 저장 경로 설정
 @MultipartConfig(maxFileSize = 1024 * 1024 * 5, location = "C:\\Users\\WD\\news")
 public class NewsServlet extends HttpServlet {

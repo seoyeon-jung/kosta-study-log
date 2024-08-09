@@ -12,11 +12,11 @@ public interface NewsDAO {
 	void insertNews(NewsDTO news) throws Exception;
 
 	// 뉴스 기사 보기
-	void getNewsById(int id) throws Exception;
+	NewsDTO getNewsById(int id) throws Exception;
 
 	// 뉴스 기사 삭제
 	void deleteNewsById(int id) throws Exception;
 
 	// 뉴스 기사 수정
-	void updateNews(int id) throws Exception;
+	void updateNews(NewsDTO news) throws Exception;
 }

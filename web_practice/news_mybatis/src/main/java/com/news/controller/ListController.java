@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.news.model.NewsDTO;
 import com.news.service.INewsService;
-import com.news.service.NewService;
+import com.news.service.NewsService;
 
 public class ListController implements NewsController {
-	private NewService ns = new INewsService();
+	private NewsService ns = new INewsService();
 
 	@Override
 	public void process(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
