@@ -164,7 +164,7 @@
       
       <Context docBase="C:\\Users\\WD" path="/img" reloadable="true"/>
       
-      <Context docBase="movie" path="/" reloadable="true" source="org.eclipse.jst.jee.server:movie"/></Host>
+      <Context docBase="news_mybatis" path="/" reloadable="true" source="org.eclipse.jst.jee.server:news_mybatis"/></Host>
     </Engine>
   </Service>
 </Server>

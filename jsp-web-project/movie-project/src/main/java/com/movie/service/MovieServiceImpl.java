@@ -1,7 +1,11 @@
 package com.movie.service;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
@@ -11,6 +15,28 @@ import com.movie.model.Movie;
 
 public class MovieServiceImpl implements MovieService {
 	private static final MovieDAO movieDAO = new MovieDAOImpl();
+
+	// image명을 날짜와 시간으로 바꾸는 메소드
+	private String saveImg(HttpServletRequest req) throws IOException, ServletException {
+		Part part = req.getPart("poster");
+		String header = part.getHeader("content-disposition");
+		int start = header.indexOf("filename=");
+		String poster = header.substring(start + 10, header.length() - 1);
+
+		if (poster != null && !poster.isEmpty()) {
+			StringBuilder img = new StringBuilder();
+			Calendar cal = Calendar.getInstance();
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmSS");
+			String time = dateFormat.format(cal.getTime());
+			img.append(time).append(poster.substring(poster.lastIndexOf(".")));
+			poster = img.toString();
+			part.write(poster);
+		} else {
+			poster = "default.jpg";
+		}
+
+		return poster;
+	}
 
 	@Override
 	public void addMovie(HttpServletRequest req) throws Exception {
@@ -22,16 +48,7 @@ public class MovieServiceImpl implements MovieService {
 		String actors = req.getParameter("actors");
 		String release_date = req.getParameter("release_date");
 
-		// image 가져오기 getPart()
-		Part part = req.getPart("poster");
-		String header = part.getHeader("content-disposition");
-		// header에서 filename 찾아서 가져오기
-		int start = header.indexOf("filename=");
-		String poster = header.substring(start + 10, header.length() - 1);
-		// img 저장하기
-		if (poster != null && !poster.isEmpty()) {
-			part.write(poster);
-		}
+		String poster = saveImg(req);
 
 		// Movie 객체에 저장
 		Movie movie = new Movie(title, summary, genre, director, actors, poster, release_date);
@@ -81,18 +98,7 @@ public class MovieServiceImpl implements MovieService {
 		movie.setActors(actors);
 		movie.setRelease_date(release_date);
 
-		// poster 수정
-		// image 가져오기 getPart()
-		Part part = req.getPart("poster");
-		String header = part.getHeader("content-disposition");
-		// header에서 filename 찾아서 가져오기
-		int start = header.indexOf("filename=");
-		String poster = header.substring(start + 10, header.length() - 1);
-		// img 저장하기
-		if (poster != null && !poster.isEmpty()) {
-			part.write(poster);
-			movie.setPoster(poster);
-		}
+		String img = saveImg(req);
 
 		// DB에 update
 		movieDAO.updateMovie(movie);
