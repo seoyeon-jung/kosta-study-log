@@ -21,6 +21,9 @@
 - [MVC 패턴](#mvc-패턴)
 - [타임리프](#타임리프)
   - [타임리프의 표현식](#타임리프의-표현식)
+- [로그](#로그)
+  - [로그 레벨](#로그-레벨)
+  - [로그 예시](#로그-예시)
 - [Spring Boot로 게시판 만들기](#spring-boot로-게시판-만들기)
   - [1. 데이터베이스 생성](#1-데이터베이스-생성)
   - [2. 프로젝트에 데이터 소스(Driver, URL, UserName, PassWord) 설정](#2-프로젝트에-데이터-소스driver-url-username-password-설정)
@@ -32,6 +35,12 @@
   - [8. Mapper xml 파일 생성](#8-mapper-xml-파일-생성)
   - [9. 테스트 코드 작성해보기](#9-테스트-코드-작성해보기)
   - [10. 게시물 목록 디자인](#10-게시물-목록-디자인)
+  - [11. 로그 설치](#11-로그-설치)
+  - [12. 게시글 등록 기능 만들기](#12-게시글-등록-기능-만들기)
+  - [13. 게시글 디테일 페이지 만들기](#13-게시글-디테일-페이지-만들기)
+  - [14. 게시글 수정 기능](#14-게시글-수정-기능)
+  - [15. 조회수 기능](#15-조회수-기능)
+  - [16. 게시글 삭제 기능](#16-게시글-삭제-기능)
 
 <br/>
 <br/>
@@ -100,29 +109,29 @@
 <br/>
 
 # Spring Boot 프로젝트 생성
-![alt text](image.png)
+![alt text](./img/image.png)
 - Group은 보통 패키지를 적는 것이 관례이다.
 - Spring Starter Project는 손쉽게 스프링 부트 기반의 프로젝트를 생성한다.
 
-![alt text](image-1.png)
+![alt text](./img/image-1.png)
 - 프로젝트 이름, 빌드 관리 도구 및 아티팩트, 자바 버전, 패키지 등 프로젝트의 기본적인 사항들을 설정은 물론, 필요한 의존성 라이브러리들을 선택하면 된다. 
 - 프로젝트 생성 후에 의존성을 추가할 수도 있다.
 
 <br/>
 
-![alt text](image-2.png)
+![alt text](./img/image-2.png)
 - Run as > Spring Boot App 클릭해서 서버 실행
 
-![alt text](image-3.png)
+![alt text](./img/image-3.png)
 - 콘솔 로그를 통해 프로젝트가 톰캣으로 실행되었으며, 8080 포트를 사용한다는 것을 알 수 있다.
 - 웹 브라우저에서도 정상적으로 실행되는지 살펴보기 위해 localhost:8080을 입력하면 된다.
 
-![alt text](image-4.png)
+![alt text](./img/image-4.png)
 - 404 에러 페이지가 나타나는 것이 정상적인 결과이다.
 - 스프링부트로 프로젝트를 생성하면 프로젝트의 실행에 관련된 기능이 자동으로 설정되지만, 화면에 보이는 부분은 자동으로 만들어지지 않기 때문이다.
 
-![alt text](image-5.png)
-![alt text](image-6.png)
+![alt text](./img/image-5.png)
+![alt text](./img/image-6.png)
 - `@RestController` : 해당 클래스가 REST Controller 기능을 수행하도록 한다.
 - `@RequestController` : 해당 메소드를 실행할 수 있는 주소를 설정한다.
 
@@ -132,14 +141,14 @@
 <br/>
 
 # Spring Boot 프로젝트 구조
-![alt text](image-7.png)
+![alt text](./img/image-7.png)
 ## `src/main/java`
 - 프로젝트의 java 소스 코드가 위치하는 디렉토리
 ### `FirstSpringApplication` 
 - 애플리케이션을 시작할 수 있는 스프링 메인 클래스
 - 스프링 부트 애플리케이션의 구성과 실행을 담당하는 중요한 클래스이다.
 
-![alt text](image-8.png)
+![alt text](./img/image-8.png)
 - `@SpringBootApplication`은 SpringBoot 사용에 필요한 기본설정으로, 주요한 어노테이션 세 개로 구성되어 있다.
   - `@EnableAutoConfiguration` : 스프링의 다양한 설정을 자동으로 구성
   - `@ComponentScan` : Bean을 일일이 선언하지 않고, 자동으로 컴포넌트 클래스를 검색하고 컨텍스트에 등록
@@ -158,7 +167,7 @@
 ## gradlew, gradlew.bat
 - Gradle Wraper 실행 스크립트
 ## build.gradle
-![alt text](image-9.png)
+![alt text](./img/image-9.png)
 - Gradle 빌드 설정 파일
 
 <br/>
@@ -167,7 +176,7 @@
 <br/>
 
 # MVC 패턴
-![alt text](image-10.png)
+![alt text](./img/image-10.png)
 - MVC 패턴(Model, View, Controller 패턴)에는 모델1,모델2가 있지만 최근 웹개발은 대부분 모델2를 사용한다.
   - 따라서 MVC 패턴이라고 이야기하면 모델2를 의미한다.
 - MVC 패턴을 이용하면 사용자 인터페이스와 비즈니스 로직을 분리하여 개발할 수 있다.
@@ -190,7 +199,31 @@
 |@{ }, \| \| | URL 표현|
 |*{ } | 선택한 변수 표현|
 
-![alt text](image-20.png)
+![alt text](./img/image-20.png)
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+# 로그
+- 스프링 부트에서는 Slf4j를 통해 log4j2나 Logback와 같은 로깅 프레임워크를 사용한다.
+## 로그 레벨
+1. FATAL : 심각한 에러
+2. ERROR : 에러가 일어났을 때 사용, 개발자가 의도하지 않은 에러
+3. WARN : 에러는 아니지만 주의할 필요한 로그에 사용
+4. INFO : 운영에 참고할 만한 사항 또는 중요 정보를 나타낼 때 사용
+5. DEBUG : 개발 단계에서 사용하며, 일반 정보를 나타낼 때 사용
+6. TRACE : 모든 레벨에 대한 로깅이 추적
+## 로그 예시
+![alt text](./img/image-23.png)
+- 간단한 설정은 applicatioin.properties 도는 application.yml에서 할 수 있지만 상세한 설정을 위해서는 logback-spring.xml을 작성해야 한다.
+```properties
+logging.level.com.board.controller=TRACE
+```
+
+![alt text](./img/image-24.png)
+
 
 <br/>
 <br/>
@@ -264,7 +297,7 @@ mybatis.configuration.map-underscore-to-camel-case=true
 
 <hr/>
 
-![alt text](image-11.png)
+![alt text](./img/image-11.png)
 - `ModelAndView` : 호출된 요청의 결과를 보여줄 뷰를 지정
 - "/board/boardList"는 templates 폴더 아래에 있는 "/board/boardList.html"을 의미한다.
 ## 6. Service 인터페이스, Imple 클래스 생성
@@ -275,40 +308,130 @@ mybatis.configuration.map-underscore-to-camel-case=true
   - 모듈화를 통해 어디서든 사용할 수 있어, 재사용성이 높아진다.
   - 스프링의 IoC, DI을 이용하여 관리할 수 있다.
 
-![alt text](image-12.png)
+![alt text](./img/image-12.png)
 - Service 인터페이스 구현 클래스는 비즈니스 로직을 처리하는 서비스 클래스임을 나타내는 어노테이션 `@Service`를 명시한다.
 - 인터페이스 구현을 나타내는 implements도 명시하여, 추상메소드를 Override 해준다.
 - 메소드 내부에서 사용자 요청을 처리하는 비즈니스 로직을 수행하게 된다.
 
-![alt text](image-13.png)
+![alt text](./img/image-13.png)
 - 서비스 빈(Bean)을 연결해주어야 하는데, `@Autowired` 어노테이션이 필요한 의존 객체의 타입에 해당하는 빈을 찾아 자동으로 주입해준다.
 ## 7. Mapper 인터페이스 생성
 - Spring boot에서는 일일이 DAO를 만들지 않고, Mapper 인터페이스를 만들기만 하면 된다.
 - @Mapper 어노테이션을 붙여 Mybatis의 매퍼 인터페이스임을 선언한다.
 - Mapper 인터페이스에서 작성된 추상 메소드의 이름이 자동으로 XML과 매핑된다.
 
-![alt text](image-14.png)
+![alt text](./img/image-14.png)
 
 - Service에서 BoardMapper를 통해 데이터베이스에서 접근할 수 있도록 `@Autowired` 어노테이션으로 자동 주입을 해주어야 한다.
 
-![alt text](image-15.png)
+![alt text](./img/image-15.png)
 ## 8. Mapper xml 파일 생성
 - `src/main/resources`에 XML 파일을 생성해서 BoardMapper 인터페이스와 XML 파일 내 쿼리가 매칭되어 사용될 수 있도록 한다.
 - 매퍼 파일(XML) namespace는 BoardMapper 인터페이스의 경로를 명시해줘야 한다.
 - select 태그의 id 값은 BoardMapper 메소드의 이름과 동일해야 한다.
 - resultType의 값은 해당 쿼리의 실행 결과의 형식을 의미한다.
 
-![alt text](image-16.png)
+![alt text](./img/image-16.png)
 
 - mapper 파일 경로를 알려주면 자동으로 매칭이 된다.
-![alt text](image-17.png)
-![alt text](image-18.png)
+![alt text](./img/image-17.png)
+![alt text](./img/image-18.png)
 ## 9. 테스트 코드 작성해보기
 - src/test/java에 board 폴더 생성 후 BoardServiceTest 파일 생성해보기
 
-![alt text](image-19.png)
+![alt text](./img/image-19.png)
 
 - JUnit으로 실행해보면 테스트 코드의 성공/실패 여부를 볼 수 있다.
 ## 10. 게시물 목록 디자인
-![alt text](image-21.png)   
-![alt text](image-22.png)
+![alt text](./img/image-21.png)   
+![alt text](./img/image-22.png)
+## 11. 로그 설치
+- build.gradle에 설치
+
+![alt text](./img/image-25.png)
+
+- application.properties에 로그 설정
+
+![alt text](./img/image-26.png)
+
+- log4jdbc.log4j2.properties 파일 생성
+
+![alt text](./img/image-27.png)
+
+- 콘솔에 DB 로그가 찍힌다
+
+![alt text](./img/image-28.png)
+
+## 12. 게시글 등록 기능 만들기
+- `BoardController`에 글쓰기 추가
+
+![alt text](./img/image-29.png)
+
+- `BoardServiceImpl`에 글쓰기 메소드 추가
+
+![alt text](./img/image-30.png)
+
+- `BoardMapper`에 추가 후에 `BoardMapper.xml`에 sql문 작성
+
+![alt text](./img/image-31.png)
+![alt text](./img/image-32.png)
+
+## 13. 게시글 디테일 페이지 만들기
+- list.html 파일 수정 (링크 추가)
+
+![alt text](./img/image-33.png)
+
+- `BoardController`에 게시글 상세보기 추가
+
+![alt text](./img/image-37.png)
+
+- `BoardServiceImpl`에 게시글 상세보기 메소드 추가
+
+![alt text](./img/image-36.png)
+
+-  `BoardMapper`에 추가 후에 `BoardMapper.xml`에 sql문 작성
+
+![alt text](./img/image-35.png)
+![alt text](./img/image-34.png)
+
+## 14. 게시글 수정 기능
+- detail.html 파일 수정 (수정 버튼 추가)
+
+![alt text](./img/image-38.png)
+- `BoardController`에 게시글 수정 추가
+
+![alt text](./img/image-39.png)
+- `BoardServiceImpl`에 게시글 수정 추가
+
+![alt text](./img/image-40.png)
+- `BoardMapper`에 추가, `BoardMapper.xml`에 sql문 작성
+
+![alt text](./img/image-41.png)
+![alt text](./img/image-42.png)
+## 15. 조회수 기능
+- `BoardController`에 조회수 계산 추가
+
+![alt text](./img/image-48.png)
+- `BoardServiceImpl`에 조회수 계산 추가
+
+![alt text](./img/image-49.png)
+- `BoardMapper`에 추가, `BoardMapper.xml`에 sql문 작성
+
+![alt text](./img/image-47.png)
+![alt text](./img/image-50.png)
+
+## 16. 게시글 삭제 기능
+- `detail.html`에 삭제 버튼 추가
+
+![alt text](./img/image-43.png)
+
+- `BoardController`에 게시글 삭제 추가
+
+![alt text](./img/image-45.png)
+- `BoardServiceImpl`에 게시글 삭제 추가
+
+![alt text](./img/image-44.png)
+- `BoardMapper`에 추가, `BoardMapper.xml`에 sql문 작성
+
+![alt text](./img/image-46.png)
+![alt text](./img/image-51.png)

@@ -21,4 +21,33 @@ public class BoardServiceImpl implements BoardService {
 		return boardList;
 	}
 
+	@Override
+	public void insertBoard(BoardDTO boardDTO) throws Exception {
+		// 글 작성하기
+		boardMapper.insertBoard(boardDTO);
+	}
+
+	@Override
+	public BoardDTO selectBoardById(int id) throws Exception {
+		// 클릭할 때마다 조회수 1 증가되도록
+		boardMapper.updateHit(id);
+
+		// 게시글 상세보기
+		return boardMapper.selectBoardById(id);
+	}
+
+	@Override
+	public void updateBoard(BoardDTO boardDTO) throws Exception {
+		// 게시글 수정하기
+		boardMapper.updateBoard(boardDTO);
+
+	}
+
+	@Override
+	public void deleteBoard(int id) throws Exception {
+		// 게시글 삭제하기
+		boardMapper.deleteBoardById(id);
+
+	}
+
 }

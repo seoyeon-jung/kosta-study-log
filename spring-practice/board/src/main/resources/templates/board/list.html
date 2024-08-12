@@ -29,7 +29,11 @@
 			</thead>
 			<tbody>
 				<!-- 게시물이 있는 경우 반복문으로 출력 -->
-				<tr th:if="${list.size > 0}" th:each="item: ${list}">
+				<tr 
+					th:if="${list.size > 0}" th:each="item: ${list}"
+					th:onclick="|location.href='/board/detail?id=${item.id}'|"
+					role="button"
+				>
 					<th class="text-center" th:text="${item.id}"></th>
 					<th th:text="${item.title}"></th>
 					<th class="text-center" th:text="${item.hit}"></th>
@@ -42,6 +46,9 @@
 				</tr>
 			</tbody>
 		</table>
+		
+		<!-- 게시글 등록 버튼 -->
+		<a href="/board/insert" class="text-center btn btn-outline-secondary">글쓰기</a>
 	</div>
 </body>
 </html>
