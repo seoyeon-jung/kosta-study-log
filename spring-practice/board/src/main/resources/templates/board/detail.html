@@ -52,8 +52,18 @@
 					<strong>내용 : </strong>
 				</label>
 				<div>
-					<textarea name="content" class="form-conrol" rows="10" th:text="${board.content}" required></textarea>
+					<textarea name="content" class="form-control" rows="10" th:text="${board.content}" required></textarea>
 				</div>
+			</div>
+			
+			<!-- 파일들 보여주기 (다운로드 위하여) -->
+			<div class="mb-3">
+				<a class="mx-2 btn btn-outline-dark"
+					th:each="file: ${board.fileList}"
+					th:href="@{download(id=${file.id}, boardId=${file.boardId})}"
+					th:text="|${file.originFileName} (${file.fileSize}kb)|"
+				>
+				</a>
 			</div>
 			
 			<div class="text-center">

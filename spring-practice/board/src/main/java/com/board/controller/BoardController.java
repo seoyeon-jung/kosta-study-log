@@ -3,14 +3,21 @@ package com.board.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.board.dto.BoardDTO;
+import com.board.dto.FileDTO;
 import com.board.service.BoardService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -36,14 +43,15 @@ public class BoardController {
 
 	@GetMapping("/insert")
 	public String boardInsertView() throws Exception {
-		log.warn("글쓰기 페이지로 이동");
+		log.info("글쓰기 페이지로 이동");
 		return "board/write";
 	}
 
 	@PostMapping("/insert")
-	public String boardInsert(BoardDTO boardDTO) throws Exception {
+	public String boardInsert(BoardDTO boardDTO,
+			@RequestParam(value = "files", required = false) List<MultipartFile> files) throws Exception {
 		// 글쓰기 비즈니스 로직
-		bs.insertBoard(boardDTO);
+		bs.insertBoard(boardDTO, files);
 		return "redirect:/board/list";
 	}
 
@@ -66,4 +74,38 @@ public class BoardController {
 		bs.deleteBoard(id);
 		return "redirect:/board/list";
 	}
+
+	// 다운로드
+	@RequestMapping("/download")
+	public ResponseEntity<Resource> downloadFile(@RequestParam("id") int id, @RequestParam("boardId") int boardId)
+			throws Exception {
+		FileDTO fileDTO = bs.selectFilterByIds(id, boardId);
+		String fileName = fileDTO.getOriginFileName();
+		UrlResource resource;
+
+		try {
+			// 경로에 있는 file resource를 가져오기
+			resource = new UrlResource("file:" + fileDTO.getStoredFilePath());
+		} catch (Exception e) {
+			throw new Exception("파일 다운로드 에러");
+		}
+
+		// 응답 객체 반환
+		// ok하면 200번대로 이동
+		// header(응답에 대한 설멍), body 담아주기
+		// contents disposition: attachment; filename="" 이런 형식으로 넣어줘야 한다
+		String contentDispositionValue = "attachment; filename=\"" + fileName + "\"";
+		// HttpHeaders.CONTENT_DISPOSITION를 쓰면 자동으로 disposition임을 알려준다
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, contentDispositionValue).body(resource);
+	}
+
+	// 예외 처리
+	@ExceptionHandler(Exception.class)
+	public ModelAndView handleException(Exception e) {
+		log.error("예외 발생 : ", e);
+		ModelAndView mv = new ModelAndView("/board/error");
+		mv.addObject("errorMessage", e.getMessage());
+		return mv;
+	}
+
 }

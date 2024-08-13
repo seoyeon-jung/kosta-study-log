@@ -1,6 +1,7 @@
 package com.board.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.Data;
 
@@ -13,4 +14,5 @@ public class BoardDTO {
 	private LocalDateTime createdAt;
 	private String creator;
 	private LocalDateTime updatedAt;
+	private List<FileDTO> fileList; // 글에 첨부된 파일 list
 }

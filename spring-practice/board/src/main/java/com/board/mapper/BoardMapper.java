@@ -19,4 +19,5 @@ public interface BoardMapper {
 	void updateHit(int id) throws Exception;
 
 	void deleteBoardById(int id) throws Exception;
+
 }

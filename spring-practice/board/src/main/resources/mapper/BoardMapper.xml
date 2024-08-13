@@ -8,7 +8,7 @@
 	</select>
 	
 	<!-- 게시글 작성 -->
-	<insert id="insertBoard" parameterType="com.board.dto.BoardDTO">
+	<insert id="insertBoard" parameterType="com.board.dto.BoardDTO" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO board_tbl (title, content, created_at, creator) 
 			VALUES (#{title}, #{content}, NOW(), "정서연")
 	</insert>
@@ -33,4 +33,5 @@
 	<delete id="deleteBoardById" parameterType="int">
 		UPDATE board_tbl SET is_deleted = 'y' WHERE id = #{id}
 	</delete>
+
 </mapper>
