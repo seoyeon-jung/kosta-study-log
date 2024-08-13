@@ -1,5 +1,6 @@
 package com.board.controller;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.UriUtils;
 
 import com.board.dto.BoardDTO;
 import com.board.dto.FileDTO;
@@ -93,8 +95,11 @@ public class BoardController {
 		// 응답 객체 반환
 		// ok하면 200번대로 이동
 		// header(응답에 대한 설멍), body 담아주기
+
+		// 한글명도 다운로드받아야 한다.
+		String encodedFileName = UriUtils.encode(fileName, StandardCharsets.UTF_8);
 		// contents disposition: attachment; filename="" 이런 형식으로 넣어줘야 한다
-		String contentDispositionValue = "attachment; filename=\"" + fileName + "\"";
+		String contentDispositionValue = "attachment; filename=\"" + encodedFileName + "\"";
 		// HttpHeaders.CONTENT_DISPOSITION를 쓰면 자동으로 disposition임을 알려준다
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, contentDispositionValue).body(resource);
 	}

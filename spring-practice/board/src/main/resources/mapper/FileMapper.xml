@@ -20,6 +20,6 @@
 	<!-- 매개변수 parameter가 둘이면 map으로 나온다 -->
 	<select id="selectFileByIds" parameterType="map" resultType="com.board.dto.FileDTO">
 		SELECT origin_file_name, stored_file_path, file_size FROM file_tbl
-			WHERE id = #{id} AND board_id = #{boardID} AND is_deleted = 'n'
+			WHERE id = #{id} AND board_id = #{boardId} AND is_deleted = 'n'
 	</select>
 </mapper>
