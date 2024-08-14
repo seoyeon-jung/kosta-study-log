@@ -1,10 +1,49 @@
 <!DOCTYPE html>
-<html 
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layouts/default}"
->
-    <div layout:fragment="content" class="container my-4">
-       영화 정보 작성하기
-    </div>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/default}">
+<div layout:fragment="content" class="container my-4">
+	<main class="form-signin w-100 m-auto">
+		<form class="form" action="/movie/post" method="POST" enctype="multipart/form-data">
+			<h1 class="h3 mb-3 fw-normal">영화 정보 작성하기</h1>
+
+			<div class="form-floating mb-4">
+				<select name="userId" class="form-control mb-4">
+					<option th:each="user : ${userList}" th:value="${user.id}"
+						th:text="${user.name}"></option>
+				</select> <label for="floatingInput">작성자</label>
+			</div>
+
+			<div class="form-floating mb-4">
+				<input type="text" class="form-control" id="title" name="title" placeholder="영화 제목" required /> 
+				<label for="title">영화 제목</label>
+			</div>
+			<div class="form-floating mb-4">
+                <input type="date" class="form-control" id="release_date" name="release_date" placeholder="개봉일" required /> 
+                <label for="release_date">개봉일</label>
+            </div>
+            <div class="form-floating mb-4">
+                <input type="text" class="form-control" id="genre" name="genre" placeholder="장르" required /> 
+                <label for="genre">장르</label>
+            </div>
+            <div class="form-floating mb-4">
+                <input type="text" class="form-control" id="director" name="director" placeholder="감독" required> 
+                <label for="director">감독</label>
+            </div>
+            <div class="form-floating mb-4">
+                <textarea class="form-control" cols="50" id="summary" name="summary" placeholder="줄거리"></textarea>
+                <label for="summary">줄거리</label>
+            </div>
+            
+            <div class="form-floating mb-4">
+                <input type="file" class="form-control" id="files" name="files" placeholder="영화 이미지" multiple accept="image/*" /> 
+                <label for="files">영화 이미지</label>
+            </div>
+
+			<button class="btn btn-primary w-100 py-2 mt-4" type="submit">
+			 작성하기
+			</button>
+		</form>
+	</main>
+</div>
 </html>

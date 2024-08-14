@@ -5,6 +5,52 @@
     layout:decorate="~{layouts/default}"
 >
     <div layout:fragment="content" class="container my-4">
-       영화 정보 상세보기
+       <h1 th:text="${movie.title}">영화 제목</h1>
+
+	<div class="row mb-4">
+		<div class="col-md-12">
+			<dl class="row">
+				<dt class="col-sm-3">제목</dt>
+				<dd class="col-sm-9" th:text="${movie.title}">영화 제목</dd>
+
+				<dt class="col-sm-3">개봉일</dt>
+				<dd class="col-sm-9" th:text="${movie.release_date}">개봉일</dd>
+
+				<dt class="col-sm-3">장르</dt>
+				<dd class="col-sm-9" th:text="${movie.genre}">장르</dd>
+
+				<dt class="col-sm-3">감독</dt>
+				<dd class="col-sm-9" th:text="${movie.director}">감독</dd>
+
+				<dt class="col-sm-3">줄거리</dt>
+				<dd class="col-sm-9" th:text="${movie.summary}">줄거리</dd>
+
+				<dt class="col-sm-3">작성자</dt>
+				<dd class="col-sm-9"
+					th:text="${movie.user != null ? movie.user.name : '?'}">작성자 이름</dd>
+
+				<dt class="col-sm-3">작성일</dt>
+				<dd class="col-sm-9"
+					th:text="${#temporals.format(movie.createdAt, 'yyyy년 MM월 dd일')}">작성일</dd>
+			</dl>
+		</div>
+		<hr/>
+		<div class="row">
+		    <h4 class="mb-4">이미지 다운로드하기</h4>
+			<div th:if="${not #lists.isEmpty(movie.fileList)}">
+				<a class="mx-2 btn btn-outline-dark"
+					th:each="file : ${movie.fileList}"
+					th:href="@{download(id=${file.id}, movieId=${file.movieId})}"
+					th:text="|${file.originFileName} (${file.fileSize}KB)|"> </a>
+			</div>
+			<!-- 파일 리스트가 비어있는 경우 '이미지가 없습니다' 문구를 출력 -->
+			<div th:unless="${not #lists.isEmpty(movie.fileList)}">
+				<p>이미지가 없습니다</p>
+			</div>
+		</div>
+	</div>
+
+	<!-- 뒤로 가기 버튼 -->
+        <a href="/movie" class="btn btn-outline-primary mt-3">목록으로 돌아가기</a>
     </div>
 </html>

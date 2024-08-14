@@ -10,7 +10,11 @@ spring:
   hiddenmethod:
     filter:
       enabled: true
-
+ resources:
+  web:
+    resources:
+      static-locations:
+        - file:/C:/Users/WD/movieImage/
 mybatis:
   configuration:
     map-underscore-to-camel-case: true

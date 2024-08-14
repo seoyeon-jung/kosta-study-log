@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.movie.mapper.MovieMapper">
+    <!-- 영화 리스트 -->
+    <select id="selectAllmovies" resultType="com.movie.dto.MovieDTO">
+        SELECT * FROM movie_tbl WHERE is_deleted = 'n'
+    </select>
+    
+    <!-- 영화 추가 -->
+    <insert id="insertMovie" parameterType="com.movie.dto.MovieDTO" useGeneratedKeys="true" keyProperty="id">
+	    INSERT INTO movie_tbl (title, release_date, genre, director, summary, user_id)
+	    VALUES (#{title}, #{release_date}, #{genre}, #{director}, #{summary}, #{userId})
+	</insert>
+    
+    <!-- 영화 디테일 페이지 -->
+    <select id="selectMovieById" parameterType="int" resultType="com.movie.dto.MovieDTO">
+	    SELECT m.id, m.title, m.release_date, m.genre, m.director, m.summary, m.created_at,
+               u.name 
+        FROM movie_tbl m
+        JOIN users_tbl u ON m.user_id = u.id
+        WHERE m.id = #{id} AND m.is_deleted = 'n'
+	</select>
+    
+    <!-- 영화 삭제 -->
+    <delete id="deleteMovieById" parameterType="int">
+         UPDATE movie_tbl SET is_deleted = 'y' WHERE id = #{id}
+    </delete>
+    
+    <!-- 영화 수정 -->
+    <update id="updateMovie">
+         UPDATE movie_tbl
+		    SET title = #{title},
+		        release_date = #{release_date},
+		        genre = #{genre},
+		        director = #{director},
+		        summary = #{summary},
+		        user_id = #{userId}
+		    WHERE id = #{id}
+    </update>
+
+</mapper>

@@ -11,5 +11,7 @@ public class MovieDTO {
 	private String title, release_date, genre, director, summary;
 	private int userId;
 	private LocalDateTime createdAt;
+	private LocalDateTime updatedAt;
 	private List<FileDTO> fileList;
+	private UserDTO user;
 }
