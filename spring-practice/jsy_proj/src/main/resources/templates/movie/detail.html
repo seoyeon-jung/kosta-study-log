@@ -36,6 +36,15 @@
 		</div>
 		<hr/>
 		<div class="row">
+			<h4 class="mb-4">첨부된 파일들</h4>
+			<ul class="list-group">
+				<li th:each="file : ${movie.fileList}" class="list-group-item">
+					<img th:src="@{ '/img/' + ${file.storedFilePath} }" th:alt="${file.originFileName}" /> 
+				</li>
+			</ul>
+		</div>
+		<hr/>
+		<div class="row">
 		    <h4 class="mb-4">이미지 다운로드하기</h4>
 			<div th:if="${not #lists.isEmpty(movie.fileList)}">
 				<a class="mx-2 btn btn-outline-dark"
