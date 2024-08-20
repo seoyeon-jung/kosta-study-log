@@ -390,3 +390,4 @@ Caused by: java.lang.ClassNotFoundException: Excpetion
 2024-08-20 12:51:01 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
 2024-08-20 12:51:01 [restartedMain] INFO  com.board.BoardPracticeApplication - Started BoardPracticeApplication in 0.434 seconds (process running for 555.013)
 2024-08-20 12:51:01 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2024-08-20 14:02:04 [RMI TCP Connection(114)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.

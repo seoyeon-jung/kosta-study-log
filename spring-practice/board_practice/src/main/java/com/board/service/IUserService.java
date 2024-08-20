@@ -34,4 +34,15 @@ public class IUserService implements UserService {
 		return um.getUser(id);
 	}
 
+	@Override
+	public boolean deleteUser(int id) {
+		try {
+			um.deleteUser(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
 }

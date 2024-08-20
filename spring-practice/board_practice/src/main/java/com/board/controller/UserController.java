@@ -63,7 +63,11 @@ public class UserController {
 	// 회원 삭제하기
 	@DeleteMapping("/delete")
 	public String delete(@RequestParam("id") int id) throws Exception {
-		User user = us.getUserById(id);
+		boolean isDelete = us.deleteUser(id);
+		if (isDelete) {
+			return "redirect:/user/list";
+		}
+		return "error";
 	}
 
 	// 회원 수정하기

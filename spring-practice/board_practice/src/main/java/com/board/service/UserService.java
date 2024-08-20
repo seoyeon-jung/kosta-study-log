@@ -15,4 +15,7 @@ public interface UserService {
 	// 유저 정보 보여주기
 	User getUserById(int id) throws Exception;
 
+	// 유저 정보 삭제
+	boolean deleteUser(int id);
+
 }

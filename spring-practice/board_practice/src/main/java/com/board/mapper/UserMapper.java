@@ -15,4 +15,6 @@ public interface UserMapper {
 
 	User getUser(int id) throws Exception;
 
+	void deleteUser(int id) throws Exception;
+
 }
