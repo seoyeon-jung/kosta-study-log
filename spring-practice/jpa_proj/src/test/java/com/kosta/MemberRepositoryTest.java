@@ -46,9 +46,7 @@ public class MemberRepositoryTest {
 	@Sql("/data.sql")
 	@Test
 	public void insertMember() {
-		Member member = new Member();
-		member.setId(8);
-		member.setName("카리나");
+		Member member = Member.builder().name("카리나").id(8).build();
 		Member savedMember = memberRepository.save(member);
 		System.out.println(savedMember);
 		assertThat(member).isEqualTo(memberRepository.findByName("카리나").get());
@@ -71,5 +69,16 @@ public class MemberRepositoryTest {
 		member.setName("고길동");
 
 		assertThat(memberRepository.findByName("고길동").get()).isEqualTo(member);
+	}
+
+	@DisplayName("회원 검색")
+	@Sql("/data.sql")
+	@Test
+	public void searchMembersByName() {
+		List<Member> memberList = memberRepository.findByNameContains("우");
+
+		for (Member m : memberList) {
+			System.out.println(m);
+		}
 	}
 }

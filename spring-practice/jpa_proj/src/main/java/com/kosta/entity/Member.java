@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,4 +19,10 @@ public class Member {
 
 	@Column(nullable = false) // not null과 같은 의미
 	private String name;
+
+	@Builder
+	public Member(int id, String name) {
+		this.id = id;
+		this.name = name;
+	}
 }

@@ -5,8 +5,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-    <form action="/add" method="POST">
-        <input name="name" placeholder="이름 입력" />
+    <form th:action="${member eq null ? '/add' : '/modify'}" method="POST">
+        <input type="hidden" name="id" th:if="${member ne null}" th:value="${member.id}" />
+        <input name="name" placeholder="이름 입력" th:value="${member eq null ? '' : member.name}" />
         <button>추가</button>
     </form>
 </body>
