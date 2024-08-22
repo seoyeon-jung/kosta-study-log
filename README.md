@@ -112,4 +112,5 @@
 ## 11주차
 08.19 결석   
 08.20 [Spring boot & MyBatis 프로젝트 / 테스트 코드 / JPA 기초](./11주차/240820/README.md)   
-08.21 [JPA 기초 실습 / JPA 블로그 프로젝트](./11주차/240821/README.md)
+08.21 [JPA 기초 실습 / JPA 블로그 프로젝트](./11주차/240821/README.md)   
+08.22 [JPA 블로그 프로젝트 / Spring Security](./11주차/240822/README.md)
