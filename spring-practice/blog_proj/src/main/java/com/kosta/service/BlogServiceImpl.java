@@ -49,15 +49,13 @@ public class BlogServiceImpl implements BlogService {
 	}
 
 	@Override
-	public List<Article> serachInTitleAndContent(String keyword) {
-		return blogRepository.findByTitleContainsOrContentContains(keyword, keyword);
-	}
-
-	@Override
-	public List<Article> orderingArticleList(String order) {
+	public List<Article> searchAndOrder(String keyword, String order) {
+		// 정렬 기준만 체크
 		if (order.equals("desc")) {
-			return blogRepository.findAllByOrderByTitleDesc();
+			// 내림차순 결과 반환
+			return blogRepository.findByTitleContainsOrContentContainsOrderByTitleDesc(keyword, keyword);
 		}
-		return blogRepository.findAllByOrderByTitleAsc();
+		// 오름차순 결과 반환
+		return blogRepository.findByTitleContainsOrContentContainsOrderByTitleAsc(keyword, keyword);
 	}
 }

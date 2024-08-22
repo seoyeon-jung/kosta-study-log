@@ -108,19 +108,22 @@ public class BlogRepositoryTest {
 	}
 
 	@Test
-	@DisplayName("제목 또는 내용에서 검색")
+	@DisplayName("제목 또는 내용에서 검색 & 정렬")
 	public void searchByTitleOrContentTest() {
 		// given
 		Article article1 = Article.builder().title("에스파 - supernova").content("슈슈슈 슈퍼노바").build();
-		blogRepository.save(article1);
+		Article savedArticle1 = blogRepository.save(article1);
 		Article article2 = Article.builder().title("난 그게 좋던데").content("에스파 넥스트레벨").build();
-		blogRepository.save(article2);
+		Article savedArticle2 = blogRepository.save(article2);
 
 		// when
-		List<Article> result = blogRepository.findByTitleContainsOrContentContains("에스파", "에스파");
+		String keyword = "에스파";
+		List<Article> resultList = blogRepository.findByTitleContainsOrContentContainsOrderByTitleAsc(keyword, keyword);
 
 		// then
-		assertThat(result).isNotNull();
-		assertThat(result.size()).isEqualTo(2);
+		assertThat(resultList.indexOf(savedArticle1)).isGreaterThan(resultList.indexOf(savedArticle2));
+		assertThat(resultList.stream().allMatch(article -> {
+			return article.getTitle().contains(keyword) || article.getContent().contains(keyword);
+		})).isTrue();
 	}
 }

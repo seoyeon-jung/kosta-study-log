@@ -15,7 +15,5 @@ public interface BlogService {
 
 	Article update(Article article) throws Exception;
 
-	List<Article> serachInTitleAndContent(String keyword);
-
-	List<Article> orderingArticleList(String order);
+	List<Article> searchAndOrder(String keyword, String order);
 }

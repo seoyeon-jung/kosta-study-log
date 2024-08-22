@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kosta.entity.Article;
@@ -17,6 +18,7 @@ import com.kosta.service.BlogService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequestMapping("/blog/*")
 @RequiredArgsConstructor
 public class BlogController {
 	private final BlogService blogService;
@@ -30,7 +32,7 @@ public class BlogController {
 	@PostMapping("/add")
 	public String addArticle(Article article) throws Exception {
 		blogService.save(article);
-		return "redirect:/list";
+		return "redirect:/blog/list";
 	}
 
 	// 블로그 글 전체 리스트
@@ -39,10 +41,8 @@ public class BlogController {
 			@RequestParam(required = false, name = "order") String order, Model model) throws Exception {
 		List<Article> articleList;
 
-		if (keyword != null) {
-			articleList = blogService.serachInTitleAndContent(keyword);
-		} else if (order != null) {
-			articleList = blogService.orderingArticleList(order);
+		if (keyword != null || order != null) {
+			articleList = blogService.searchAndOrder(keyword, order);
 		} else {
 			articleList = blogService.findAll();
 		}
@@ -70,7 +70,7 @@ public class BlogController {
 	public String deleteArticle(@PathVariable("id") Long id, Model model) {
 		try {
 			blogService.deleteById(id);
-			return "redirect:/list";
+			return "redirect:/blog/list";
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errMsg", e.getMessage());
@@ -96,7 +96,7 @@ public class BlogController {
 	public String modifyArticle(Article article, Model model) {
 		try {
 			blogService.update(article);
-			return "redirect:/detail/" + article.getId();
+			return "redirect:/blog/detail/" + article.getId();
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("errMsg", e.getMessage());
