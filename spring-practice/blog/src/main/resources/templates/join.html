@@ -22,25 +22,23 @@
 				<span class="fs-4">BLOG</span>
 			</a>
 		</header>
-
-		<form th:action="${post != null ? '/blog/modify' : '/blog/post'}"
-            th:method="${post != null ? 'PATCH' : 'POST'}" >
-            <input type="hidden" name="id" th:if="${post ne null}" th:value="${post.id}" />
-	        <div class="mb-3">
-			  <label for="title" class="form-label">제목</label>
-			  <input name="title" type="text" class="form-control" id="title" 
-			     placeholder="제목을 입력하세요" th:value="${post != null ? post.title : ''}">
-			</div>
-			<div class="mb-3">
-			  <label for="content" class="form-label">내용</label>
-			  <textarea name="content" class="form-control" id="content" rows="8">
-			     [[ ${post != null ? post.content : ''} ]]
-			  </textarea>
-			</div>
-			<button class="btn btn-outline-dark w-100">
-			     [[ ${post != null ? '수정하기' : '작성하기'} ]]
-			</button>
-        </form>
+		
+		<main class="form-signin w-100 m-auto">
+		  <form action="/join" method="POST">
+		    <h1 class="h3 mb-3 fw-normal">회원가입</h1>
+		
+		    <div class="form-floating mb-4">
+		      <input name="email" type="email" class="form-control" id="floatingInput" required>
+		      <label for="floatingInput">Email</label>
+		    </div>
+		    <div class="form-floating mb-4">
+		      <input name="password" type="password" class="form-control" id="floatingPassword" required>
+		      <label for="floatingPassword">Password</label>
+		    </div>
+		
+		    <button class="btn btn-primary w-100 py-2" type="submit">회원가입</button>
+		  </form>
+		</main>
     </div>
 </body>
 </html>
