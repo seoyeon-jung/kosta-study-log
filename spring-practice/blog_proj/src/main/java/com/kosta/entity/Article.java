@@ -12,6 +12,8 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +35,13 @@ public class Article {
 
 	@Column(name = "content", nullable = false)
 	private String content;
+
+	// 다(Article):일(User) 관계임을 의미
+	@ManyToOne
+	// 다른 테이블과 연결되어있다는 의미(외래키)
+	// referencedColumnName : 다른 테이블에서 참조할 column name
+	@JoinColumn(name = "creator_id", referencedColumnName = "id")
+	private User creator;
 
 	@CreatedDate
 	@Column(name = "created_at")

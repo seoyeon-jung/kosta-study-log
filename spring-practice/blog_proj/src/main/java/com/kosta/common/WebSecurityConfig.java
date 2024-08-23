@@ -33,13 +33,16 @@ public class WebSecurityConfig {
 	SecurityFilterChain filerChain(HttpSecurity http) throws Exception {
 		return http.authorizeHttpRequests(auth -> auth.requestMatchers(
 				// 인증, 인가 설정 (특정한 URL 엑세스를 설정, 나머지는 인증 필요)
-				new AntPathRequestMatcher("/login"), new AntPathRequestMatcher("/join")).permitAll()
+				new AntPathRequestMatcher("/login"), new AntPathRequestMatcher("/join"),
+				new AntPathRequestMatcher("/blog/list")).permitAll()
+				// admin만 admin page에 들어갈 수 있도록 설정
+				.requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
 				// 나머지 URL은 인증이 필요
 				.anyRequest().authenticated())
 				// form 기반 로그인 설정 (로그인은 login.html로 이동하고, 성공하면 "/blog/list"로 연결
 				.formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/blog/list"))
-				// 로그아웃 설정 (로그아웃이 성공하면 "/login"으로 연결, 동시에 session 만료)
-				.logout(logout -> logout.logoutSuccessUrl("/login").invalidateHttpSession(true))
+				// 로그아웃 설정 (로그아웃이 성공하면 "/blog/list"로 연결, 동시에 session 만료)
+				.logout(logout -> logout.logoutSuccessUrl("/blog/list").invalidateHttpSession(true))
 				// CORS 비활성화
 				.cors(AbstractHttpConfigurer::disable)
 				// CSRF 공격 방지 설정
