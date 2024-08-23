@@ -37,60 +37,62 @@ public class User implements UserDetails {
 	@Column(nullable = false)
 	private String password;
 
+	@Column(name = "login_attempts")
+	private Long loginAttempts = 0L;
+
 	@CreatedDate
-	@Column(name = "created_at")
+	@Column(name = "craeted_at")
 	private LocalDateTime createdAt;
 
 	@LastModifiedDate
 	@Column(name = "updated_at")
 	private LocalDateTime updatedAt;
 
-	// getAuthorities() : 권한들을 가져오자!
-	// 사용자들이 가질 수 있는 권한 목록을 반환한다.
-	// 여기서는 "사용자"라는 권한만 부여할 것임.
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return List.of(new SimpleGrantedAuthority("user"));
-	}
-
-	// getUsername() : 사용자 식별값 가져오자!
-	// 여기서는 사용자의 식별 가능한 이름은 email이다.
-	@Override
-	public String getUsername() {
-		return email;
-	}
-
-	// isAccountNonExpired() : 계정 만료 여부
-	// true: 만료 아님 | false: 만료
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	// isAccountNonLocked() : 계정 잠금 여부
-	// true: 잠기지 않음(열림) | false: 잠김
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-
-	// isCredentialsNonExpired() : 비밀번호 만료 여부
-	// true: 만료 아님 | false: 만료
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	// isEnabled() : 계정 활성화(만료) 여부
-	// true: 만료 아님 | false: 만료
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
-
 	@Builder
 	public User(String email, String password) {
 		this.email = email;
 		this.password = password;
 	}
+
+	// 사용자가 가질 수 있는 권한 목록 반환
+	// '사용자' 권한만 있기 때문에 '사용자' 권한만 부여
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+	}
+
+	// 사용자 식별값 반환
+	// 사용자의 식별 가능한 이름 = email
+	@Override
+	public String getUsername() {
+		return email;
+	}
+
+	// 계정 만료 여부
+	// true : 만료 아님 | false : 만료
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	// 계정 잠금 여부
+	// true : 열림 | false : 잠김
+	@Override
+	public boolean isAccountNonLocked() {
+		return UserDetails.super.isAccountNonLocked();
+	}
+
+	// 비밀번호 만료 여부
+	// true: 만료되지 않음 | false : 만료
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return UserDetails.super.isCredentialsNonExpired();
+	}
+
+	// 계정 사용 가능 여부
+	@Override
+	public boolean isEnabled() {
+		return UserDetails.super.isEnabled();
+	}
+
 }

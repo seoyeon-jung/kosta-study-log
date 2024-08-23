@@ -16,8 +16,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Long save(User user) {
-		String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
-		user.setPassword(encodedPassword);
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		return userRepository.save(user).getId();
 	}
 

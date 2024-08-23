@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 	private final UserService userService;
 
-	// 처음에 이동 가능한 페이지는 login, join 페이지만 있다
+	// 로그인, 회원가입 화면
 	@GetMapping("/login")
 	public String loginPage() {
 		return "login";

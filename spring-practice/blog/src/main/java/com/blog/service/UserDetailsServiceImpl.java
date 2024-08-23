@@ -16,8 +16,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String email) {
-		// email을 통해 가져온 유저가 담긴다
-		// email이 없는 경우를 생각하기 위해 orElseThrow 추가
 		User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException(email));
 		return user;
 	}
