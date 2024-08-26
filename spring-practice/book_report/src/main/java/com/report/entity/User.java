@@ -37,10 +37,10 @@ public class User implements UserDetails {
 	private Long id;
 
 	@Column(name = "nickname", nullable = false, unique = true)
-	private String nickname;
+	private String username;
 
 	@Column(nullable = false)
-	private String name;
+	private String email;
 
 	@Column(nullable = false)
 	private String password;
@@ -50,7 +50,7 @@ public class User implements UserDetails {
 	private UserGrade grade = UserGrade.EXPLORER; // user의 등급
 
 	@Column(nullable = false)
-	private Long point;
+	private Long point = 0L; // point의 초기값은 무조건 0
 
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
@@ -81,6 +81,6 @@ public class User implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return this.nickname;
+		return this.username;
 	}
 }
