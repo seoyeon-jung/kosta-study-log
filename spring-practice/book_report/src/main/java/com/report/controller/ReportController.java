@@ -26,8 +26,13 @@ public class ReportController {
 	private final ReportService reportService;
 
 	@GetMapping("/")
-	public String mainPage(Model model) {
-		List<Report> reportList = reportService.findAllReport();
+	public String mainPage(@RequestParam(required = false, name = "keyword") String keyword, Model model) {
+		List<Report> reportList;
+		if (keyword != null) {
+			reportList = reportService.search(keyword);
+		} else {
+			reportList = reportService.findAllReport();
+		}
 		model.addAttribute("list", reportList);
 		return "index";
 	}

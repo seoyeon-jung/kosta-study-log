@@ -87,5 +87,20 @@ public class User implements UserDetails {
 	// 글 작성 시, 포인트 +5
 	public void addPoints(long pointsToAdd) {
 		this.point += pointsToAdd;
+		updateGrade();
+	}
+
+	// 등급 관리
+	// - EXPLORER : 최초 가입 시 ~ 20P
+	// - EXPERT : ~50P
+	// - MASTER : 50P 이후 모든 사용자
+	public void updateGrade() {
+		if (this.point >= 50) {
+			this.grade = UserGrade.MASTER;
+		} else if (this.point > 20) {
+			this.grade = UserGrade.EXPORT;
+		} else {
+			this.grade = UserGrade.EXPLORER;
+		}
 	}
 }

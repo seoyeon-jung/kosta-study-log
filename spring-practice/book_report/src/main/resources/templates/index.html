@@ -18,6 +18,14 @@
 	</div>
 
 	<!-- 검색창 -->
+	<form action="/" th:method="GET" class="row g-2 mt-4">
+	   <div class="col-md-8">
+	       <input name="keyword" class="form-control" placeholder="검색어를 입력하세요." />
+	   </div>
+	   <div class="col-md-4 d-flex align-items-end">
+	       <button class="btn btn-outline-secondary">검색</button>
+	   </div>
+	</form>
 	
     <!-- 전체 글 리스트 -->
     <h2 class="mt-4 mb-4">전체 글</h2>
@@ -27,7 +35,7 @@
                 <h4 class="mb-1 content-truncate">[[ ${report.title} ]]</h4>
                 <small>[[ |${#temporals.format(report.createdAt, 'yyyy년 MM월 dd일 hh:mm')}| ]]</small>
             </div>
-            <p class="mt-2 mb-1 content-truncate">《[[ ${report.book.bookTitle} ]]》 리뷰</p>
+            <p class="mt-2 mb-1 content-truncate">《[[ ${report.book.bookTitle} ]]》 리뷰</p> 
         </a>
     </div>
 </main>

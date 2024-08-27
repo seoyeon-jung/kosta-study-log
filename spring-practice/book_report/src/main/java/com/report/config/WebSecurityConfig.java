@@ -26,12 +26,11 @@ public class WebSecurityConfig {
 	@Bean
 	SecurityFilterChain filterchain(HttpSecurity http) throws Exception {
 		// 접근 제한 설정
-		http.authorizeHttpRequests(auth -> auth
+		http.authorizeHttpRequests(auth -> auth.requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
 				.requestMatchers(new AntPathRequestMatcher("/"), new AntPathRequestMatcher("/login"),
 						new AntPathRequestMatcher("/join"), new AntPathRequestMatcher("/report"),
 						new AntPathRequestMatcher("/error"))
-				.permitAll().requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN").anyRequest()
-				.authenticated());
+				.permitAll().anyRequest().authenticated());
 
 		// 로그인 설정
 		http.formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/", true));

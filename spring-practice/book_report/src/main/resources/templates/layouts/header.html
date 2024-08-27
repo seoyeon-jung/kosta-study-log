@@ -15,15 +15,21 @@
             </a>
         </li>
         <li class="nav-item mx-2">
-            <h5 sec:authorize="isAuthenticated()" sec:authentication="name"></h5>
-        </li>
+            <div sec:authorize="isAuthenticated()"  class="d-flex align-items-center text-dark" >
+                <a th:href="|@{'/user/' + ${#authentication.Principal.id}}|"
+                    class="text-dark text-decoration hover-link">
+                    [[${#authentication.name}]]
+                </a>
+                <span class="ms-2">님</span> 
+            </div>
+		</li>
         <li class="nav-item mx-2">
-	        <a sec:authorize="isAuthenticated()"  href="/report/post" class="btn btn-outline-dark">
+	        <a sec:authorize="isAuthenticated()"  href="/report/post" class="btn btn-outline-dark btn-sm">
 	            글쓰기
 	        </a>
         </li>
         <li class="nav-item mx-2">
-            <button sec:authorize="isAuthenticated()"  onclick="location.href='/logout'" class="btn btn-outline-secondary">
+            <button sec:authorize="isAuthenticated()"  onclick="location.href='/logout'" class="btn btn-outline-secondary btn-sm">
                 로그아웃
             </button>
         </li>

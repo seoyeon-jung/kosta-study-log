@@ -31,9 +31,19 @@ public class ReportServiceImpl implements ReportService {
 	@Transactional
 	@Override
 	public Report save(Report report, User user, Book book) {
-		Book savedBook = bookRepository.save(book);
+		// 만약 Book table에 동일한 책이 존재한다면 저장하지 않음
+		List<Book> existingBooks = bookRepository.findByBookTitleAndAuthor(book.getBookTitle(), book.getAuthor());
+		Book existingBook;
+
+		if (existingBooks.isEmpty()) {
+			// 기존 책이 없는 경우
+			existingBook = bookRepository.save(book);
+		} else {
+			existingBook = existingBooks.get(0);
+		}
+
 		report.setUser(user);
-		report.setBook(savedBook);
+		report.setBook(existingBook);
 
 		// 포인트 증가
 		user.addPoints(5);
@@ -74,7 +84,16 @@ public class ReportServiceImpl implements ReportService {
 			throw new Exception("본인이 작성한 글만 수정할 수 있습니다.");
 		}
 
-		Book originBook = bookRepository.save(book);
+		Book originBook = bookRepository.findById(book.getId()).orElseThrow(() -> new Exception("책이 존재하지 않습니다"));
+
+		// Book 객체 update
+		originBook.setBookTitle(book.getBookTitle());
+		originBook.setAuthor(book.getAuthor());
+		originBook.setPublisher(book.getPublisher());
+		originBook.setGenre(book.getGenre());
+		originBook.setUpdatedAt(LocalDateTime.now());
+
+		bookRepository.save(originBook); // 새로운 book 저장
 
 		originReport.setTitle(report.getTitle());
 		originReport.setContent(report.getContent());
@@ -82,5 +101,11 @@ public class ReportServiceImpl implements ReportService {
 		originReport.setUpdatedAt(LocalDateTime.now());
 
 		return reportRepository.save(originReport);
+	}
+
+	@Override
+	public List<Report> search(String keyword) {
+		return reportRepository.findByTitleContainingOrContentContaining(keyword, keyword);
+
 	}
 }

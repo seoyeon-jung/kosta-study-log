@@ -19,4 +19,6 @@ public interface ReportService {
 
 	Report update(Report report, User user, Book book) throws Exception;
 
+	List<Report> search(String keyword);
+
 }

@@ -3,11 +3,13 @@ package com.report.controller;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.report.domain.UserDTO;
+import com.report.entity.User;
 import com.report.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,7 +35,9 @@ public class UserController {
 
 	// user의 페이지
 	@GetMapping("/user/{id}")
-	public String userPage(@PathVariable("id") Long id) {
+	public String userPage(@PathVariable("id") Long id, Model model) throws Exception {
+		User user = userService.findById(id);
+		model.addAttribute("user", user);
 		return "/user/user";
 	}
 
