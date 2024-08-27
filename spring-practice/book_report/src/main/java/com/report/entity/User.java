@@ -83,4 +83,9 @@ public class User implements UserDetails {
 	public String getUsername() {
 		return this.username;
 	}
+
+	// 글 작성 시, 포인트 +5
+	public void addPoints(long pointsToAdd) {
+		this.point += pointsToAdd;
+	}
 }

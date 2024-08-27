@@ -5,8 +5,6 @@
     layout:decorate="~{layouts/default}"
 >
 <main layout:fragment="main" class="container">
-index page
-
     <!-- Banner -->
 	<div class="bg-dark text-secondary px-4 py-5 text-center">
 		<div class="py-5">
@@ -20,6 +18,17 @@ index page
 	</div>
 
 	<!-- 검색창 -->
+	
     <!-- 전체 글 리스트 -->
+    <h2 class="mt-4 mb-4">전체 글</h2>
+    <div th:each="report : ${list}" class="list-group">
+        <a th:href="@{/report(id=${report.id})}" class="list-group-item list-group-item-action mb-4" aria-current="true">
+            <div class="d-flex w-100 justify-content-between">
+                <h4 class="mb-1 content-truncate">[[ ${report.title} ]]</h4>
+                <small>[[ |${#temporals.format(report.createdAt, 'yyyy년 MM월 dd일 hh:mm')}| ]]</small>
+            </div>
+            <p class="mt-2 mb-1 content-truncate">《[[ ${report.book.bookTitle} ]]》 리뷰</p>
+        </a>
+    </div>
 </main>
 </html>

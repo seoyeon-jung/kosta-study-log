@@ -5,6 +5,44 @@
     layout:decorate="~{layouts/default}"
 >
 <main layout:fragment="main" class="container">
-글 디테일 페이지
+    <div class="mb-4">
+        <h1 class="display-4">[[ ${report.title} ]]</h1>
+         <div class="d-flex justify-content-between align-items-center">
+            <div class="me-3">
+                <p class="fs-4 mb-0">[[ ${report.user.username} ]]</p>
+            </div>
+            <small class="text-muted">[[ ${#temporals.format(report.createdAt, 'yyyy년 MM월 dd일 hh:mm')} ]]</small>
+        </div>
+    </div>
+    
+    <div class="card mb-4" style="max-width: 540px;">
+        <div class="row g-0">
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">[[ ${report.book.bookTitle} ]]</h5>
+                    <p class="card-text"><strong>저자:</strong> [[ ${report.book.author} ]]</p>
+                    <p class="card-text"><strong>출판사:</strong> [[ ${report.book.publisher} ]]</p>
+                    <p class="card-text"><strong>장르:</strong> [[ ${report.book.genre} ]]</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg-light p-4 rounded">
+        <p class="lead">[[ ${report.content} ]]</p>
+    </div>
+    
+     <div sec:authorize="isAuthenticated()" class="d-flex justify-content-end mt-4">
+        <a th:if="${#authentication.principal.id eq report.user.id}"
+            th:href="@{'/report/update/' + ${report.id}}"  
+            class="btn btn-outline-primary me-2">
+            수정
+        </a>
+        <form th:if="${#authentication.principal.id eq report.user.id}" 
+            th:action="@{'/report/delete/' + ${report.id}}"
+            class="d-inline" th:method="DELETE">
+            <button class="btn btn-outline-danger">삭제</button>
+        </form>
+    </div>
 </main>
 </html>

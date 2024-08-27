@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/default}">
+<main layout:fragment="main" class="container">
+	<div class="container mt-3">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title">회원 정보 수정</h5>
+				<form th:action="@{'/admin/update/' + ${user.id}}" th:method="PATCH">
+					<input type="hidden" name="id" th:value="${user.id}" />
+					<div class="form-group">
+						<label for="point-${user.id}">포인트</label> 
+						<input type="number" id="point" name="point" class="form-control" step="5" th:value="${user.point}" />
+					</div>
+					<div class="form-group">
+						<label for="grade-${user.id}">등급</label> 
+						<select id="grade" name="grade" class="form-control">
+							<option th:value="'EXPLORER'" th:text="'EXPLORER'"
+								th:selected="${user.grade == 'EXPLORER'}">EXPLORER</option>
+							<option th:value="'EXPORT'" th:text="'EXPORT'"
+								th:selected="${user.grade == 'EXPORT'}">EXPORT</option>
+							<option th:value="'MASTER'" th:text="'MASTER'"
+								th:selected="${user.grade == 'MASTER'}">MASTER</option>
+						</select>
+					</div>
+					<button type="submit" class="btn btn-outline-primary">수정</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</main>
+</html>

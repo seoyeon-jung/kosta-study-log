@@ -4,6 +4,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.report.domain.UserDTO;
@@ -28,6 +29,12 @@ public class UserController {
 	@GetMapping("/join")
 	public String joinPage() {
 		return userService.isLogin() ? "redirect:/" : "/user/join";
+	}
+
+	// user의 페이지
+	@GetMapping("/user/{id}")
+	public String userPage(@PathVariable("id") Long id) {
+		return "/user/user";
 	}
 
 	// 회원가입 동작

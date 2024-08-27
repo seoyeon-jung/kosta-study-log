@@ -1,5 +1,7 @@
 package com.report.domain;
 
+import java.time.LocalDateTime;
+
 import com.report.entity.Book;
 import com.report.entity.Report;
 import com.report.entity.User;
@@ -13,13 +15,19 @@ public class ReportDTO {
 	private String title, content;
 	private User user;
 	private Book book;
+	private LocalDateTime createdAt, updatedAt;
 
 	@Builder
-	public ReportDTO(String title, String content, User user, Book book) {
+	public ReportDTO(Long id, String title, String content, User user, Book book, LocalDateTime createdAt,
+			LocalDateTime updatedAt) {
+		super();
+		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.user = user;
 		this.book = book;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
 	}
 
 	public Report setReport() {

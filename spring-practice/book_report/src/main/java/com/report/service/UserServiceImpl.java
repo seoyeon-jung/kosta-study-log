@@ -1,5 +1,7 @@
 package com.report.service;
 
+import java.util.List;
+
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -7,6 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.report.domain.UserDTO;
+import com.report.domain.UserGrade;
+import com.report.entity.User;
 import com.report.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -30,5 +34,30 @@ public class UserServiceImpl implements UserService {
 		String encodedPassword = bCryptPasswordEncoder.encode(userDTO.getPassword());
 		userDTO.setPassword(encodedPassword);
 		userRepository.save(userDTO.setUser());
+	}
+
+	@Override
+	public List<User> findAll() {
+		return userRepository.findAll();
+	}
+
+	@Override
+	public void deleteById(Long id) throws Exception {
+		userRepository.deleteById(id);
+	}
+
+	@Override
+	public void updateUser(Long id, Long point, UserGrade grade) throws Exception {
+		User user = userRepository.findById(id).orElseThrow(() -> new Exception("ID가 존재하지 않습니다"));
+		user.setPoint(point);
+		user.setGrade(grade);
+		userRepository.save(user);
+
+	}
+
+	@Override
+	public User findById(Long id) throws Exception {
+		User user = userRepository.findById(id).orElseThrow(() -> new Exception("ID가 존재하지 않습니다"));
+		return user;
 	}
 }
