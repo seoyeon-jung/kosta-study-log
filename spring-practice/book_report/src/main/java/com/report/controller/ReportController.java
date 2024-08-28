@@ -51,7 +51,7 @@ public class ReportController {
 
 	// detail page
 	@GetMapping("/report")
-	public String detailPate(@RequestParam("id") Long id, Model model, @AuthenticationPrincipal User user)
+	public String detailPage(@RequestParam("id") Long id, Model model, @AuthenticationPrincipal User user)
 			throws Exception {
 		ReportDTO reportDTO = reportService.findById(id);
 		model.addAttribute("report", reportDTO);

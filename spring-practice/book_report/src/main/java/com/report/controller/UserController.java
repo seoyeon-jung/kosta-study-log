@@ -5,6 +5,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,9 +38,14 @@ public class UserController {
 
 	// 회원가입 동작
 	@PostMapping("/join")
-	public String join(UserDTO userDTO) {
-		userService.join(userDTO);
-		return "redirect:/user/login";
+	public String join(@ModelAttribute UserDTO userDTO, Model model) {
+		try {
+			userService.join(userDTO);
+			return "redirect:/user/login";
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", e.getMessage());
+			return "/user/join";
+		}
 	}
 
 	// 로그아웃 동작

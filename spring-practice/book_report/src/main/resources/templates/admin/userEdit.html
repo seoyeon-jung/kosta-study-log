@@ -25,7 +25,14 @@
 								th:selected="${user.grade == 'MASTER'}">MASTER</option>
 						</select>
 					</div>
-					<button type="submit" class="btn btn-outline-primary">수정</button>
+					<div class="form-group">
+                        <label for="locked-${user.id}">계정 잠금 상태</label> 
+                        <select id="locked" name="locked" class="form-control">
+                            <option th:value="true" th:text="'잠금됨'" th:selected="${user.locked}">잠금됨</option>
+                            <option th:value="false" th:text="'잠금 안됨'" th:selected="${!user.locked}">잠금 안됨</option>
+                        </select>
+                    </div>
+					<button type="submit" class="btn btn-outline-primary mt-2 w-100">수정</button>
 				</form>
 			</div>
 		</div>

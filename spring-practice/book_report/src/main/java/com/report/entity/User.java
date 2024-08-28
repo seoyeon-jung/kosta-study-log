@@ -23,6 +23,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -56,6 +57,12 @@ public class User implements UserDetails {
 	@Enumerated(EnumType.STRING)
 	private Role role = Role.USER; // user의 역할 (USER, ADMIN)
 
+	@Column
+	private Boolean locked = false; // 계정 잠금 상태 여부
+
+	@Column
+	private int failedLoginAttempts; // 로그인 실패 횟수
+
 	@CreatedDate
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;
@@ -63,6 +70,13 @@ public class User implements UserDetails {
 	@LastModifiedDate
 	@Column(name = "updated_at")
 	private LocalDateTime updatedAt;
+
+	@PrePersist
+	public void prePersist() {
+		if (this.locked == null) {
+			this.locked = false; // 기본값 설정
+		}
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -103,4 +117,31 @@ public class User implements UserDetails {
 			this.grade = UserGrade.EXPLORER;
 		}
 	}
+
+	// 계정이 잠겼는지 확인
+	@Override
+	public boolean isAccountNonLocked() {
+		return !locked;
+	}
+
+	// 로그인 실패 횟수를 증가
+	public void incrementFailedLoginAttempts() {
+		this.failedLoginAttempts++;
+	}
+
+	// 로그인 실패 횟수를 초기화
+	public void resetFailedLoginAttempts() {
+		this.failedLoginAttempts = 0;
+	}
+
+	// 계정 잠금
+	public void lockAccount() {
+		this.locked = true;
+	}
+
+	// 계정 잠금 해제
+	public void unlockAccount() {
+		this.locked = false;
+	}
+
 }

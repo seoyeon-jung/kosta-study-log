@@ -30,7 +30,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void join(UserDTO userDTO) {
+	public void join(UserDTO userDTO) throws Exception {
+		// 중복 이메일 및 닉네임 체크
+		if (userRepository.existsByEmail(userDTO.getEmail())) {
+			throw new Exception("이미 사용중인 이메일입니다.");
+		}
+		if (userRepository.existsByUsername(userDTO.getUsername())) {
+			throw new Exception("이미 사용중인 닉네임입니다.");
+		}
+
 		String encodedPassword = bCryptPasswordEncoder.encode(userDTO.getPassword());
 		userDTO.setPassword(encodedPassword);
 		userRepository.save(userDTO.setUser());
@@ -47,10 +55,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateUser(Long id, Long point, UserGrade grade) throws Exception {
+	public void updateUser(Long id, Long point, UserGrade grade, Boolean locked) throws Exception {
 		User user = userRepository.findById(id).orElseThrow(() -> new Exception("ID가 존재하지 않습니다"));
 		user.setPoint(point);
 		user.setGrade(grade);
+		user.setLocked(locked);
 		userRepository.save(user);
 
 	}

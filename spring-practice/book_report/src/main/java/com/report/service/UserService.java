@@ -10,13 +10,13 @@ public interface UserService {
 
 	boolean isLogin();
 
-	void join(UserDTO userDTO);
+	void join(UserDTO userDTO) throws Exception;
 
 	List<User> findAll();
 
 	void deleteById(Long id) throws Exception;
 
-	void updateUser(Long id, Long point, UserGrade grade) throws Exception;
+	void updateUser(Long id, Long point, UserGrade grade, Boolean locked) throws Exception;
 
 	User findById(Long id) throws Exception;
 

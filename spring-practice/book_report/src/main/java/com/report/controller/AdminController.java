@@ -58,8 +58,9 @@ public class AdminController {
 
 	@PatchMapping("/users/update/{id}")
 	public String updateUser(@PathVariable("id") Long id, @RequestParam("point") Long point,
-			@RequestParam("grade") String grade) throws Exception {
-		userService.updateUser(id, point, UserGrade.valueOf(grade));
+			@RequestParam("grade") String grade, @RequestParam("locked") String locked) throws Exception {
+		Boolean isLocked = Boolean.parseBoolean(locked);
+		userService.updateUser(id, point, UserGrade.valueOf(grade), isLocked);
 		return "redirect:/admin/users";
 	}
 
