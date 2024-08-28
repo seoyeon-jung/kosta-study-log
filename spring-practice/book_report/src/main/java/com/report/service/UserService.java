@@ -20,4 +20,6 @@ public interface UserService {
 
 	User findById(Long id) throws Exception;
 
+	void editUser(Long id, String username, String email) throws Exception;
+
 }

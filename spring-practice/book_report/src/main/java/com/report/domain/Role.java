@@ -12,4 +12,13 @@ public enum Role {
 	public String getRole() {
 		return role;
 	}
+
+	public static Role fromRoleString(String roleString) {
+		for (Role role : values()) {
+			if (role.getRole().equals(roleString)) {
+				return role;
+			}
+		}
+		throw new IllegalArgumentException("해당 role이 존재하지 않습니다");
+	}
 }

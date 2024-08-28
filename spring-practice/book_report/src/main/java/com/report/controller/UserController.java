@@ -5,8 +5,10 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.report.domain.UserDTO;
 import com.report.entity.User;
@@ -33,14 +35,6 @@ public class UserController {
 		return userService.isLogin() ? "redirect:/" : "/user/join";
 	}
 
-	// user의 페이지
-	@GetMapping("/user/{id}")
-	public String userPage(@PathVariable("id") Long id, Model model) throws Exception {
-		User user = userService.findById(id);
-		model.addAttribute("user", user);
-		return "/user/user";
-	}
-
 	// 회원가입 동작
 	@PostMapping("/join")
 	public String join(UserDTO userDTO) {
@@ -53,5 +47,28 @@ public class UserController {
 	public String logout(HttpServletRequest req, HttpServletResponse res) {
 		new SecurityContextLogoutHandler().logout(req, res, SecurityContextHolder.getContext().getAuthentication());
 		return "redirect:/";
+	}
+
+	// user의 페이지
+	@GetMapping("/user/{id}")
+	public String userPage(@PathVariable("id") Long id, Model model) throws Exception {
+		User user = userService.findById(id);
+		model.addAttribute("user", user);
+		return "/user/user";
+	}
+
+	// user 정보 수정
+	@GetMapping("/user/update/{id}")
+	public String editUserPage(@PathVariable("id") Long id, Model model) throws Exception {
+		User user = userService.findById(id);
+		model.addAttribute("user", user);
+		return "/user/userEdit";
+	}
+
+	@PatchMapping("/user/update/{id}")
+	public String editUser(@PathVariable("id") Long id, @RequestParam("username") String username,
+			@RequestParam("email") String email) throws Exception {
+		userService.editUser(id, username, email);
+		return "redirect:/user/" + id;
 	}
 }

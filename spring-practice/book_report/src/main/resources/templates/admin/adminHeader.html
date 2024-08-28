@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<header th:fragment="ah" class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+    <a href="/admin" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto ms-3 link-body-emphasis text-decoration-none">
+        <span class="fs-4">독서 일기 관리자 페이지</span>
+    </a>
+
+
+    <ul class="nav nav-pills mx-2">
+        <li class="nav-item mx-2">
+            <button sec:authorize="isAuthenticated()"  onclick="location.href='/logout'" class="btn btn-outline-secondary btn-sm">
+                관리자 로그아웃
+            </button>
+        </li>
+    </ul>
+</header>
+</html>

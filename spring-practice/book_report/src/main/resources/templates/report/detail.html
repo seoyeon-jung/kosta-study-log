@@ -8,8 +8,9 @@
     <div class="mb-4">
         <h1 class="display-4">[[ ${report.title} ]]</h1>
          <div class="d-flex justify-content-between align-items-center">
-            <div class="me-3">
-                <p class="fs-4 mb-0">[[ ${report.user.username} ]]</p>
+            <div class="d-flex align-items-center me-3">
+                <p class="fs-4 mb-0 me-2">[[ ${report.user.username} ]]</p>
+                <span class="badge bg-info rounded-pill">[[${report.user.grade}]]</span>
             </div>
             <small class="text-muted">[[ ${#temporals.format(report.createdAt, 'yyyy년 MM월 dd일 hh:mm')} ]]</small>
         </div>

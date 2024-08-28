@@ -14,9 +14,9 @@
         </div>
        
         <div class="col-md-4 d-flex justify-content-end align-items-center">
-            <button class="btn btn-outline-primary me-2">
+            <a class="btn btn-outline-primary me-2" th:href="@{'/user/update/' + ${user.id}}">
                 정보 수정
-            </button>
+            </a>
             <button onclick="location.href='/logout'" class="btn btn-outline-secondary me-2">
                 로그아웃
             </button>

@@ -60,4 +60,16 @@ public class UserServiceImpl implements UserService {
 		User user = userRepository.findById(id).orElseThrow(() -> new Exception("ID가 존재하지 않습니다"));
 		return user;
 	}
+
+	@Override
+	public void editUser(Long id, String username, String email) throws Exception {
+		User originUser = userRepository.findById(id).orElseThrow(() -> new Exception("ID가 존재하지 않습니다"));
+
+		originUser.setUsername(username);
+		originUser.setEmail(email);
+
+		userRepository.save(originUser);
+
+	}
+
 }

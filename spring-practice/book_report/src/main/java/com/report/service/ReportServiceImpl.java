@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.report.domain.ReportDTO;
+import com.report.domain.Role;
 import com.report.entity.Book;
 import com.report.entity.Report;
 import com.report.entity.User;
@@ -65,8 +66,10 @@ public class ReportServiceImpl implements ReportService {
 	public void deleteById(Long id, User user) throws Exception {
 		Report report = reportRepository.findById(id).orElseThrow(() -> new Exception("ID가 존재하지 않습니다."));
 		String creator = report.getUser().getUsername();
+		Role userRole = user.getRole();
 
-		if (user.getUsername().equals(creator)) {
+		// 작성한 사람이거나, 관리자(ADMIN)인 경우 삭제 가능
+		if (user.getUsername().equals(creator) || userRole == Role.ADMIN) {
 			reportRepository.deleteById(id);
 		} else {
 			throw new Exception("본인이 작성한 글만 삭제할 수 있습니다.");
@@ -84,20 +87,24 @@ public class ReportServiceImpl implements ReportService {
 			throw new Exception("본인이 작성한 글만 수정할 수 있습니다.");
 		}
 
-		Book originBook = bookRepository.findById(book.getId()).orElseThrow(() -> new Exception("책이 존재하지 않습니다"));
+		Book originBook = bookRepository.findById(originReport.getBook().getId())
+				.orElseThrow(() -> new Exception("책이 존재하지 않습니다."));
 
-		// Book 객체 update
+		// Book 객체 업데이트
 		originBook.setBookTitle(book.getBookTitle());
 		originBook.setAuthor(book.getAuthor());
 		originBook.setPublisher(book.getPublisher());
 		originBook.setGenre(book.getGenre());
 		originBook.setUpdatedAt(LocalDateTime.now());
 
-		bookRepository.save(originBook); // 새로운 book 저장
+		bookRepository.save(originBook); // 새로운 Book 저장
 
+		// Report 객체의 Book 업데이트
+		report.setBook(originBook);
+
+		// Report 객체 업데이트
 		originReport.setTitle(report.getTitle());
 		originReport.setContent(report.getContent());
-		originReport.setBook(originBook);
 		originReport.setUpdatedAt(LocalDateTime.now());
 
 		return reportRepository.save(originReport);

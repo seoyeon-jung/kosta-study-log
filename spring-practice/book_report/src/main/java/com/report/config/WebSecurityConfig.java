@@ -21,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 	private final UserDetailsService userDetailsService;
+	private final LonginHandler loginHandler;
 
 	// HTTP 요청에 따른 보안 구성
 	@Bean
@@ -33,7 +34,7 @@ public class WebSecurityConfig {
 				.permitAll().anyRequest().authenticated());
 
 		// 로그인 설정
-		http.formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/", true));
+		http.formLogin(form -> form.loginPage("/login").successHandler(loginHandler));
 
 		// 로그아웃 설정
 		http.logout(logout -> logout.logoutSuccessUrl("/").invalidateHttpSession(true));
