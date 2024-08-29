@@ -107,3 +107,61 @@ sudo apt-get install mysql-server
 - 8080 추가
 
 ![alt text](./img/image-26.png)
+ 
+<br/>
+<br/>
+<br/>
+<br/>
+
+# 오늘 배운 내용 정리
+## AWS EC2 생성
+- EC2명 
+- OS : ubuntu
+- type : t2.micro(프리티어)
+- pem 키
+- 보안 그룹 설정(SSH, HTTP, HTTPS)
+- 볼륨 크기
+- (OS, type, pem키는 수정 불가능)
+## SSH 접속 (ModaXterm 사용)
+- VSCODE, PuTTY, ModaXterm, TERMINAL 등에서도 접근 가능
+### ModaXterm > SESSION 생성
+- REMOTE HOST : EC2 IP 주소
+- USERNAME : ubuntu
+- pemKey : EC2에서 설정한 pem 키 추가
+### Java, MySQL 설치 및 설정
+```bash
+sudo apt-get update
+sudo apt-get install openjdk-17-jdk
+sudo apt-get install mysql-server
+
+# mysql 설정
+sudo mysql -u root -p
+> CREATE USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '비밀번호';
+> GRANT ALL PRIVILEGES ON *.* TO '계정명'@'%';
+> FLUSH PRIVILEGES;
+> exit;
+
+# vim을 통해 수정
+sudo vim ../../etc/mysql/mysql.conf.d/mysqld.cnf
+# i (insert 모드 설정)
+# bind-address = 0.0.0.0 수정 후 저장
+# ESC > :wq!
+
+# mysql 재부팅
+sudo service mysql restart
+```
+### application.yml 수정
+```yml
+spring:
+  application:
+    name: book_report
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://[IP주소]:3306/report_db
+    username: [계정명]
+    password: [비밀번호]
+```
+### 프로젝트 빌드
+gradle -> build -> `build/libs/프로젝트명-0.0.1-SNAPSHOT.jar` 파일 생성
+### jar 파일 복사
+`java -jar 프로젝트명-0.0.1-SNAPSHOT.jar` 명령 실행
