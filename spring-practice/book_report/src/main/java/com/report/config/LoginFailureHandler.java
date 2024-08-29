@@ -51,9 +51,6 @@ public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 		}
 		// 로그인 실패 시 에러 메시지를 전달
 		request.getSession().setAttribute("loginError", loginError);
-//		RequestDispatcher rd = request.getRequestDispatcher("/login");
-//		rd.forward(request, response);
-
 		response.sendRedirect(request.getContextPath() + "/login");
 	}
 }

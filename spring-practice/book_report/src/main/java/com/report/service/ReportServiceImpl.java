@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.report.domain.ReportDTO;
-import com.report.domain.Role;
 import com.report.entity.Book;
 import com.report.entity.Report;
 import com.report.entity.User;
@@ -66,10 +65,9 @@ public class ReportServiceImpl implements ReportService {
 	public void deleteById(Long id, User user) throws Exception {
 		Report report = reportRepository.findById(id).orElseThrow(() -> new Exception("ID가 존재하지 않습니다."));
 		String creator = report.getUser().getUsername();
-		Role userRole = user.getRole();
 
-		// 작성한 사람이거나, 관리자(ADMIN)인 경우 삭제 가능
-		if (user.getUsername().equals(creator) || userRole == Role.ADMIN) {
+		// 작성한 사람인 경우 삭제 (ADMIN인 경우는 따로 AdminServiceImpl에 존재)
+		if (user.getUsername().equals(creator)) {
 			reportRepository.deleteById(id);
 		} else {
 			throw new Exception("본인이 작성한 글만 삭제할 수 있습니다.");

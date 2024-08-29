@@ -9,7 +9,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.report.domain.UserDTO;
-import com.report.domain.UserGrade;
 import com.report.entity.User;
 import com.report.repository.UserRepository;
 
@@ -55,16 +54,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateUser(Long id, Long point, UserGrade grade, Boolean locked) throws Exception {
-		User user = userRepository.findById(id).orElseThrow(() -> new Exception("ID가 존재하지 않습니다"));
-		user.setPoint(point);
-		user.setGrade(grade);
-		user.setLocked(locked);
-		userRepository.save(user);
-
-	}
-
-	@Override
 	public User findById(Long id) throws Exception {
 		User user = userRepository.findById(id).orElseThrow(() -> new Exception("ID가 존재하지 않습니다"));
 		return user;
@@ -80,5 +69,4 @@ public class UserServiceImpl implements UserService {
 		userRepository.save(originUser);
 
 	}
-
 }

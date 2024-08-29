@@ -15,8 +15,6 @@ import lombok.RequiredArgsConstructor;
 public class UserDetailsServiceImpl implements UserDetailsService {
 	private final UserRepository userRepository;
 
-	private static final int MAX_FAILED_ATTEMPTS = 5;
-
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userRepository.findByUsername(username).orElseThrow(() -> new IllegalArgumentException(username));

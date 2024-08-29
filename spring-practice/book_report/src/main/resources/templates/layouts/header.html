@@ -5,10 +5,9 @@
 <header th:fragment="h" class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto ms-3 link-body-emphasis text-decoration-none">
         <span class="fs-4">독서 일기</span>
-    </a>
+    </a> 
 
-
-    <ul class="nav nav-pills mx-2">
+	<ul class="nav nav-pills mx-2">
         <li class="nav-item mx-2">
             <a sec:authorize="!isAuthenticated()" th:href="@{/user/login}" class="btn btn-outline-secondary">
                 로그인

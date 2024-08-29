@@ -21,6 +21,11 @@
 				    ~ 50P EXPORT, <br/>
 				    50P 이후 MASTER가 됩니다.
 				</p>
+				    
+			    <a href="/books" class="btn btn-light  hover-link">
+			        책 추천 보러가기
+			    </a>
+			
 			</div>
 		</div>
 	</div>
@@ -42,9 +47,14 @@
         <a th:href="@{/report(id=${report.id})}" class="list-group-item list-group-item-action mb-4" aria-current="true">
             <div class="d-flex w-100 justify-content-between">
                 <h4 class="mb-1 content-truncate">[[ ${report.title} ]]</h4>
+	            <small class="mb-1 ms-3 badge text-bg-dark rounded-pill d-flex justify-content-center align-items-center" style="height: 1.5rem; padding: 0.5rem;">
+	                [[ ${report.user.username} ]]
+	            </small>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+	            <p class="mb-1">《[[ ${report.book.bookTitle} ]]》 리뷰</p>
                 <small>[[ |${#temporals.format(report.createdAt, 'yyyy년 MM월 dd일 hh:mm')}| ]]</small>
             </div>
-            <p class="mt-2 mb-1 content-truncate">《[[ ${report.book.bookTitle} ]]》 리뷰</p> 
         </a>
     </div>
 </main>
