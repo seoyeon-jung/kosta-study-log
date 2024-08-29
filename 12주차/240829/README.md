@@ -137,6 +137,7 @@ sudo apt-get install mysql-server
 # mysql 설정
 sudo mysql -u root -p
 > CREATE USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '비밀번호';
+> CREATE DATABASE 'DB명';
 > GRANT ALL PRIVILEGES ON *.* TO '계정명'@'%';
 > FLUSH PRIVILEGES;
 > exit;
@@ -157,7 +158,7 @@ spring:
     name: book_report
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://[IP주소]:3306/report_db
+    url: jdbc:mysql://[IP주소]:3306/[DB명]
     username: [계정명]
     password: [비밀번호]
 ```
