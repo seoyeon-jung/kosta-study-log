@@ -17,9 +17,23 @@
   - [react project에서 axios를 사용해서 상품 리스트 불러오기](#react-project에서-axios를-사용해서-상품-리스트-불러오기)
   - [구현 화면](#구현-화면)
 - [POSTMAN 사용하기](#postman-사용하기)
+  - [흐름 분석](#흐름-분석)
   - [base\_url 수정](#base_url-수정)
   - [GET 상품 가져오기](#get-상품-가져오기)
-  - [흐름 분석](#흐름-분석)
+  - [POST 상품 등록하기](#post-상품-등록하기)
+    - [controller 추가](#controller-추가)
+    - [postman으로 보내보기](#postman으로-보내보기)
+    - [input으로 입력 받고 저장하기](#input으로-입력-받고-저장하기)
+  - [DELETE 상품 삭제하기](#delete-상품-삭제하기)
+    - [controller 추가](#controller-추가-1)
+    - [java service 추가](#java-service-추가)
+    - [postman에서 확인](#postman에서-확인)
+    - [react에서 삭제해보기](#react에서-삭제해보기)
+  - [상품 수정하기](#상품-수정하기)
+    - [controller 추가](#controller-추가-2)
+    - [service 추가](#service-추가)
+    - [postman에서 확인](#postman에서-확인-1)
+    - [react 프로젝트에서 수정](#react-프로젝트에서-수정)
 
 <br/>
 <br/>
@@ -163,10 +177,10 @@ const Products = () => {
 - button을 클릭하면 상품 리스트가 나온다.
 - 상품 리스트 : `shopping_db`에 존재하는 상품 리스트
 ## 구현 화면
-![alt text](image.png)
+![alt text](./img/image.png)
 - network 탭 확인
 
-![alt text](image-1.png)
+![alt text](./img/image-1.png)
 
 <br/>
 <br/>
@@ -174,10 +188,173 @@ const Products = () => {
 <br/>
 
 # POSTMAN 사용하기
-## base_url 수정
-![alt text](image-2.png)   
-![alt text](image-3.png)
-## GET 상품 가져오기
-![alt text](image-4.png)
 ## 흐름 분석
-![alt text](image-5.png)
+![alt text](./img/image-5.png)
+## base_url 수정
+![alt text](./img/image-2.png)   
+![alt text](./img/image-3.png)
+## GET 상품 가져오기
+![alt text](./img/image-4.png)
+## POST 상품 등록하기
+### controller 추가
+```java
+	@PostMapping("/product")
+	@ResponseBody
+	public ProductResponseDTO postProduct(@RequestBody ProductRequestDTO productRequestDTO) {
+		ProductResponseDTO product = productService.addProduct(productRequestDTO);
+		return product;
+	}
+```
+### postman으로 보내보기
+![alt text](./img/image-6.png)
+### input으로 입력 받고 저장하기
+```javascript
+  const handleAddProduct = async () => {
+    try {
+      const res = await axios.post("http://localhost:8080/product", newProduct);
+      const data = res.data;
+      setProductList([...productList, data]);
+      setNewProduct({
+        name: "",
+        description: "",
+        price: "",
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  ...
+
+  <div>
+        <input
+          name="name"
+          value={newProduct.name}
+          onChange={handleChange}
+          exceptProduc={exceptProduct}
+        />
+        <input
+          name="description"
+          value={newProduct.description}
+          onChange={handleChange}
+        />
+        <input
+          name="price"
+          type="number"
+          value={newProduct.price}
+          onChange={handleChange}
+        />
+        <button onClick={handleAddProduct}>등록</button>
+      </div>
+```
+## DELETE 상품 삭제하기
+### controller 추가
+```java
+	@DeleteMapping("/product/{id}")
+	@ResponseBody
+	public ResponseEntity<?> deleteProduct(@PathVariable("id") Long id) {
+		boolean isDeleted = productService.deleteProduct(id);
+		if (isDeleted) {
+			return ResponseEntity.ok().build();
+		} else {
+			return ResponseEntity.status(500).build();
+		}
+	}
+```
+### java service 추가
+```java
+	@Override
+	public boolean deleteProduct(Long id) {
+		Optional<Product> optProduct = productRepository.findById(id);
+		if (optProduct.isEmpty()) {
+			return false;
+		}
+		productRepository.deleteById(id);
+		return true;
+	}
+```
+### postman에서 확인
+![alt text](./img/image-7.png)
+
+- 두번 삭제를 한 경우
+
+![alt text](./img/image-10.png)
+### react에서 삭제해보기
+```javascript
+// ProductBox.jsx
+  const handleDelete = async () => {
+    try {
+      console.log(product.id + "를 삭제한다.");
+      const res = await axios.delete(
+        `http://localhost:8080/product/${product.id}`
+      );
+      console.log(res);
+    } catch {
+      console.error("이미 삭제된 상품입니다.");
+      getProducts();
+    }
+  };
+```
+```javascript
+// Products.jsx
+  // product를 제외시키는 동작
+  const exceptProduct = (id) => {
+    setProductList(productList.filter((p) => p.id !== id));
+  };
+```
+## 상품 수정하기
+- `PATCH` : 부분 수정
+- `PUT` : 전체 수정
+- 보통 PATCH를 많이 사용한다.
+### controller 추가
+```java
+	@PatchMapping("/product")
+	@ResponseBody
+	public ProductResponseDTO patchProduct(@RequestBody ProductRequestDTO productRequestDTO) {
+		ProductResponseDTO product = productService.patchProduct(productRequestDTO);
+		return product;
+	}
+```
+### service 추가
+```java
+	@Override
+	public ProductResponseDTO patchProduct(ProductRequestDTO productRequestDTO) {
+		Optional<Product> optProduct = productRepository.findById(productRequestDTO.getId());
+		if (optProduct.isEmpty()) {
+			return null;
+		}
+		Product product = optProduct.get();
+		product.setName(productRequestDTO.getName());
+		product.setPrice(productRequestDTO.getPrice());
+		Product updatedProduct = productRepository.save(product); // 수정된 상품
+
+		return ProductResponseDTO.setDTO(updatedProduct);
+	}
+```
+### postman에서 확인
+![alt text](./img/image-8.png)   
+![alt text](./img/image-9.png)
+### react 프로젝트에서 수정
+```javascript
+// ProductBox.jsx
+  const handleUpdate = async () => {
+    const editedProduct = { ...productInfo, id: product.id };
+    const res = await axios.patch(
+      "http://localhost:8080/product",
+      editedProduct
+    );
+    const data = res.data;
+    //console.log(res.status);
+    //console.log(data);
+    modifyProduct(data); // 수정 후에 data 넣어주기
+    s
+```
+```javascript
+// Products.jsx
+  // product 수정 이후 update
+  const modifyProduct = (editedProduct) => {
+    setProductList(
+      productList.map((p) => (p.id === editedProduct.id ? editedProduct : p))
+    );
+  };
+```

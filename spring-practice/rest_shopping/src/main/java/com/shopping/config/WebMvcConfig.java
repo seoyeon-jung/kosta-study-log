@@ -13,7 +13,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	public void addCorsMappings(CorsRegistry registry) {
 		// 어떤 경로로 들어오든 허락
 		registry.addMapping("/**").allowedOrigins("http://localhost:3000").allowedMethods("OPTIONS", "GET", "POST",
-				"PUT", "DELETE");
+				"PUT", "DELETE", "PATCH");
 	}
 
 }
