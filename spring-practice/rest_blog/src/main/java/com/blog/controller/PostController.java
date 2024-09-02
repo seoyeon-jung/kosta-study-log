@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -72,6 +73,12 @@ public class PostController {
 	}
 
 	// 삭제
+	// { "id": 1, "password": "1234" }
+	@DeleteMapping("/{id}")
+	public ResponseEntity<PostResponse> removePost(@PathVariable("id") Long id, @RequestBody PostRequest post) {
+		PostResponse postResponse = postService.deletePost(id, post);
+		return ResponseEntity.ok(postResponse);
+	}
 
 	// 예외 처리
 	@ExceptionHandler(RuntimeException.class)
