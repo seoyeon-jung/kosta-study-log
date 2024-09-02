@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const ProductBox = ({ product, getProducts, exceptProduct, modifyProduct }) => {
+const ProductBox = ({ product, getProducts, dispatch }) => {
   const [updateState, setUpdateState] = useState(false);
   const [productInfo, setProductInfo] = useState({
     name: product.name,
@@ -16,7 +16,7 @@ const ProductBox = ({ product, getProducts, exceptProduct, modifyProduct }) => {
         `http://localhost:8080/product/${product.id}`
       );
       console.log(res);
-      exceptProduct(product.id);
+      dispatch({ type: "DELETE_PRODUCT", payload: product });
     } catch {
       console.error("이미 삭제된 상품입니다.");
       getProducts();
@@ -47,8 +47,8 @@ const ProductBox = ({ product, getProducts, exceptProduct, modifyProduct }) => {
       "http://localhost:8080/product",
       editedProduct
     );
-    const data = res.data;
-    modifyProduct(data); // 수정 후에 data 넣어주기
+    console.log(res.data);
+    dispatch({ type: "EDIT_PRODUCT", payload: editedProduct }); // 수정 후에 data 넣어주기
     setUpdateState(false);
   };
 
