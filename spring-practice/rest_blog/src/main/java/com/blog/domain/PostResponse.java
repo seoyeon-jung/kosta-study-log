@@ -15,11 +15,13 @@ public class PostResponse {
 	private String title, content;
 	private UserResponse author;
 	private String createdAt, updatedAt;
+	private FileDTO image;
 
 	public static PostResponse toDTO(Post post) {
 		return PostResponse.builder().id(post.getId()).title(post.getTitle()).content(post.getContent())
 				.author(UserResponse.toDTO(post.getAuthor())) // toDTO를 통해 자동으로 User type으로 변경
 				.createdAt(post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
-				.updatedAt(post.getUpdatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))).build();
+				.updatedAt(post.getUpdatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+				.image(FileDTO.toDTO(post.getImage())).build();
 	}
 }

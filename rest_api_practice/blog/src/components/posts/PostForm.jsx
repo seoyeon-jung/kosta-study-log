@@ -37,18 +37,28 @@ const PostForm = () => {
   const onSubmit = async (data) => {
     data.authorId = 1; // 로그인 기능 추가 전까지 임의로 지정
 
+    // data.image는 fileList로 data에 저장된다. >> 필요한 부분은 image[0]
+    data.image = data.image[0];
+
+    const formData = new FormData();
+    Object.keys(data).forEach((key) => {
+      formData.append(key, data[key]);
+    });
+
     try {
       // postId가 존재하면 수정
       if (postId) {
         // 서버에 수정 요청 보내기
-        data.id = postId;
+        formData.append("id", postId);
         await axios.patch("http://localhost:8080/api/post", data);
 
         // 기존 게시물 디테일 페이지로 이동
         navigate(`/post/${postId}`);
       } else {
         // 서버에 등록 요청 보내기
-        await axios.post("http://localhost:8080/api/post", data);
+        await axios.post("http://localhost:8080/api/post", formData, {
+          headers: { "Content-Type": "mulipart/form-data" },
+        });
 
         // 게시물 리스트 페이지로 이동
         navigate("/post");
@@ -98,6 +108,17 @@ const PostForm = () => {
               helperText={errors.content && "내용은 필수값입니다."}
               {...register("content", { required: true })}
               fullWidth
+            />
+          </div>
+
+          {/* 이미지 : 필수 아님 */}
+          <div>
+            <TextField
+              type="file"
+              {...register("image")}
+              fullWidth
+              // image만 등록될 수 있도록 막아둠(백엔드에서 한번 더 체크 필요)
+              slotProps={{ htmlInput: { accept: "image/*" } }}
             />
           </div>
 

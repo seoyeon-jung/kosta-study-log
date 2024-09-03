@@ -40,6 +40,10 @@ public class Post {
 	@Column(nullable = false)
 	private String password;
 
+	@JoinColumn(name = "image_id", nullable = true) // image는 필수가 아니다
+	@ManyToOne
+	private ImageFile image;
+
 	@JoinColumn(name = "author_id", nullable = false)
 	@ManyToOne
 	private User author;

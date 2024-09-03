@@ -18,3 +18,5 @@ spring:
     hiddenmethod:
        filter:
         enabled: true
+  upload:
+    location: C:\\Users\\WD\\Desktop\\blogImage

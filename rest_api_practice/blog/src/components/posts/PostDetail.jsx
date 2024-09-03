@@ -89,12 +89,14 @@ const PostDetail = () => {
             title={post.title}
             subheader={post.createdAt}
           />
-          <CardMedia
-            component="img"
-            height="194"
-            image=""
-            alt="게시글 이미지"
-          />
+          {post.image && post.image.saved ? (
+            <CardMedia
+              component="img"
+              //height="194"
+              image={`http://localhost:8080/img/${post.image.saved}`}
+              alt="게시글 이미지"
+            />
+          ) : null}
           <CardContent>
             <Typography variant="body2" sx={{ color: "text.secondary" }}>
               {post.content}
