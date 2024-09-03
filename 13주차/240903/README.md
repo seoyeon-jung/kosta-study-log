@@ -2,31 +2,31 @@
 - [React-hook-form](#react-hook-form)
 - [sweetalert2](#sweetalert2)
 - [글 작성 시 이미지 추가 \[백엔드\]](#글-작성-시-이미지-추가-백엔드)
-  - [Image entity 생성](#image-entity-생성)
-  - [Post entity에 image column 추가](#post-entity에-image-column-추가)
-  - [controller 수정](#controller-수정)
-  - [application.yml에 경로 추가](#applicationyml에-경로-추가)
-  - [ServiceImpl 수정](#serviceimpl-수정)
-  - [FileUtils 파일 생성](#fileutils-파일-생성)
-  - [PostRequest 수정 (image 추가)](#postrequest-수정-image-추가)
-  - [FileDTO 생성](#filedto-생성)
-  - [PostResponse 수정](#postresponse-수정)
-  - [postman으로 확인](#postman으로-확인)
-    - [image가 있는 경우](#image가-있는-경우)
-    - [image가 없는 경우](#image가-없는-경우)
+	- [Image entity 생성](#image-entity-생성)
+	- [Post entity에 image column 추가](#post-entity에-image-column-추가)
+	- [controller 수정](#controller-수정)
+	- [application.yml에 경로 추가](#applicationyml에-경로-추가)
+	- [ServiceImpl 수정](#serviceimpl-수정)
+	- [FileUtils 파일 생성](#fileutils-파일-생성)
+	- [PostRequest 수정 (image 추가)](#postrequest-수정-image-추가)
+	- [FileDTO 생성](#filedto-생성)
+	- [PostResponse 수정](#postresponse-수정)
+	- [postman으로 확인](#postman으로-확인)
+		- [image가 있는 경우](#image가-있는-경우)
+		- [image가 없는 경우](#image가-없는-경우)
 - [이미지 다운로드 \[백엔드\]](#이미지-다운로드-백엔드)
-  - [controller 추가](#controller-추가)
-  - [ServiceImpl 추가](#serviceimpl-추가)
-  - [Postman으로 확인](#postman으로-확인-1)
+	- [controller 추가](#controller-추가)
+	- [ServiceImpl 추가](#serviceimpl-추가)
+	- [Postman으로 확인](#postman으로-확인-1)
 - [웹 브라우저에서 이미지 확인 \[백엔드\]](#웹-브라우저에서-이미지-확인-백엔드)
-  - [WebMvcConfig 파일 수정](#webmvcconfig-파일-수정)
-  - [브라우저에서 확인](#브라우저에서-확인)
+	- [WebMvcConfig 파일 수정](#webmvcconfig-파일-수정)
+	- [브라우저에서 확인](#브라우저에서-확인)
 - [글 작성 시 이미지 추가 \[프론트\]](#글-작성-시-이미지-추가-프론트)
-  - [`PostForm.jsx` 수정](#postformjsx-수정)
+	- [`PostForm.jsx` 수정](#postformjsx-수정)
 - [글 detail page에 이미지 추가 \[프론트\]](#글-detail-page에-이미지-추가-프론트)
-  - [`PostDetail.jsx` 수정](#postdetailjsx-수정)
+	- [`PostDetail.jsx` 수정](#postdetailjsx-수정)
 - [파일 다운로드 \[프론트\]](#파일-다운로드-프론트)
-  - [`PostCard.jsx` 수정](#postcardjsx-수정)
+	- [`PostCard.jsx` 수정](#postcardjsx-수정)
 
 <br/>
 <br/>
@@ -396,3 +396,9 @@ public class PostResponse {
 
 # 파일 다운로드 [프론트]
 ## `PostCard.jsx` 수정
+```javascript
+    const handleDownload = (e) => {
+        e.stopPropagation();
+        window.location.href = `http://localhost:8080/api/post/download/${post.image.id}`
+    }
+```

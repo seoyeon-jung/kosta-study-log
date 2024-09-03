@@ -22,7 +22,7 @@ const PostCard = ({ post }) => {
     //   console.error(error);
     // }
     e.stopPropagation();
-    window.href = `http://localhost:8080/api/post/download/${post.image.id}`;
+    window.location.href = `http://localhost:8080/api/post/download/${post.image.id}`;
   };
 
   return (
