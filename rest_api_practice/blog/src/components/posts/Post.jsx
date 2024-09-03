@@ -1,9 +1,11 @@
-import { Divider, Grid2 } from "@mui/material";
+import { Button, Divider, Grid2 } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import PostCard from "./PostCard";
+import { useNavigate } from "react-router-dom";
 
 const Post = () => {
+  const navigate = useNavigate();
   // 1. state 생성
   const [postList, setPostList] = useState([]);
 
@@ -26,10 +28,17 @@ const Post = () => {
   return (
     <>
       <h1>POST LIST</h1>
-      {/* 글쓰기 양식 */}
+      {/* 글쓰기 버튼 */}
+      <Button
+        variant="contained"
+        color="main"
+        onClick={() => navigate("/post/write")}
+      >
+        글쓰기
+      </Button>
       <Divider />
       {/* 전체 리스트 */}
-      <Grid2 container spacing={4}>
+      <Grid2 container spacing={4} direction={"column"}>
         {postList.map((post) => (
           <PostCard post={post} key={post.id} />
         ))}

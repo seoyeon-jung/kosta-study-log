@@ -50,7 +50,7 @@ const Header = () => {
           <Box sx={{ display: { xs: "none", sm: "block" }, cursor: "pointer" }}>
             {menu.map((m, idx) => {
               return (
-                <Button key={idx} color="font" onClick={() => navigate(m.path)}>
+                <Button key={idx} color="bg2" onClick={() => navigate(m.path)}>
                   {m.name}
                 </Button>
               );
