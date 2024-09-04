@@ -7,16 +7,13 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.blog.domain.FileDTO;
 import com.blog.domain.PostRequest;
 import com.blog.domain.PostResponse;
 import com.blog.entity.ImageFile;
 import com.blog.entity.Post;
 import com.blog.entity.User;
-import com.blog.repository.ImageFileRepository;
 import com.blog.repository.PostRepository;
 import com.blog.repository.UserRepository;
-import com.blog.util.FileUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,28 +22,12 @@ import lombok.RequiredArgsConstructor;
 public class PostServiceImpl implements PostService {
 	private final PostRepository postRepository;
 	private final UserRepository userRepository;
-	private final ImageFileRepository imageFileRepoistory;
-	private final FileUtils fileUtils;
-
-	// 이미지 저장 메소드 (중복되므로 메소드 생성)
-	private ImageFile saveImage(MultipartFile file) {
-		if (file != null) {
-			// 이미지 파일 가져오기
-			ImageFile imageFile = fileUtils.fileUpload(file);
-
-			if (imageFile != null) {
-				// DB에 저장
-				ImageFile savedImageFile = imageFileRepoistory.save(imageFile);
-				return savedImageFile;
-			}
-		}
-		return null;
-	}
+	private final ImageFileService imageFileService;
 
 	@Override
 	public PostResponse insertPost(PostRequest postDTO, MultipartFile file) {
 
-		ImageFile savedImage = saveImage(file);
+		ImageFile savedImage = imageFileService.saveImage(file);
 		if (savedImage != null) {
 			// postDTO (postRequest)에 이미지 파일 추가
 			postDTO.setImageFile(savedImage);
@@ -100,7 +81,7 @@ public class PostServiceImpl implements PostService {
 		}
 
 		// 이미지 있는 경우 확인
-		ImageFile savedImage = saveImage(file);
+		ImageFile savedImage = imageFileService.saveImage(file);
 		if (savedImage != null) {
 			post.setImage(savedImage);
 		}
@@ -137,10 +118,4 @@ public class PostServiceImpl implements PostService {
 		return PostResponse.toDTO(post);
 	}
 
-	@Override
-	public FileDTO getImageById(Long id) {
-		ImageFile image = imageFileRepoistory.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("해당 id에 맞는 파일 없음"));
-		return FileDTO.toDTO(image);
-	}
 }

@@ -21,6 +21,7 @@ const Header = () => {
   const [menu, setMenu] = useState([
     { path: "/post", name: "게시물" },
     { path: "/search", name: "검색" },
+    { path: "/favorite", name: "북마크" },
   ]);
   const [menuOpen, setMenuOpen] = useState(false); // menu open 여부
 

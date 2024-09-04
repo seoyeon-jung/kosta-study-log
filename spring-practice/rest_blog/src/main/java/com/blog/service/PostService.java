@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.blog.domain.FileDTO;
 import com.blog.domain.PostRequest;
 import com.blog.domain.PostResponse;
 
@@ -19,7 +18,5 @@ public interface PostService {
 	PostResponse updatePost(PostRequest post, MultipartFile file);
 
 	PostResponse deletePost(Long id, PostRequest post);
-
-	FileDTO getImageById(Long id);
 
 }

@@ -3,6 +3,9 @@
   - [controller 수정](#controller-수정)
   - [ServiceImpl 수정](#serviceimpl-수정)
 - [`.env` 파일 추가 \[프론트\]](#env-파일-추가-프론트)
+- [api 관련 따로 폴더 생성 \[프론트\]](#api-관련-따로-폴더-생성-프론트)
+  - [api 파일 생성](#api-파일-생성)
+  - [service 폴더 안에 `post`, `favorite` 파일 생성](#service-폴더-안에-post-favorite-파일-생성)
 
 <br/>
 <br/>
@@ -126,3 +129,81 @@ REACT_APP_SERVER=http://localhost:8080
   }, [postId, navigate]);
 ```
 - server 주소 바뀌면 쉽게 `.env` 파일에서 주소를 수정하면 된다.
+  
+<br/>
+<br/>
+<br/>
+<br/>
+
+# api 관련 따로 폴더 생성 [프론트]
+## api 파일 생성
+```javascript
+import axios from "axios";
+
+const api = axios.create({
+  baseURL: `${process.env.REACT_APP_REST_SERVER}`,
+});
+
+api.interceptors.request.use(
+  (config) => {
+    return config;
+  },
+  (err) => {
+    return Promise.reject(err);
+  }
+);
+
+// 응답할 때 사용하는 interceptor
+// response에 따라서 분기가 가능하다
+api.interceptors.response.use(
+  (res) => {
+    // response가 있는 경우 response의 data 반환
+    return res;
+  },
+  (err) => {
+    // error 처리
+    return Promise.reject(err);
+    // 만약에 권한이 없다는 에러가 나오면 토큰 재발급 해주도록 할 것이다.
+  }
+);
+
+export default api;
+```
+- `axios`로 백엔드 서버와 연동하기 위해 baseURL을 설정했다.
+- 추후 수정할 경우 이 파일만 수정하면 된다.
+## service 폴더 안에 `post`, `favorite` 파일 생성
+```javascript
+import api from "../api";
+
+export const postAPI = {
+  getPostList: () => api.get("/post"),
+  getPost: (id) => api.get(`/post/${id}`),
+  writePost: (formData) =>
+    api.post("/post", formData, {
+      headers: { "Content-Type": "mulipart/form-data" },
+    }),
+  modifyPost: (formData) =>
+    api.patch("/post", formData, {
+      headers: { "Content-Type": "mulipart/form-data" },
+    }),
+  deletePost: (id, password, authorId) =>
+    api.delete(`/post/${id}`, { data: { password, authorId } }),
+};
+```
+```javascript
+import api from "../api";
+
+export const FavoriteAPI = {
+  getFavoriteList: () => api.get("/favorite"),
+  writeFavorite: (formData) =>
+    api.Favorite("/favorite", formData, {
+      headers: { "Content-Type": "mulipart/form-data" },
+    }),
+  modifyFavorite: (formData) =>
+    api.patch("/favorite", formData, {
+      headers: { "Content-Type": "mulipart/form-data" },
+    }),
+  deleteFavorite: (id) => api.delete(`/favorite/${id}`),
+};
+
+```

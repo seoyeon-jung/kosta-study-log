@@ -1,8 +1,8 @@
 import { Button, Grid2, TextField } from "@mui/material";
-import axios from "axios";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
+import { postAPI } from "../../api/services/post";
 
 const PostForm = () => {
   const navigate = useNavigate();
@@ -18,9 +18,7 @@ const PostForm = () => {
 
   const getPost = async () => {
     try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_REST_SERVER}/post/${postId}`
-      );
+      const res = await postAPI.getPost(postId);
       const data = res.data;
       setValue("title", data.title);
       setValue("content", data.content);
@@ -52,25 +50,13 @@ const PostForm = () => {
       if (postId) {
         // 서버에 수정 요청 보내기
         formData.append("id", postId);
-        await axios.patch(
-          `${process.env.REACT_APP_REST_SERVER}/post`,
-          formData,
-          {
-            headers: { "Content-Type": "mulipart/form-data" },
-          }
-        );
+        await postAPI.modifyPost(formData);
 
         // 기존 게시물 디테일 페이지로 이동
         navigate(`/post/${postId}`);
       } else {
         // 서버에 등록 요청 보내기
-        await axios.post(
-          `${process.env.REACT_APP_REST_SERVER}/post`,
-          formData,
-          {
-            headers: { "Content-Type": "mulipart/form-data" },
-          }
-        );
+        await postAPI.writePost(formData);
 
         // 게시물 리스트 페이지로 이동
         navigate("/post");

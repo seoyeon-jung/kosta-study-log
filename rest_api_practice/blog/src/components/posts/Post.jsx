@@ -1,8 +1,8 @@
 import { Button, Divider, Grid2 } from "@mui/material";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import PostCard from "./PostCard";
 import { useNavigate } from "react-router-dom";
+import { postAPI } from "../../api/services/post";
 
 const Post = () => {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ const Post = () => {
   // 2. axios 사용해서 setting
   const getPostLists = async () => {
     try {
-      const res = await axios.get(`${process.env.REACT_APP_REST_SERVER}/post`);
+      const res = await postAPI.getPostList();
       //console.log(res.data);
       setPostList(res.data);
     } catch (err) {

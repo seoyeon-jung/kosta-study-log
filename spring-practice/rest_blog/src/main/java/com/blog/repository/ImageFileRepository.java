@@ -7,7 +7,4 @@ import com.blog.entity.ImageFile;
 
 @Repository
 public interface ImageFileRepository extends JpaRepository<ImageFile, Long> {
-
-	ImageFile findByFileName(String fileName);
-
 }

@@ -28,6 +28,7 @@ import com.blog.domain.ErrorResponse;
 import com.blog.domain.FileDTO;
 import com.blog.domain.PostRequest;
 import com.blog.domain.PostResponse;
+import com.blog.service.ImageFileService;
 import com.blog.service.PostService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,6 +42,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/post")
 public class PostController {
 	private final PostService postService;
+	private final ImageFileService imageFileService;
 
 	// application.yml 파일의 location 정보 가져오기
 	@Value("${spring.upload.location}")
@@ -99,7 +101,7 @@ public class PostController {
 	// image id값을 가져와서 파일 다운로드
 	@GetMapping("/download/{imageId}")
 	public ResponseEntity<Resource> downloadImage(@PathVariable("imageId") Long id) throws MalformedURLException {
-		FileDTO fileDTO = postService.getImageById(id); // 실제로 데이터를 가져오는 곳은 ImageFileRepository
+		FileDTO fileDTO = imageFileService.getImageById(id); // 실제로 데이터를 가져오는 곳은 ImageFileRepository
 
 		UrlResource resource = new UrlResource("file:" + uploadPath + "\\" + fileDTO.getSaved());
 		String fileName = UriUtils.encode(fileDTO.getOrigin(), StandardCharsets.UTF_8);
