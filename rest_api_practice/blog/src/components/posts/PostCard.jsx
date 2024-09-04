@@ -14,15 +14,14 @@ const PostCard = ({ post }) => {
 
   const handleDownload = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:8080/api/post/download/${post.image.id}`
+      await axios.get(
+        `${process.env.REACT_APP_REST_SERVER}/post/download/${post.image.id}`
       );
-      console.log(res);
     } catch (error) {
       console.error(error);
     }
-    //e.stopPropagation();
-    //window.location.href = `http://localhost:8080/api/post/download/${post.image.id}`;
+    // e.stopPropagation();
+    // window.location.href = `${process.env.REACT_APP_REST_SERVER}/post/download/${post.image.id}`;
   };
 
   return (

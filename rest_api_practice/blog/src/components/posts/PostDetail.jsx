@@ -27,7 +27,9 @@ const PostDetail = () => {
     // 요청 보내기
     const getPost = async () => {
       try {
-        const res = await axios.get(`http://localhost:8080/api/post/${postId}`);
+        const res = await axios.get(
+          `${process.env.REACT_APP_REST_SERVER}/post/${postId}`
+        );
         const data = res.data;
         setPost(data);
       } catch (error) {
@@ -60,9 +62,12 @@ const PostDetail = () => {
 
       // data를 axios를 통해 전달해서 비밀번호가 맞는지 확인 후 맞으면 삭제
       try {
-        await axios.delete(`http://localhost:8080/api/post/${post.id}`, {
-          data: { password, authorId },
-        });
+        await axios.delete(
+          `${process.env.REACT_APP_REST_SERVER}/post/${post.id}`,
+          {
+            data: { password, authorId },
+          }
+        );
         Swal.fire({
           title: "게시물 삭제 완료",
           text: `${post.id}번 게시물이 삭제되었습니다.`,
@@ -93,7 +98,7 @@ const PostDetail = () => {
             <CardMedia
               component="img"
               //height="194"
-              image={`http://localhost:8080/img/${post.image.saved}`}
+              image={`${process.env.REACT_APP_SERVER}/img/${post.image.saved}`}
               alt="게시글 이미지"
             />
           ) : null}

@@ -12,7 +12,7 @@ const Post = () => {
   // 2. axios 사용해서 setting
   const getPostLists = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/post");
+      const res = await axios.get(`${process.env.REACT_APP_REST_SERVER}/post`);
       //console.log(res.data);
       setPostList(res.data);
     } catch (err) {

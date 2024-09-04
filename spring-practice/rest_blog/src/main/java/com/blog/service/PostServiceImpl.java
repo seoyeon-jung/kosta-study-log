@@ -28,19 +28,28 @@ public class PostServiceImpl implements PostService {
 	private final ImageFileRepository imageFileRepoistory;
 	private final FileUtils fileUtils;
 
-	@Override
-	public PostResponse insertPost(PostRequest postDTO, MultipartFile file) {
-		// file이 없을 때는 아예 이 동작을 하지 않는다.
+	// 이미지 저장 메소드 (중복되므로 메소드 생성)
+	private ImageFile saveImage(MultipartFile file) {
 		if (file != null) {
 			// 이미지 파일 가져오기
 			ImageFile imageFile = fileUtils.fileUpload(file);
 
 			if (imageFile != null) {
 				// DB에 저장
-				ImageFile savedimageFile = imageFileRepoistory.save(imageFile);
-				// postDTO (postRequest)에 이미지 파일 추가
-				postDTO.setImageFile(savedimageFile);
+				ImageFile savedImageFile = imageFileRepoistory.save(imageFile);
+				return savedImageFile;
 			}
+		}
+		return null;
+	}
+
+	@Override
+	public PostResponse insertPost(PostRequest postDTO, MultipartFile file) {
+
+		ImageFile savedImage = saveImage(file);
+		if (savedImage != null) {
+			// postDTO (postRequest)에 이미지 파일 추가
+			postDTO.setImageFile(savedImage);
 		}
 
 		// post table에 저장
@@ -75,7 +84,8 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public PostResponse updatePost(PostRequest postDTO) {
+	public PostResponse updatePost(PostRequest postDTO, MultipartFile file) {
+
 		User user = userRepository.findById(postDTO.getAuthorId())
 				.orElseThrow(() -> new IllegalArgumentException("해당 유저를 찾을 수 없음"));
 		Post post = postRepository.findById(postDTO.getId())
@@ -87,6 +97,12 @@ public class PostServiceImpl implements PostService {
 
 		if (!post.getPassword().equals(postDTO.getPassword())) {
 			throw new IllegalArgumentException("비밀번호가 일치하지 않음");
+		}
+
+		// 이미지 있는 경우 확인
+		ImageFile savedImage = saveImage(file);
+		if (savedImage != null) {
+			post.setImage(savedImage);
 		}
 
 		if (postDTO.getTitle() != null) {
