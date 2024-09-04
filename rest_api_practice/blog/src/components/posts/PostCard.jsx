@@ -12,17 +12,17 @@ const PostCard = ({ post }) => {
   const navigate = useNavigate();
   const theme = useTheme();
 
-  const handleDownload = async (e) => {
-    // try {
-    //   const res = await axios.get(
-    //     `http://localhost:8080/api/post/download/${post.image.id}`
-    //   );
-    //   console.log(res);
-    // } catch (error) {
-    //   console.error(error);
-    // }
-    e.stopPropagation();
-    window.location.href = `http://localhost:8080/api/post/download/${post.image.id}`;
+  const handleDownload = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:8080/api/post/download/${post.image.id}`
+      );
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+    //e.stopPropagation();
+    //window.location.href = `http://localhost:8080/api/post/download/${post.image.id}`;
   };
 
   return (
