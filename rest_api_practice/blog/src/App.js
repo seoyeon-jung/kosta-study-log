@@ -5,6 +5,8 @@ import PostForm from "./components/posts/PostForm";
 import PostDetail from "./components/posts/PostDetail";
 import Favorite from "./components/favorite/Favorite";
 import FavoriteForm from "./components/favorite/FavoriteForm";
+import Error from "./components/errorPage/Error";
+import NotFound from "./components/errorPage/NotFound";
 
 function App() {
   return (
@@ -19,8 +21,8 @@ function App() {
         <Route path="/post/modify/:postId" element={<PostForm />} />
         <Route path="/post/:postId" element={<PostDetail />} />
         <Route path="/search" element={<h1>SEARCH</h1>} />
-        <Route path="/error" element={<h1>ERROR</h1>} />
-        <Route path="*" element={<h1>NOT FOUND</h1>} />
+        <Route path="/error" element={<Error />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Layout>
   );

@@ -1,5 +1,5 @@
-import { Button, Grid2, TextField } from "@mui/material";
-import React, { useEffect } from "react";
+import { Box, Button, Grid2, TextField } from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { favoriteAPI } from "../../api/services/favorite";
@@ -53,6 +53,7 @@ const FavoriteForm = () => {
       }
     } catch (error) {
       console.error(error);
+      navigate();
     }
   };
 
@@ -67,7 +68,8 @@ const FavoriteForm = () => {
         >
           <div>
             <TextField
-              label="제목"
+              label={id ? "" : "제목"}
+              placeholder="북마크 제목을 입력해주세요"
               variant="outlined"
               error={errors.title && true}
               helperText={
@@ -81,10 +83,19 @@ const FavoriteForm = () => {
 
           <div>
             <TextField
-              label="링크"
+              label={id ? "" : "URL"}
+              placeholder="북마크할 링크를 입력해주세요."
               variant="outlined"
               error={errors.url && true}
-              {...register("url", { required: true })}
+              {...register("url", {
+                required: "URL은 필수입니다.",
+                pattern: {
+                  value:
+                    /^(https?:\/\/)?([a-zA-Z0-9\-\.]+)\.([a-zA-Z]{2,})(\/[a-zA-Z0-9#]+\/?)*$/,
+                  message: "유효한 URL을 입력해주세요.",
+                },
+              })}
+              helperText={errors.url && errors.url.message}
               fullWidth
             />
           </div>
@@ -96,14 +107,35 @@ const FavoriteForm = () => {
               fullWidth
               error={errors.image && true}
               helperText={errors.image && "이미지는 필수입니다."}
-              // image만 등록될 수 있도록 막아둠(백엔드에서 한번 더 체크 필요)
               slotProps={{ htmlInput: { accept: "image/*" } }}
             />
           </div>
 
-          <Button fullWidth type="submit" variant="contained" color="main">
-            {id ? "수정" : "작성"}
-          </Button>
+          <Box
+            sx={{
+              display: "flex",
+              gap: 2,
+              marginTop: 2,
+              flexDirection: { xs: "column", sm: "row" },
+            }}
+          >
+            <Box sx={{ flex: 1 }}>
+              <Button type="submit" variant="contained" fullWidth color="main">
+                {id ? "수정" : "작성"}
+              </Button>
+            </Box>
+            <Box sx={{ flex: 1 }}>
+              <Button
+                type="button"
+                variant="outlined"
+                fullWidth
+                color="main"
+                onClick={() => navigate("/favorite")}
+              >
+                취소
+              </Button>
+            </Box>
+          </Box>
         </Grid2>
       </form>
     </>

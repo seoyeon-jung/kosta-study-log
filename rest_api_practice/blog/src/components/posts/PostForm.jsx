@@ -83,7 +83,8 @@ const PostForm = () => {
           {/* 제목 : 필수, 50자 이내 */}
           <div>
             <TextField
-              label="제목"
+              label={postId ? "" : "제목"}
+              placeholder="제목을 입력해주세요"
               variant="outlined"
               error={errors.title && true}
               helperText={
@@ -99,7 +100,8 @@ const PostForm = () => {
           <div>
             <TextField
               id="outlined-multiline-static"
-              label="내용"
+              label={postId ? "" : "내용"}
+              placeholder="내용을 입력해주세요"
               multiline
               rows={8}
               error={errors.content && true}
@@ -123,7 +125,8 @@ const PostForm = () => {
           {/* 비밀번호 : 필수, 영어+숫자 8자리 이상 20자리 이하 */}
           <div>
             <TextField
-              label="비밀번호"
+              label={postId ? "" : "비밀번호"}
+              placeholder="비밀번호를 입력해주세요 (영어+숫자 8~20자리)"
               type="password"
               error={errors.password && true}
               helperText={
