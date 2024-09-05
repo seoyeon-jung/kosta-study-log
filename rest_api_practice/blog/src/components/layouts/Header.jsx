@@ -19,9 +19,11 @@ const Header = () => {
   const navigate = useNavigate();
 
   const [menu, setMenu] = useState([
+    { path: "/user", name: "회원 관리" },
     { path: "/post", name: "게시물" },
     { path: "/search", name: "검색" },
     { path: "/favorite", name: "북마크" },
+    { path: "signup", name: "회원가입" },
   ]);
   const [menuOpen, setMenuOpen] = useState(false); // menu open 여부
 

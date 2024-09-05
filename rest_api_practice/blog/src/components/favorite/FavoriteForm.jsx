@@ -1,5 +1,5 @@
 import { Box, Button, Grid2, TextField } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { favoriteAPI } from "../../api/services/favorite";
@@ -22,6 +22,7 @@ const FavoriteForm = () => {
       setValue("url", data.url);
     } catch (error) {
       console.error(error);
+      navigate("/error", { state: error });
     }
   };
 
@@ -53,7 +54,7 @@ const FavoriteForm = () => {
       }
     } catch (error) {
       console.error(error);
-      navigate();
+      navigate("/error", { state: error });
     }
   };
 

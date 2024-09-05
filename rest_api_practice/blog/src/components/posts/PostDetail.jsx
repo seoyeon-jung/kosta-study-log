@@ -31,7 +31,8 @@ const PostDetail = () => {
         const data = res.data;
         setPost(data);
       } catch (error) {
-        navigate("/error");
+        console.error(error);
+        navigate("/error", { state: error });
       }
     };
 
@@ -68,7 +69,8 @@ const PostDetail = () => {
         });
         navigate("/post");
       } catch (error) {
-        navigate("/error");
+        console.error(error);
+        navigate("/error", { state: error });
       }
     }
   };

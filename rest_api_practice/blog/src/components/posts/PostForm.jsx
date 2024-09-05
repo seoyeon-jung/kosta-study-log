@@ -23,7 +23,8 @@ const PostForm = () => {
       setValue("title", data.title);
       setValue("content", data.content);
     } catch (error) {
-      navigate("/error");
+      console.error(error);
+      navigate("/error", { state: error });
     }
   };
 
@@ -62,8 +63,9 @@ const PostForm = () => {
         navigate("/post");
       }
     } catch (error) {
+      console.error(error);
       // 비정상이면 error page로 이동
-      navigate("/error");
+      navigate("/error", { state: error });
     }
   };
 

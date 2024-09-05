@@ -43,7 +43,7 @@ const FavoriteCard = ({ favorite, onDelete }) => {
       }
     } catch (error) {
       console.error(error);
-      Swal.fire("오류 발생", "북마크 삭제 중 오류가 발생했습니다.", "error");
+      navigate("/error", { state: error });
     }
   };
 

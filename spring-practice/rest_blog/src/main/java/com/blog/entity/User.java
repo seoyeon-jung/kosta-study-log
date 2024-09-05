@@ -12,11 +12,15 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class) // 생성, 수정 날짜 추적
 @Data
+@Builder
+@NoArgsConstructor
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,4 +43,14 @@ public class User {
 	@LastModifiedDate
 	@Column(name = "updated_at")
 	private LocalDateTime updatedAt;
+
+	public User(Long id, String email, String name, String password, LocalDateTime createdAt, LocalDateTime updatedAt) {
+		this.id = id;
+		this.email = email;
+		this.name = name;
+		this.password = password;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+	}
+
 }
