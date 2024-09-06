@@ -32,7 +32,7 @@ const PostDetail = () => {
         setPost(data);
       } catch (error) {
         console.error(error);
-        navigate("/error", { state: error });
+        navigate("/error", { state: error.message });
       }
     };
 
@@ -70,7 +70,7 @@ const PostDetail = () => {
         navigate("/post");
       } catch (error) {
         console.error(error);
-        navigate("/error", { state: error });
+        navigate("/error", { state: error.message });
       }
     }
   };

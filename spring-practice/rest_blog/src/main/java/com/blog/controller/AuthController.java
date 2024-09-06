@@ -1,7 +1,6 @@
 package com.blog.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.domain.ErrorResponse;
@@ -47,9 +47,9 @@ public class AuthController {
 
 	// 이메일 중복 체크
 	@GetMapping("/duplicate")
-	public ResponseEntity<Boolean> emailCheck(@RequestBody Map<String, String> emailMap) {
+	public ResponseEntity<Boolean> emailCheck(@RequestParam("email") String email) {
 		// key와 value로 email을 가져와서 체크할 수 있다
-		boolean isNotDuplicate = userService.duplicateCheckEmail(emailMap.get("email"));
+		boolean isNotDuplicate = userService.duplicateCheckEmail(email);
 		return ResponseEntity.ok(isNotDuplicate);
 	}
 
@@ -61,7 +61,7 @@ public class AuthController {
 	}
 
 	// 회원 정보 삭제
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/delete")
 	public ResponseEntity<?> userWithdrawal(@RequestBody UserDeleteRequest userDeleteRequest) {
 		userService.deleteUser(userDeleteRequest);
 		return ResponseEntity.ok(null);

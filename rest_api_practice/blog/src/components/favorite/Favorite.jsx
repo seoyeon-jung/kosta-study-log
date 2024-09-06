@@ -26,7 +26,7 @@ const Favorite = () => {
 
   useEffect(() => {
     getFavList();
-  }, []);
+  });
 
   return (
     <>

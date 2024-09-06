@@ -22,7 +22,7 @@ const FavoriteForm = () => {
       setValue("url", data.url);
     } catch (error) {
       console.error(error);
-      navigate("/error", { state: error });
+      navigate("/error", { state: error.message });
     }
   };
 
@@ -54,7 +54,7 @@ const FavoriteForm = () => {
       }
     } catch (error) {
       console.error(error);
-      navigate("/error", { state: error });
+      navigate("/error", { state: error.message });
     }
   };
 

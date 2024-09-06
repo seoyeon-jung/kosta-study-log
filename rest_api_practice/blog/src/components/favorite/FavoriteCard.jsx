@@ -43,7 +43,7 @@ const FavoriteCard = ({ favorite, onDelete }) => {
       }
     } catch (error) {
       console.error(error);
-      navigate("/error", { state: error });
+      navigate("/error", { state: error.message });
     }
   };
 

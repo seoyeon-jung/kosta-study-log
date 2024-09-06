@@ -24,7 +24,7 @@ const PostForm = () => {
       setValue("content", data.content);
     } catch (error) {
       console.error(error);
-      navigate("/error", { state: error });
+      navigate("/error", { state: error.message });
     }
   };
 
@@ -65,7 +65,7 @@ const PostForm = () => {
     } catch (error) {
       console.error(error);
       // 비정상이면 error page로 이동
-      navigate("/error", { state: error });
+      navigate("/error", { state: error.message });
     }
   };
 

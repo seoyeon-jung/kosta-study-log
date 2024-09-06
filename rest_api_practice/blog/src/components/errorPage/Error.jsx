@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const Error = () => {
   const navigate = useNavigate();
-  const { error } = useLocation();
+  const { state } = useLocation();
 
   return (
     <Container
@@ -19,7 +19,7 @@ const Error = () => {
       }}
     >
       <Typography variant="h1" component="h1" color="#000" gutterBottom>
-        {error} 발생
+        {state} 발생
       </Typography>
       <Button variant="contained" color="sub" onClick={() => navigate("/")}>
         홈으로 돌아가기

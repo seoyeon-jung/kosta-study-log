@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { userAPI } from "../../api/services/user";
+import UserCard from "./UserCard";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 
 const User = () => {
   const [userList, setUserList] = useState([]);
@@ -13,7 +21,7 @@ const User = () => {
       setUserList(data);
     } catch (error) {
       console.error(error);
-      navigate("/error", { state: error });
+      navigate("/error", { state: error.message });
     }
   };
 
@@ -23,10 +31,22 @@ const User = () => {
 
   return (
     <>
-      user list
-      {userList.map((user) => {
-        return <div>{user.name}</div>;
-      })}
+      <h1>회원 관리</h1>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell align="center">번호</TableCell>
+            <TableCell align="center">이름</TableCell>
+            <TableCell align="center">이메일</TableCell>
+            <TableCell align="center"></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {userList.map((user) => {
+            return <UserCard key={user.id} user={user} />;
+          })}
+        </TableBody>
+      </Table>
     </>
   );
 };
