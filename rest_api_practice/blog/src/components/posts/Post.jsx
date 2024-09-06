@@ -1,29 +1,42 @@
-import { Button, Divider, Grid2 } from "@mui/material";
+import { Button, Divider, Grid2, Pagination } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import PostCard from "./PostCard";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { postAPI } from "../../api/services/post";
+import usePagination from "../../hooks/usePagination";
 
 const Post = () => {
+  const { state } = useLocation(); // 검색 state 가져오기
   const navigate = useNavigate();
   // 1. state 생성
   const [postList, setPostList] = useState([]);
 
+  // 10개씩 pagination
+  const itemsPerpage = 10;
+  const { currentPage, currentItems, totalPages, paginate } = usePagination(
+    postList,
+    itemsPerpage
+  );
+
   // 2. axios 사용해서 setting
   const getPostLists = async () => {
-    try {
-      const res = await postAPI.getPostList();
-      //console.log(res.data);
-      setPostList(res.data);
-    } catch (err) {
-      console.error(err);
+    if (state) {
+      setPostList(state);
+    } else {
+      try {
+        const res = await postAPI.getPostList();
+        //console.log(res.data);
+        setPostList(res.data);
+      } catch (err) {
+        console.error(err);
+      }
     }
   };
 
   // 3. useEffect에 함수 적용
   useEffect(() => {
     getPostLists();
-  }, []);
+  }, [state]);
 
   return (
     <>
@@ -36,13 +49,36 @@ const Post = () => {
       >
         글쓰기
       </Button>
+
       <Divider />
+
       {/* 전체 리스트 */}
       <Grid2 container spacing={4} direction={"column"}>
-        {postList.map((post) => (
+        {currentItems.map((post) => (
           <PostCard post={post} key={post.id} />
         ))}
       </Grid2>
+
+      <Divider />
+
+      {/* pagination */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "1rem",
+        }}
+      >
+        <Pagination
+          count={totalPages}
+          page={currentPage}
+          onChange={(event, page) => paginate(page)}
+          color="secondary"
+          variant="outlined"
+          sx={{ marginBottom: "15px" }}
+        />
+      </div>
     </>
   );
 };

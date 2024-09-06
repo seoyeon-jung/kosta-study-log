@@ -135,4 +135,5 @@
 09.02 [REST API 실습 - 블로그](./13주차/240902/README.md)   
 09.03 [REST API 실습 - 블로그(이미지 추가)](./13주차/240903/README.md)   
 09.04 [REST API 실습 - 블로그](./13주차/240904/README.md)   
-09.05 [REST API 실습](./13주차/240905/README.md)
+09.05 [REST API 실습](./13주차/240905/README.md)   
+09.06 [REST API 실습](./13주차/240906/README.md)

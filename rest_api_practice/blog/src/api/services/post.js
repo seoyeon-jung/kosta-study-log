@@ -13,4 +13,5 @@ export const postAPI = {
     }),
   deletePost: (id, password, authorId) =>
     api.delete(`/post/${id}`, { data: { password, authorId } }),
+  searchPost: (keyword) => api.get(`/post/search`, { params: { keyword } }),
 };

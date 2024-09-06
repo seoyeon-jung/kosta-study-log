@@ -19,4 +19,6 @@ public interface PostService {
 
 	PostResponse deletePost(Long id, PostRequest post);
 
+	List<PostResponse> search(String keyword);
+
 }

@@ -118,4 +118,10 @@ public class PostServiceImpl implements PostService {
 		return PostResponse.toDTO(post);
 	}
 
+	@Override
+	public List<PostResponse> search(String keyword) {
+		List<Post> postList = postRepository.findByTitleContainsOrContentContains(keyword, keyword);
+		return postList.stream().map(p -> PostResponse.toDTO(p)).toList();
+	}
+
 }

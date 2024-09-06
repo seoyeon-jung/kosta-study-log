@@ -95,6 +95,7 @@ const PostForm = () => {
               }
               {...register("title", { required: true, maxLength: 50 })}
               fullWidth
+              autoFocus
             />
           </div>
 

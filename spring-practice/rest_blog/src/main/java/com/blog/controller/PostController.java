@@ -110,6 +110,13 @@ public class PostController {
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition).body(resource);
 	}
 
+	// 검색
+	@GetMapping("/search")
+	public ResponseEntity<List<PostResponse>> search(@RequestParam("keyword") String keyword) {
+		List<PostResponse> result = postService.search(keyword);
+		return ResponseEntity.ok(result);
+	}
+
 	// 예외 처리
 	@ExceptionHandler(RuntimeException.class)
 	public ResponseEntity<ErrorResponse> handlePostException(RuntimeException e, HttpServletRequest req) {

@@ -28,7 +28,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/user" element={<User />} />
 
-        <Route path="/search" element={<h1>SEARCH</h1>} />
+        <Route path="/search" element={<Post />} />
         <Route path="/error" element={<Error />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

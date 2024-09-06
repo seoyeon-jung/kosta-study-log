@@ -46,7 +46,7 @@ const SignUp = () => {
     try {
       await userAPI.addUser(data);
       Swal.fire("회원가입이 완료되었습니다!");
-      navigate("/post");
+      navigate("/user");
     } catch (error) {
       console.error(error);
       navigate("/error", { state: error.message });
@@ -89,7 +89,14 @@ const SignUp = () => {
             />
           </div>
 
-          <div>
+          <Box
+            sx={{
+              display: "flex",
+              gap: 1,
+              alignItems: "center",
+              width: "100%",
+            }}
+          >
             <TextField
               id="email"
               label="이메일"
@@ -105,16 +112,21 @@ const SignUp = () => {
                 pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",
               })}
               onChange={(e) => setValue("email", e.target.value)}
+              sx={{ flex: 1 }}
             />
             <Button
               onClick={checkDuplicate}
               type="button"
-              variant="outlined"
-              color="main"
+              variant="contained"
+              sx={{
+                height: "100%",
+                backgroundColor: "#340152",
+                color: "white",
+              }}
             >
               중복 체크
             </Button>
-          </div>
+          </Box>
 
           <div>
             <TextField
