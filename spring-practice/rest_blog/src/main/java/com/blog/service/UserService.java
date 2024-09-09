@@ -2,6 +2,7 @@ package com.blog.service;
 
 import java.util.List;
 
+import com.blog.domain.LoginResponse;
 import com.blog.domain.SignUpRequest;
 import com.blog.domain.UpdateUserRequest;
 import com.blog.domain.UserDeleteRequest;
@@ -18,5 +19,7 @@ public interface UserService {
 	boolean duplicateCheckEmail(String string);
 
 	void deleteUser(UserDeleteRequest userDeleteRequest);
+
+	LoginResponse login(String email, String password);
 
 }

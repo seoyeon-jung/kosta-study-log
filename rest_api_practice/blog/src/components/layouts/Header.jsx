@@ -14,22 +14,58 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { FaBlogger } from "react-icons/fa6";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Drawer from "./Drawer";
 import SearchIcon from "@mui/icons-material/Search";
 import { postAPI } from "../../api/services/post";
+import { jwtDecode } from "jwt-decode";
+import { useAuth } from "../../hooks/useAuth";
 
 const Header = () => {
   const navigate = useNavigate();
 
-  const [menu, setMenu] = useState([
-    { path: "/user", name: "회원 관리" },
-    { path: "/post", name: "게시물" },
-    { path: "/favorite", name: "북마크" },
-    { path: "signup", name: "회원가입" },
-    { path: "/search", name: "검색" },
-  ]);
+  // access token 가져오기
+  const { accessToken, logout, tokenCheck } = useAuth();
+
+  let allMenu = [
+    { path: "/user", name: "회원 관리", auth: ["ROLE_ADMIN"] },
+    { path: "/favorite", name: "북마크", auth: ["ROLE_ADMIN", "ROLE_USER"] },
+    {
+      path: "/post",
+      name: "게시물",
+      auth: ["ROLE_ADMIN", "ROLE_USER", "none"],
+    },
+    { path: "/signup", name: "회원가입", auth: ["none"] },
+    { path: "/login", name: "로그인", auth: ["none"] },
+    { path: "/logout", name: "로그아웃", auth: ["ROLE_ADMIN", "ROLE_USER"] },
+    {
+      path: "/search",
+      name: "검색",
+      auth: ["ROLE_ADMIN", "ROLE_USER", "none"],
+    },
+  ];
+
+  const [menu, setMenu] = useState([]);
+
+  useEffect(() => {
+    // 만약 브라우저 토큰이 유효하면
+    if (tokenCheck()) {
+      // 권한에 맞는 메뉴 설정
+      const claims = jwtDecode(accessToken);
+      console.log(claims);
+      const role = claims.role; // role의 권한 가져오기
+      setMenu(allMenu.filter((m) => m.auth.includes(role)));
+    }
+    // 그렇지 않으면
+    else {
+      // 로그아웃 처리
+      logout(() => navigate("/login"));
+      // none 메뉴 설정
+      setMenu(allMenu.filter((m) => m.auth.includes("none")));
+    }
+  }, [accessToken]);
+
   const [menuOpen, setMenuOpen] = useState(false); // menu open 여부
 
   const toggleDrawer = () => {
@@ -58,7 +94,7 @@ const Header = () => {
           <Box sx={{ display: { xs: "none", sm: "block" }, cursor: "pointer" }}>
             {menu.map((m, idx) => {
               if (m.path === "/search") {
-                return <MySearch />;
+                return <MySearch key={idx} />;
               }
               return (
                 <Button key={idx} color="bg2" onClick={() => navigate(m.path)}>

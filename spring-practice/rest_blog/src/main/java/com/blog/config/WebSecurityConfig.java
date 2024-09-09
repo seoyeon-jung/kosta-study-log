@@ -7,8 +7,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,14 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
+	private final UserDetailsService userDetailsService;
+	private final JwtProperties jwtProperties;
+
+	// JWT PROVIDER bean 생성
+	@Bean
+	JwtProvider jwtProvider() {
+		return new JwtProvider(jwtProperties, userDetailsService);
+	};
 
 	// 암호화 빈
 	@Bean
@@ -35,7 +45,7 @@ public class WebSecurityConfig {
 				new AntPathRequestMatcher("/api/auth/duplicate") // email 중복 체크
 		).permitAll()
 				// AuthController 중 나머지는 ADMIN만 접근 가능한 페이지
-				.requestMatchers(new AntPathRequestMatcher("/api/auth/**")).hasRole("ADMIN")
+				.requestMatchers(new AntPathRequestMatcher("/api/auth")).hasRole("ADMIN")
 				// 그 밖의 다른 요청들은 인증을 통과한 사용자라면(=로그인한 사용자) 접근 가능
 				.anyRequest().authenticated());
 
@@ -46,7 +56,7 @@ public class WebSecurityConfig {
 		// (토큰을 통해 검증할 수 있도록) filter 추가
 		// http.addFilterBefore(추가할 필터, 다른필터)
 		// jwt 인증 필터를 추가
-		// http.addFilterBefore(null, UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(new JwtAuthenticationFilter(jwtProvider()), UsernamePasswordAuthenticationFilter.class);
 
 		// HTTP 기본 설정
 		http.httpBasic(HttpBasicConfigurer::disable);

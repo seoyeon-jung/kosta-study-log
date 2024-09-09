@@ -23,4 +23,4 @@ spring:
 jwt:
   issuer: kosta-seoyeon
   secret_key: myscretmyscretmyscretmyscretmyscret
-  access_duration: 1800000 # 30분 (30*60*1000)
+  access_duration: 10000 # 30분 (30*60*1000)

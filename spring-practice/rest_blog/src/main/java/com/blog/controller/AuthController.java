@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.domain.ErrorResponse;
+import com.blog.domain.LoginRequest;
+import com.blog.domain.LoginResponse;
 import com.blog.domain.SignUpRequest;
 import com.blog.domain.UpdateUserRequest;
 import com.blog.domain.UserDeleteRequest;
@@ -23,7 +25,9 @@ import com.blog.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -34,13 +38,23 @@ public class AuthController {
 	// 회원가입
 	@PostMapping("/signup")
 	public ResponseEntity<UserResponse> signUp(@RequestBody SignUpRequest user) {
+		log.info("[signUp] 회원가입 진행. 요청정보 : {}", user);
 		UserResponse joinUser = userService.addUser(user);
 		return ResponseEntity.status(HttpStatus.CREATED).body(joinUser);
+	}
+
+	// 로그인
+	@PostMapping("/login")
+	public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest, HttpServletRequest response) {
+		log.info("[login] 로그인 시도, user: {}", loginRequest);
+		LoginResponse loginResponse = userService.login(loginRequest.getEmail(), loginRequest.getPassword());
+		return ResponseEntity.ok(loginResponse);
 	}
 
 	// 회원 전체 리스트
 	@GetMapping("/userlist")
 	public ResponseEntity<List<UserResponse>> getUserList() {
+		log.info("[getUserList] 회원 전체 조회");
 		List<UserResponse> userList = userService.getAllUser();
 		return ResponseEntity.ok(userList);
 	}
@@ -48,6 +62,7 @@ public class AuthController {
 	// 이메일 중복 체크
 	@GetMapping("/duplicate")
 	public ResponseEntity<Boolean> emailCheck(@RequestParam("email") String email) {
+		log.info("[emailCheck] 이메일 중복 체크");
 		// key와 value로 email을 가져와서 체크할 수 있다
 		boolean isNotDuplicate = userService.duplicateCheckEmail(email);
 		return ResponseEntity.ok(isNotDuplicate);
@@ -56,6 +71,7 @@ public class AuthController {
 	// 회원 정보 수정
 	@PatchMapping("/update")
 	public ResponseEntity<UserResponse> updateUser(@RequestBody UpdateUserRequest user) {
+		log.info("[updateUser] 회원 정보 수정. 수정 요청 정보 : {}", user);
 		UserResponse updatedUser = userService.updateUserInfo(user);
 		return ResponseEntity.ok(updatedUser);
 	}
@@ -63,6 +79,7 @@ public class AuthController {
 	// 회원 정보 삭제
 	@DeleteMapping("/delete")
 	public ResponseEntity<?> userWithdrawal(@RequestBody UserDeleteRequest userDeleteRequest) {
+		log.info("[userWithdrawal] 회원 삭제. 삭제 요청 정보 : {}", userDeleteRequest);
 		userService.deleteUser(userDeleteRequest);
 		return ResponseEntity.ok(null);
 	}
