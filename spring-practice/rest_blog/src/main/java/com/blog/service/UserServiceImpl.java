@@ -3,6 +3,7 @@ package com.blog.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.blog.domain.SignUpRequest;
@@ -18,10 +19,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@Override
 	public UserResponse addUser(SignUpRequest user) {
-		User newUser = User.builder().email(user.getEmail()).name(user.getName()).password(user.getPassword()).build();
+		// 사용자의 비밀번호 암호화
+		String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+
+		User newUser = User.builder().email(user.getEmail()).name(user.getName()).password(encodedPassword).build();
 		User joinedUser = userRepository.save(newUser);
 
 		return UserResponse.toDTO(joinedUser);

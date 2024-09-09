@@ -1,17 +1,27 @@
 package com.blog.entity;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.blog.domain.RoleEnum;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,8 +30,9 @@ import lombok.NoArgsConstructor;
 @EntityListeners(AuditingEntityListener.class) // 생성, 수정 날짜 추적
 @Data
 @Builder
+@AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class User implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(updatable = false)
@@ -44,13 +55,24 @@ public class User {
 	@Column(name = "updated_at")
 	private LocalDateTime updatedAt;
 
-	public User(Long id, String email, String name, String password, LocalDateTime createdAt, LocalDateTime updatedAt) {
-		this.id = id;
-		this.email = email;
-		this.name = name;
-		this.password = password;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	@Builder.Default
+	private RoleEnum role = RoleEnum.ROLE_USER;
+	// 권한 column 추가 (기본값 ROLE_USER)
+
+	// 나중에 refresh_toekn을 저장하도록 변경 예정
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// 권한 목록 반환
+		return List.of(new SimpleGrantedAuthority(role.name()));
+	}
+
+	@Override
+	public String getUsername() {
+		// 로그인할 사용자명 지정 (이메일로 지정했음)
+		return email;
 	}
 
 }
