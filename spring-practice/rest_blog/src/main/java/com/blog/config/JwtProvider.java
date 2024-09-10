@@ -64,7 +64,7 @@ public class JwtProvider {
 					.build().parseSignedClaims(token); // 서명된 클레임을 파싱
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+
 		}
 		log.info("토큰 검증 실패");
 		return false;

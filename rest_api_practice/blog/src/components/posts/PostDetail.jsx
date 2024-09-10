@@ -15,6 +15,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { postAPI } from "../../api/services/post";
+import { useAuth } from "../../hooks/useAuth";
 
 const PostDetail = () => {
   const navigate = useNavigate();
@@ -22,6 +23,8 @@ const PostDetail = () => {
   const theme = useTheme();
   // id값 가져오기 (url 참고 > /post/id)
   const { postId } = useParams();
+
+  const { accessToken } = useAuth();
 
   useEffect(() => {
     // 요청 보내기
@@ -102,24 +105,26 @@ const PostDetail = () => {
               {post.content}
             </Typography>
           </CardContent>
-          <CardActions>
-            <Button
-              variant="contained"
-              color="sub"
-              startIcon={<ModeEditIcon />}
-              onClick={() => navigate(`/post/modify/${post.id}`)}
-            >
-              수정
-            </Button>
-            <Button
-              variant="contained"
-              color="bg1"
-              startIcon={<DeleteIcon />}
-              onClick={handleDelete}
-            >
-              삭제
-            </Button>
-          </CardActions>
+          {accessToken && (
+            <CardActions>
+              <Button
+                variant="contained"
+                color="sub"
+                startIcon={<ModeEditIcon />}
+                onClick={() => navigate(`/post/modify/${post.id}`)}
+              >
+                수정
+              </Button>
+              <Button
+                variant="contained"
+                color="bg1"
+                startIcon={<DeleteIcon />}
+                onClick={handleDelete}
+              >
+                삭제
+              </Button>
+            </CardActions>
+          )}
         </Card>
       )}
     </>

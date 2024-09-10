@@ -4,10 +4,13 @@ import PostCard from "./PostCard";
 import { useLocation, useNavigate } from "react-router-dom";
 import { postAPI } from "../../api/services/post";
 import usePagination from "../../hooks/usePagination";
+import { useAuth } from "../../hooks/useAuth";
 
 const Post = () => {
   const { state } = useLocation(); // 검색 state 가져오기
   const navigate = useNavigate();
+  const { accessToken } = useAuth();
+
   // 1. state 생성
   const [postList, setPostList] = useState([]);
 
@@ -42,15 +45,19 @@ const Post = () => {
     <>
       <h1>POST LIST</h1>
       {/* 글쓰기 버튼 */}
-      <Button
-        variant="contained"
-        color="main"
-        onClick={() => navigate("/post/write")}
-      >
-        글쓰기
-      </Button>
+      {accessToken && (
+        <>
+          <Button
+            variant="contained"
+            color="main"
+            onClick={() => navigate("/post/write")}
+          >
+            글쓰기
+          </Button>
 
-      <Divider />
+          <Divider />
+        </>
+      )}
 
       {/* 전체 리스트 */}
       <Grid2 container spacing={4} direction={"column"}>

@@ -53,7 +53,6 @@ const Header = () => {
     if (tokenCheck()) {
       // 권한에 맞는 메뉴 설정
       const claims = jwtDecode(accessToken);
-      console.log(claims);
       const role = claims.role; // role의 권한 가져오기
       setMenu(allMenu.filter((m) => m.auth.includes(role)));
     }
@@ -95,6 +94,17 @@ const Header = () => {
             {menu.map((m, idx) => {
               if (m.path === "/search") {
                 return <MySearch key={idx} />;
+              }
+              if (m.path === "/logout") {
+                return (
+                  <Button
+                    key={idx}
+                    color="bg2"
+                    onClick={() => logout(() => navigate("/login"))}
+                  >
+                    {m.name}
+                  </Button>
+                );
               }
               return (
                 <Button key={idx} color="bg2" onClick={() => navigate(m.path)}>

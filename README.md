@@ -143,4 +143,5 @@
 <br/>
 
 ## 14주차
-09.09 [토큰 기반 인증](./14주차/240909/README.md)
+09.09 [JWT 토큰 방식 로그인 (AccessToken)](./14주차/240909/README.md)   
+09.10 [JWT 토큰 방식 로그인 (AccessToken)](./14주차/240910/README.md)

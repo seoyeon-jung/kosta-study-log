@@ -17,17 +17,17 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	private final JwtProvider jwtProvider;
-	private final static String HEADER_AHORIZATION = "Authorization";
+	private final static String HEADER_AUTHORIZATION = "Authorization";
 	private final static String TOKEN_PREFIX = "Bearer ";
 
 	// HTTP 요청이 들어올 때마다 실행되는 필터
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		String header = request.getHeader(HEADER_AHORIZATION);
+		String header = request.getHeader(HEADER_AUTHORIZATION);
 		// header에서 token값 가져오기
 		String token = getAccessToken(header);
-		if (jwtProvider.validateToken(token)) {
+		if (token != null && jwtProvider.validateToken(token)) {
 			// 유효한 토큰인 경우
 			Authentication authentication = jwtProvider.getAuthenticationByToken(token);
 			SecurityContextHolder.getContext().setAuthentication(authentication);

@@ -6,8 +6,6 @@ import java.util.List;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.blog.config.JwtProvider;
-import com.blog.domain.LoginResponse;
 import com.blog.domain.SignUpRequest;
 import com.blog.domain.UpdateUserRequest;
 import com.blog.domain.UserDeleteRequest;
@@ -22,7 +20,6 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
-	private final JwtProvider jwtProvider;
 
 	@Override
 	public UserResponse addUser(SignUpRequest user) {
@@ -52,7 +49,8 @@ public class UserServiceImpl implements UserService {
 		User user = userRepository.findByEmail(userDTO.getEmail())
 				.orElseThrow(() -> new IllegalArgumentException("회원 정보 조회에 실패했습니다. [없는 이메일]"));
 
-		if (!user.getPassword().equals(userDTO.getPassword())) {
+		boolean isMatch = bCryptPasswordEncoder.matches(userDTO.getPassword(), user.getPassword());
+		if (!isMatch) {
 			throw new RuntimeException("비밀번호 입력 오류");
 		}
 
@@ -72,22 +70,11 @@ public class UserServiceImpl implements UserService {
 	public void deleteUser(UserDeleteRequest userDeleteRequest) {
 		User user = userRepository.findByEmail(userDeleteRequest.getEmail())
 				.orElseThrow(() -> new IllegalArgumentException("회원 정보 조회에 실패했습니다. [없는 이메일]"));
-		if (!user.getPassword().equals(userDeleteRequest.getPassword())) {
+		boolean isMatch = bCryptPasswordEncoder.matches(userDeleteRequest.getPassword(), user.getPassword());
+		if (!isMatch) {
 			throw new RuntimeException("비밀번호 입력 오류");
 		}
 		userRepository.delete(user);
-	}
-
-	@Override
-	public LoginResponse login(String email, String password) {
-		User user = userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("없는 이메일"));
-		// password 일치 여부 비교 (평문, 암호문) >> false이면 일치하지 않음
-		boolean matchedPassword = bCryptPasswordEncoder.matches(password, user.getPassword());
-		if (!matchedPassword)
-			throw new RuntimeException("비밀번호 불일치");
-
-		String accessToken = jwtProvider.generateAccessToken(user);
-		return LoginResponse.builder().accessToken(accessToken).build();
 	}
 
 }

@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.blog.domain.ErrorResponse;
-import com.blog.domain.LoginRequest;
-import com.blog.domain.LoginResponse;
 import com.blog.domain.SignUpRequest;
 import com.blog.domain.UpdateUserRequest;
 import com.blog.domain.UserDeleteRequest;
@@ -41,14 +39,6 @@ public class AuthController {
 		log.info("[signUp] 회원가입 진행. 요청정보 : {}", user);
 		UserResponse joinUser = userService.addUser(user);
 		return ResponseEntity.status(HttpStatus.CREATED).body(joinUser);
-	}
-
-	// 로그인
-	@PostMapping("/login")
-	public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest, HttpServletRequest response) {
-		log.info("[login] 로그인 시도, user: {}", loginRequest);
-		LoginResponse loginResponse = userService.login(loginRequest.getEmail(), loginRequest.getPassword());
-		return ResponseEntity.ok(loginResponse);
 	}
 
 	// 회원 전체 리스트
