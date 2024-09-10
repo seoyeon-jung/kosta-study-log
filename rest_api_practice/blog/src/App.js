@@ -12,6 +12,7 @@ import User from "./components/users/User";
 import { LonginContext } from "./contexts/LoginContext";
 import useProvideAuth from "./hooks/useProvideAuth";
 import Login from "./components/auth/Login";
+import Home from "./pages/Home";
 
 function App() {
   const auth = useProvideAuth();
@@ -20,7 +21,7 @@ function App() {
     <LonginContext.Provider value={auth}>
       <Layout>
         <Routes>
-          <Route path="/" element={<h1>HOME</h1>} />
+          <Route path="/" element={<Home />} />
 
           <Route path="/favorite" element={<Favorite />} />
           <Route path="/favorite/write" element={<FavoriteForm />} />

@@ -3,33 +3,38 @@ import { userAPI } from "../api/services/user";
 import { jwtDecode } from "jwt-decode";
 
 const useProvideAuth = () => {
-  const [accessToken, setAccessToken] = useState(localStorage.getItem("token"));
+  const [userInfo, setuserInfo] = useState(null);
 
-  const login = async (data, successCallBack, failCallBack) => {
+  const login = async (data, successCallBack = null) => {
     try {
       const res = await userAPI.login(data);
 
       if (res.status === 200) {
         const token = res.data.accessToken;
         localStorage.setItem("token", token); // localstorage에 token 저장
-        setAccessToken(token);
-        successCallBack();
+        const jwtPayload = jwtDecode(token);
+        setuserInfo({
+          id: jwtPayload.id,
+          email: jwtPayload.sub,
+          role: jwtPayload.role,
+        });
+        if (successCallBack) successCallBack();
       }
     } catch (error) {
       console.error(error);
-      failCallBack();
     }
   };
 
-  const logout = (callBack) => {
+  const logout = (callBack = null) => {
     localStorage.removeItem("token"); // token값 삭제
-    setAccessToken(null);
-    callBack();
+    setuserInfo(null);
+    if (callBack) callBack();
   };
 
   const tokenCheck = () => {
-    if (accessToken !== null && accessToken === localStorage.getItem("token")) {
-      const jwtPayload = jwtDecode(accessToken);
+    const token = localStorage.getItem("token");
+    if (token !== null) {
+      const jwtPayload = jwtDecode(token);
       if (jwtPayload.exp > Date.now() / 1000) {
         return true;
       }
@@ -37,7 +42,7 @@ const useProvideAuth = () => {
     return false;
   };
 
-  return { accessToken, login, logout, tokenCheck };
+  return { userInfo, login, logout, tokenCheck };
 };
 
 export default useProvideAuth;

@@ -1,4 +1,4 @@
-package com.blog.config;
+package com.blog.security;
 
 import java.io.IOException;
 

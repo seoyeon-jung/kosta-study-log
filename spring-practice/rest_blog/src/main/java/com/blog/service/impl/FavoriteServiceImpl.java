@@ -1,4 +1,4 @@
-package com.blog.service;
+package com.blog.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,11 +6,13 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.blog.domain.FavoriteRequest;
-import com.blog.domain.FavoriteResponse;
+import com.blog.domain.request.FavoriteRequest;
+import com.blog.domain.response.FavoriteResponse;
 import com.blog.entity.Favorite;
 import com.blog.entity.ImageFile;
 import com.blog.repository.FavoriteRepository;
+import com.blog.service.FavoriteService;
+import com.blog.service.ImageFileService;
 
 import lombok.RequiredArgsConstructor;
 

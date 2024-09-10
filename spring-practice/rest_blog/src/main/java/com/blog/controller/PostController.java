@@ -24,10 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriUtils;
 
-import com.blog.domain.ErrorResponse;
 import com.blog.domain.FileDTO;
-import com.blog.domain.PostRequest;
-import com.blog.domain.PostResponse;
+import com.blog.domain.request.PostRequest;
+import com.blog.domain.response.ErrorResponse;
+import com.blog.domain.response.PostResponse;
 import com.blog.service.ImageFileService;
 import com.blog.service.PostService;
 

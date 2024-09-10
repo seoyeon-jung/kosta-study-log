@@ -9,7 +9,7 @@ import { useAuth } from "../../hooks/useAuth";
 const Post = () => {
   const { state } = useLocation(); // 검색 state 가져오기
   const navigate = useNavigate();
-  const { accessToken } = useAuth();
+  const { userInfo } = useAuth();
 
   // 1. state 생성
   const [postList, setPostList] = useState([]);
@@ -45,7 +45,7 @@ const Post = () => {
     <>
       <h1>POST LIST</h1>
       {/* 글쓰기 버튼 */}
-      {accessToken && (
+      {userInfo && (
         <>
           <Button
             variant="contained"

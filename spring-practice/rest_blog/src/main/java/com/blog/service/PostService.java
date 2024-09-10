@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.blog.domain.PostRequest;
-import com.blog.domain.PostResponse;
+import com.blog.domain.request.PostRequest;
+import com.blog.domain.response.PostResponse;
 
 public interface PostService {
 

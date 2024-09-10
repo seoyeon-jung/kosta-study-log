@@ -1,5 +1,6 @@
-package com.blog.domain;
+package com.blog.domain.response;
 
+import com.blog.domain.FileDTO;
 import com.blog.entity.Favorite;
 
 import lombok.Builder;

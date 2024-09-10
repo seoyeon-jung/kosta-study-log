@@ -1,6 +1,7 @@
 package com.blog.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.blog.domain.ErrorResponse;
-import com.blog.domain.SignUpRequest;
-import com.blog.domain.UpdateUserRequest;
-import com.blog.domain.UserDeleteRequest;
-import com.blog.domain.UserResponse;
+import com.blog.domain.request.SignUpRequest;
+import com.blog.domain.request.UpdateUserRequest;
+import com.blog.domain.request.UserDeleteRequest;
+import com.blog.domain.response.ErrorResponse;
+import com.blog.domain.response.LoginResponse;
+import com.blog.domain.response.UserResponse;
 import com.blog.service.UserService;
+import com.blog.util.TokenUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,8 +34,26 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
-	// userService
 	private final UserService userService;
+	private final TokenUtils tokenUtils;
+
+	// token 재발급 요청
+	@PostMapping("/refresh-token")
+	public ResponseEntity<LoginResponse> refreshToken(HttpServletRequest req, HttpServletResponse res) {
+		// token 요청
+		Map<String, String> tokenMap = userService.refreshToken(req);
+
+		// token 재발급 불가인 경우 401 에러 반환
+		if (tokenMap == null) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+		}
+
+		// header Cookie로 refresh token 재발급
+		tokenUtils.setRefreshTokenCookie(res, tokenMap.get("refreshToken"));
+
+		// 응답 Body로 access 토큰 재발급
+		return ResponseEntity.ok(LoginResponse.builder().accessToken(tokenMap.get("refreshToken")).build());
+	}
 
 	// 회원가입
 	@PostMapping("/signup")

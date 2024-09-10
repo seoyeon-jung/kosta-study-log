@@ -1,4 +1,4 @@
-package com.blog.config;
+package com.blog.security;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.blog.domain.LoginRequest;
+import com.blog.domain.request.LoginRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.FilterChain;
@@ -23,7 +23,7 @@ public class LoginCustomAuthenticationFilter extends AbstractAuthenticationProce
 	private JwtAuthenticationService jwtAuthenticationService;
 	private static final AntPathRequestMatcher LOGIN_PATH = new AntPathRequestMatcher("/api/auth/login", "POST");
 
-	protected LoginCustomAuthenticationFilter(AuthenticationManager authenticationManager,
+	public LoginCustomAuthenticationFilter(AuthenticationManager authenticationManager,
 			JwtAuthenticationService jwtAuthenticationService) {
 		super(LOGIN_PATH);
 		setAuthenticationManager(authenticationManager);

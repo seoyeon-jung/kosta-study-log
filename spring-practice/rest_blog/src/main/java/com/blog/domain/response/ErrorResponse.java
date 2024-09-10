@@ -1,4 +1,4 @@
-package com.blog.domain;
+package com.blog.domain.response;
 
 import lombok.Builder;
 import lombok.Data;

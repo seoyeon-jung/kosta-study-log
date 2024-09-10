@@ -1,18 +1,24 @@
-package com.blog.service;
+package com.blog.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.blog.domain.SignUpRequest;
-import com.blog.domain.UpdateUserRequest;
-import com.blog.domain.UserDeleteRequest;
-import com.blog.domain.UserResponse;
+import com.blog.domain.request.SignUpRequest;
+import com.blog.domain.request.UpdateUserRequest;
+import com.blog.domain.request.UserDeleteRequest;
+import com.blog.domain.response.UserResponse;
 import com.blog.entity.User;
 import com.blog.repository.UserRepository;
+import com.blog.security.JwtProvider;
+import com.blog.service.UserService;
+import com.blog.util.TokenUtils;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -20,6 +26,8 @@ import lombok.RequiredArgsConstructor;
 public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+	private final JwtProvider jwtProvider;
+	private final TokenUtils tokenUtils;
 
 	@Override
 	public UserResponse addUser(SignUpRequest user) {
@@ -75,6 +83,46 @@ public class UserServiceImpl implements UserService {
 			throw new RuntimeException("비밀번호 입력 오류");
 		}
 		userRepository.delete(user);
+	}
+
+	// refresh token 추출 메서드
+	private String extractRefreshTokenFromCookie(HttpServletRequest req) {
+		Cookie[] cookies = req.getCookies();
+		if (cookies != null) {
+			for (Cookie c : cookies) {
+				if (c.getName().equals("refreshToken")) {
+					return c.getValue();
+				}
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public Map<String, String> refreshToken(HttpServletRequest req) {
+		// refresh token 추출
+		String refreshToken = extractRefreshTokenFromCookie(req);
+
+		// 만약 토큰이 유효하지 않으면 null
+		if (refreshToken == null || !jwtProvider.validateToken(refreshToken)) {
+			return null;
+		}
+
+		// 유효한 token에서 이메일 추출
+		String userEmail = jwtProvider.getUserEmailByToken(refreshToken);
+		// 이메일을 통한 사용자 조회
+		User user = userRepository.findByEmail(userEmail).orElse(null);
+		// refreshtoken 비교
+		if (user == null || !user.getRefreshToken().equals(refreshToken)) {
+			return null;
+		}
+
+		// 새로운 token 생성 후 DB에 refreshToken 저장
+		Map<String, String> tokenMap = tokenUtils.generateToken(user);
+		user.setRefreshToken(tokenMap.get("refreshToken"));
+		userRepository.save(user);
+
+		return tokenMap;
 	}
 
 }

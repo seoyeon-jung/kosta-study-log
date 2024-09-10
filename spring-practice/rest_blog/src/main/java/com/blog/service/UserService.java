@@ -1,11 +1,14 @@
 package com.blog.service;
 
 import java.util.List;
+import java.util.Map;
 
-import com.blog.domain.SignUpRequest;
-import com.blog.domain.UpdateUserRequest;
-import com.blog.domain.UserDeleteRequest;
-import com.blog.domain.UserResponse;
+import com.blog.domain.request.SignUpRequest;
+import com.blog.domain.request.UpdateUserRequest;
+import com.blog.domain.request.UserDeleteRequest;
+import com.blog.domain.response.UserResponse;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 public interface UserService {
 
@@ -18,5 +21,7 @@ public interface UserService {
 	boolean duplicateCheckEmail(String string);
 
 	void deleteUser(UserDeleteRequest userDeleteRequest);
+
+	Map<String, String> refreshToken(HttpServletRequest req);
 
 }

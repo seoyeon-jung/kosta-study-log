@@ -1,4 +1,4 @@
-package com.blog.config;
+package com.blog.security;
 
 import java.util.Date;
 
@@ -31,6 +31,14 @@ public class JwtProvider {
 		log.info("[generateAccessToekn] 토큰을 생성합니다");
 		Date now = new Date(); // 현재 날짜
 		Date expiredDate = new Date(now.getTime() + jwtProperties.getAccessDuration()); // 만료일
+		return makeToken(user, expiredDate);
+	}
+
+	// refresh token 생성
+	public String generateRefreshToken(User user) {
+		log.info("[generateRefreshToken] refresh 토큰을 생성합니다");
+		Date now = new Date(); // 현재 날짜
+		Date expiredDate = new Date(now.getTime() + jwtProperties.getRefreshDuration()); // 만료일
 		return makeToken(user, expiredDate);
 	}
 

@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.blog.domain.ErrorResponse;
-import com.blog.domain.FavoriteRequest;
-import com.blog.domain.FavoriteResponse;
+import com.blog.domain.request.FavoriteRequest;
+import com.blog.domain.response.ErrorResponse;
+import com.blog.domain.response.FavoriteResponse;
 import com.blog.service.FavoriteService;
 
 import jakarta.servlet.http.HttpServletRequest;

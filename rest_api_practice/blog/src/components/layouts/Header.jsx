@@ -19,14 +19,13 @@ import { useNavigate } from "react-router-dom";
 import Drawer from "./Drawer";
 import SearchIcon from "@mui/icons-material/Search";
 import { postAPI } from "../../api/services/post";
-import { jwtDecode } from "jwt-decode";
 import { useAuth } from "../../hooks/useAuth";
 
 const Header = () => {
   const navigate = useNavigate();
 
   // access token 가져오기
-  const { accessToken, logout, tokenCheck } = useAuth();
+  const { userInfo, logout, tokenCheck } = useAuth();
 
   let allMenu = [
     { path: "/user", name: "회원 관리", auth: ["ROLE_ADMIN"] },
@@ -52,8 +51,8 @@ const Header = () => {
     // 만약 브라우저 토큰이 유효하면
     if (tokenCheck()) {
       // 권한에 맞는 메뉴 설정
-      const claims = jwtDecode(accessToken);
-      const role = claims.role; // role의 권한 가져오기
+
+      const role = userInfo.role; // role의 권한 가져오기
       setMenu(allMenu.filter((m) => m.auth.includes(role)));
     }
     // 그렇지 않으면
@@ -63,7 +62,7 @@ const Header = () => {
       // none 메뉴 설정
       setMenu(allMenu.filter((m) => m.auth.includes("none")));
     }
-  }, [accessToken]);
+  }, [userInfo]);
 
   const [menuOpen, setMenuOpen] = useState(false); // menu open 여부
 

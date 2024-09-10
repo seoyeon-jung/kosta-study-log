@@ -1,4 +1,4 @@
-package com.blog.service;
+package com.blog.service.impl;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -7,13 +7,15 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.blog.domain.PostRequest;
-import com.blog.domain.PostResponse;
+import com.blog.domain.request.PostRequest;
+import com.blog.domain.response.PostResponse;
 import com.blog.entity.ImageFile;
 import com.blog.entity.Post;
 import com.blog.entity.User;
 import com.blog.repository.PostRepository;
 import com.blog.repository.UserRepository;
+import com.blog.service.ImageFileService;
+import com.blog.service.PostService;
 
 import lombok.RequiredArgsConstructor;
 

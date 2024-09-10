@@ -1,7 +1,8 @@
-package com.blog.domain;
+package com.blog.domain.response;
 
 import java.time.format.DateTimeFormatter;
 
+import com.blog.domain.FileDTO;
 import com.blog.entity.Post;
 
 import lombok.Builder;

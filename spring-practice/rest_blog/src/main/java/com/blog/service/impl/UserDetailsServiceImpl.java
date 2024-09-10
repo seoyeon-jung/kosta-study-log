@@ -1,4 +1,4 @@
-package com.blog.service;
+package com.blog.service.impl;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

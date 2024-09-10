@@ -24,7 +24,7 @@ const PostDetail = () => {
   // id값 가져오기 (url 참고 > /post/id)
   const { postId } = useParams();
 
-  const { accessToken } = useAuth();
+  const { userInfo } = useAuth();
 
   useEffect(() => {
     // 요청 보내기
@@ -105,7 +105,7 @@ const PostDetail = () => {
               {post.content}
             </Typography>
           </CardContent>
-          {accessToken && (
+          {userInfo && (
             <CardActions>
               <Button
                 variant="contained"

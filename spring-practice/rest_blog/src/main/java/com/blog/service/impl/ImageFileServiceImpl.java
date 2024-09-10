@@ -1,4 +1,4 @@
-package com.blog.service;
+package com.blog.service.impl;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.blog.domain.FileDTO;
 import com.blog.entity.ImageFile;
 import com.blog.repository.ImageFileRepository;
+import com.blog.service.ImageFileService;
 import com.blog.util.FileUtils;
 
 import lombok.RequiredArgsConstructor;

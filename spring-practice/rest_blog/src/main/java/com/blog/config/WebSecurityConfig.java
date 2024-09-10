@@ -20,6 +20,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
+import com.blog.repository.UserRepository;
+import com.blog.security.JwtAuthenticationFilter;
+import com.blog.security.JwtAuthenticationService;
+import com.blog.security.JwtProperties;
+import com.blog.security.JwtProvider;
+import com.blog.security.LoginCustomAuthenticationFilter;
 import com.blog.util.TokenUtils;
 
 import lombok.RequiredArgsConstructor;
@@ -30,6 +36,7 @@ import lombok.RequiredArgsConstructor;
 public class WebSecurityConfig {
 	private final UserDetailsService userDetailsService;
 	private final JwtProperties jwtProperties;
+	private final UserRepository userRepository;
 
 	// JWT PROVIDER bean 생성
 	@Bean
@@ -42,7 +49,7 @@ public class WebSecurityConfig {
 	}
 
 	private JwtAuthenticationService jwtAuthenticationService() {
-		return new JwtAuthenticationService(tokenUtils());
+		return new JwtAuthenticationService(tokenUtils(), userRepository);
 	}
 
 	// 인증 관리자 (Authenticaiton Manager) 설정
@@ -71,7 +78,8 @@ public class WebSecurityConfig {
 				// 로그인 관련 로직은 LoginCustomAuthenticationFilter에 존재
 				new AntPathRequestMatcher("/img/**"), // image는 전부 다 보이도록 설정
 				new AntPathRequestMatcher("/api/auth/signup"), // 회원가입
-				new AntPathRequestMatcher("/api/auth/duplicate"), // email 중복 체크,
+				new AntPathRequestMatcher("/api/auth/duplicate"), // email 중복 체크
+				new AntPathRequestMatcher("/api/auth/refresh-token"), // 토큰 재발급
 				new AntPathRequestMatcher("/api/post/**", "GET") // 전체 게시글 리스트는 전부 보이도록
 		).permitAll()
 				// AuthController 중 나머지는 ADMIN만 접근 가능한 페이지

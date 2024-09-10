@@ -1,4 +1,4 @@
-package com.blog.domain;
+package com.blog.domain.request;
 
 import com.blog.entity.ImageFile;
 import com.blog.entity.Post;

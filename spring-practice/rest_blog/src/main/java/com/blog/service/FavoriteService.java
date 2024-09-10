@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.blog.domain.FavoriteRequest;
-import com.blog.domain.FavoriteResponse;
+import com.blog.domain.request.FavoriteRequest;
+import com.blog.domain.response.FavoriteResponse;
 
 public interface FavoriteService {
 
