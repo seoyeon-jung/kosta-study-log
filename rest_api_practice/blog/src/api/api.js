@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getCookie, removeCookie, setCookie } from "../utils/cookieUtil";
 
 const api = axios.create({
   baseURL: `${process.env.REACT_APP_REST_SERVER}`,
@@ -7,7 +8,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token");
+    const token = getCookie("accessToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     } else {
@@ -40,7 +41,10 @@ api.interceptors.response.use(
         // 정상 재발급 시
         if (response.status === 200) {
           // token 값 로컬 스토리지에 저장
-          localStorage.setItem("token", response.data.accessToken);
+          //localStorage.setItem("token", response.data.accessToken);
+
+          // token값 쿠키에 저장
+          setCookie("accessToken", response.data.accessToken);
           // header에 새로운 token 추가하기
           originReq.headers.Authorization = `Bearer ${response.data.accessToken}`;
 
@@ -53,14 +57,18 @@ api.interceptors.response.use(
         return Promise.reject(err);
       }
     }
+    // accesstoekn 제거
+    removeCookie("accessToken");
     return Promise.reject(err);
   }
 );
 
 const refreshTokenHandler = async () => {
   try {
-    const response = await api.post("/auth/refresh-token");
-    return response;
+    if (getCookie("accessToken")) {
+      const response = await api.post("/auth/refresh-token");
+      return response;
+    }
   } catch (error) {
     throw Error;
   }

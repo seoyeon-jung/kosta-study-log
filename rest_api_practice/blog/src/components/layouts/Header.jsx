@@ -49,16 +49,13 @@ const Header = () => {
 
   useEffect(() => {
     // 만약 브라우저 토큰이 유효하면
-    if (tokenCheck()) {
+    const role = tokenCheck();
+    if (role) {
       // 권한에 맞는 메뉴 설정
-
-      const role = userInfo.role; // role의 권한 가져오기
       setMenu(allMenu.filter((m) => m.auth.includes(role)));
     }
     // 그렇지 않으면
     else {
-      // 로그아웃 처리
-      logout(() => navigate("/login"));
       // none 메뉴 설정
       setMenu(allMenu.filter((m) => m.auth.includes("none")));
     }

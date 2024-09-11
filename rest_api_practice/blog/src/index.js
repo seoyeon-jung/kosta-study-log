@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
+import { CookiesProvider } from "react-cookie";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -26,7 +27,9 @@ root.render(
   // <React.StrictMode>
   <ThemeProvider theme={theme}>
     <CssBaseline />
-    <App />
+    <CookiesProvider>
+      <App />
+    </CookiesProvider>
   </ThemeProvider>
   // </React.StrictMode>
 );

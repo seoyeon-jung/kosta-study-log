@@ -1,9 +1,22 @@
 import { useState } from "react";
 import { userAPI } from "../api/services/user";
 import { jwtDecode } from "jwt-decode";
+import { getCookie, removeCookie, setCookie } from "../utils/cookieUtil";
 
 const useProvideAuth = () => {
   const [userInfo, setuserInfo] = useState(null);
+
+  const refreshUserinfo = () => {
+    const token = getCookie("accessToken");
+    if (token) {
+      const jwtPayload = jwtDecode(token);
+      setuserInfo({
+        id: jwtPayload.id,
+        email: jwtPayload.sub,
+        role: jwtPayload.role,
+      });
+    }
+  };
 
   const login = async (data, successCallBack = null) => {
     try {
@@ -11,13 +24,11 @@ const useProvideAuth = () => {
 
       if (res.status === 200) {
         const token = res.data.accessToken;
-        localStorage.setItem("token", token); // localstorage에 token 저장
-        const jwtPayload = jwtDecode(token);
-        setuserInfo({
-          id: jwtPayload.id,
-          email: jwtPayload.sub,
-          role: jwtPayload.role,
-        });
+        //localStorage.setItem("token", token); // localstorage에 token 저장
+
+        setCookie("accessToken", token, { path: "/" });
+
+        refreshUserinfo(token);
         if (successCallBack) successCallBack();
       }
     } catch (error) {
@@ -26,23 +37,24 @@ const useProvideAuth = () => {
   };
 
   const logout = (callBack = null) => {
-    localStorage.removeItem("token"); // token값 삭제
-    setuserInfo(null);
+    //localStorage.removeItem("token"); // token값 삭제
+    removeCookie("accessToken");
+    setuserInfo({});
     if (callBack) callBack();
   };
 
   const tokenCheck = () => {
-    const token = localStorage.getItem("token");
-    if (token !== null) {
+    //const token = localStorage.getItem("token");
+    const token = getCookie("accessToken");
+    if (token) {
       const jwtPayload = jwtDecode(token);
-      if (jwtPayload.exp > Date.now() / 1000) {
-        return true;
-      }
+      return jwtPayload.role;
+    } else {
+      return false;
     }
-    return false;
   };
 
-  return { userInfo, login, logout, tokenCheck };
+  return { userInfo, refreshUserinfo, login, logout, tokenCheck };
 };
 
 export default useProvideAuth;

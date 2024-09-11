@@ -14,8 +14,8 @@ const Favorite = () => {
       const res = await favoriteAPI.getFavoriteList();
       setFavList(res.data);
     } catch (error) {
-      console.error(error);
-      navigate("/error", { state: error });
+      console.log(error);
+      // navigate("/error", { state: error });
     }
   };
 
