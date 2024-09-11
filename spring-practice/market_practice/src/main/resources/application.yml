@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: market_practice
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/market_db
+    username: root
+    password: 1234
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    open-in-view: false
+  sql:
+    init:
+      mode: never
+jwt:
+  issuer: kosta-seoyeon
+  secret_key: myscretmyscretmyscretmyscretmyscret
+  access_duration: 5000 #1800000 # 30분 (30*60*1000)
+  refresh_duration: 86400000 #86400000 # 24시간 (24*60*60*1000)

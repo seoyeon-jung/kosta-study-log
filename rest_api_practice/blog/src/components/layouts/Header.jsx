@@ -29,7 +29,7 @@ const Header = () => {
 
   let allMenu = [
     { path: "/user", name: "회원 관리", auth: ["ROLE_ADMIN"] },
-    { path: "/favorite", name: "북마크", auth: ["ROLE_ADMIN", "ROLE_USER"] },
+    { path: "/favorite", name: "북마크", auth: ["ROLE_ADMIN"] },
     {
       path: "/post",
       name: "게시물",
