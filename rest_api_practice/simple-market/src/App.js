@@ -1,29 +1,41 @@
-import { useEffect } from "react";
-import { useDarkMode } from "./hooks/useDarkMode";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/layouts/Layout";
-import { AddProduct, Login, Product, Products, SignIn } from "./pages";
+import {
+  AddProduct,
+  Login,
+  NotFound,
+  Product,
+  Products,
+  SignIn,
+} from "./pages";
+import {
+  AdminRoute,
+  GuestRoute,
+  LoginUserRoute,
+} from "./shared/ProtectedRoutes";
 
 function App() {
-  const { isDarkMode } = useDarkMode();
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", isDarkMode);
-  }, [isDarkMode]);
-
   return (
-    <>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/products/add" element={<AddProduct />} />
-          <Route path="/products/:id" element={<Product />} />
-          <Route path="/admin" element={<h1>ADMIN PAGE</h1>} />
-        </Routes>
-      </Layout>
-    </>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<GuestRoute component={Login} />} />
+        <Route path="/signin" element={<GuestRoute component={SignIn} />} />
+        <Route
+          path="/products"
+          element={<LoginUserRoute component={Products} />}
+        />
+        <Route
+          path="/products/:id"
+          element={<LoginUserRoute component={Product} />}
+        />
+        <Route
+          path="/products/add"
+          element={<AdminRoute component={AddProduct} />}
+        />
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Layout>
   );
 }
 

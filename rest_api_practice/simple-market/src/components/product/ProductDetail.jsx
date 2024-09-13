@@ -42,15 +42,25 @@ const ProductDetail = () => {
   }, [id]);
 
   if (loading) {
-    return <div className="text-center">Loading...</div>;
+    return (
+      <div className="text-center text-gray-600 dark:text-gray-300">
+        Loading...
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="text-center text-red-500">{error}</div>;
+    return (
+      <div className="text-center text-red-500 dark:text-red-400">{error}</div>
+    );
   }
 
   if (!product) {
-    return <div className="text-center">No product data found.</div>;
+    return (
+      <div className="text-center text-gray-600 dark:text-gray-300">
+        No product data found.
+      </div>
+    );
   }
 
   const handleDelete = async () => {
@@ -60,7 +70,7 @@ const ProductDetail = () => {
         text: "한번 삭제를 하면 되돌릴 수 없습니다.",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
+        confirmButtonColor: "#d63030",
         confirmButtonText: "삭제",
         cancelButtonText: "취소",
       });
@@ -97,7 +107,7 @@ const ProductDetail = () => {
   };
 
   return (
-    <Card className="w-80 mx-auto mb-6 border">
+    <Card className="w-80 mx-auto mb-6 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
       <CardHeader shadow={false} floated={false} className="h-56">
         <img
           src="https://indiaeducationdiary.in/wp-content/uploads/2021/02/SD-default-image.png"
@@ -105,7 +115,7 @@ const ProductDetail = () => {
           className="h-full w-full object-cover"
         />
       </CardHeader>
-      <CardBody>
+      <CardBody className="bg-white dark:bg-gray-900">
         <div className="mb-2 flex items-center justify-between">
           {isEditing ? (
             <div className="flex flex-col gap-2">
@@ -113,23 +123,29 @@ const ProductDetail = () => {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="p-3 border border-gray-300 rounded-md focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
+                className="p-3 border border-gray-300 rounded-md dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
                 placeholder="상품 이름"
               />
               <Input
                 type="number"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
-                className="p-3 border border-gray-300 rounded-md focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
+                className="p-3 border border-gray-300 rounded-md dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-200 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
                 placeholder="상품 가격"
               />
             </div>
           ) : (
             <>
-              <Typography color="blue-gray" className="font-medium">
+              <Typography
+                color="blue-gray"
+                className="font-medium text-gray-800 dark:text-gray-200"
+              >
                 {product.name}
               </Typography>
-              <Typography color="blue-gray" className="font-medium">
+              <Typography
+                color="blue-gray"
+                className="font-medium text-gray-600 dark:text-gray-400"
+              >
                 {product.price}원
               </Typography>
             </>
@@ -138,23 +154,23 @@ const ProductDetail = () => {
         <Typography
           variant="small"
           color="gray"
-          className="font-normal opacity-75"
+          className="font-normal opacity-75 dark:text-gray-400"
         >
           "상품 설명이 들어갈 자리입니다."
         </Typography>
       </CardBody>
-      <CardFooter className="pt-0 flex gap-2">
+      <CardFooter className="pt-0 flex gap-2 bg-white dark:bg-gray-900">
         {isEditing ? (
           <>
             <Button
-              className="flex items-center justify-center p-2 bg-cyan-300 text-white hover:bg-cyan-600"
+              className="flex items-center justify-center p-2 bg-cyan-300 text-white hover:bg-cyan-600  dark:bg-gray-500 dark:hover:bg-gray-400 dark:text-dark-text"
               aria-label="Update"
               onClick={handleUpdate}
             >
               수정하기
             </Button>
             <Button
-              className="flex items-center justify-center p-2 bg-gray-300 text-white hover:bg-gray-600"
+              className="flex items-center justify-center p-2 bg-gray-300 text-white hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-700"
               aria-label="Cancel"
               onClick={() => setIsEditing(false)}
             >
@@ -164,18 +180,18 @@ const ProductDetail = () => {
         ) : (
           <>
             <Button
-              className="flex items-center justify-center p-2 rounded-full text-white focus:outline-none"
+              className="flex items-center justify-center p-2 rounded-full text-white focus:outline-none dark:text-gray-200"
               aria-label="Edit"
               onClick={() => setIsEditing(true)}
             >
-              <MdEdit className="text-xl text-black hover:text-gray-400" />
+              <MdEdit className="text-xl hover:text-gray-400 dark:hover:text-gray-100" />
             </Button>
             <Button
-              className="flex items-center justify-center p-2 rounded-full text-white focus:outline-none "
+              className="flex items-center justify-center p-2 rounded-full text-white focus:outline-none dark:text-gray-200"
               aria-label="Delete"
               onClick={handleDelete}
             >
-              <MdDelete className="text-xl text-black hover:text-gray-400" />
+              <MdDelete className="text-xl hover:text-gray-400 dark:hover:text-gray-100" />
             </Button>
           </>
         )}

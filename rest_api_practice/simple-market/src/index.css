@@ -4,10 +4,10 @@
 
 /* Default light mode styles */
 body {
-  @apply bg-light-background text-light-text;
+  @apply bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text;
 }
 
 /* Dark mode styles */
-.dark body {
+html.dark body {
   @apply bg-dark-background text-dark-text;
 }
