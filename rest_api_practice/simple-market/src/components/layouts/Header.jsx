@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Typography,
   IconButton,
@@ -7,21 +7,44 @@ import {
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
-import { useDarkMode } from "../../hooks/useDarkMode";
+//import { useDarkMode } from "../../hooks/useDarkMode";
+import { useCookies } from "react-cookie";
+import { jwtDecode } from "jwt-decode";
+import { removeCookie } from "../../utils/cookieUtil";
 
 const Header = () => {
   const navigate = useNavigate();
   // 로그인 상태와 역할을 상태로 관리
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [role, setRole] = useState(null);
   const [openNav, setOpenNav] = useState(false);
+  const [cookies] = useCookies(["accessToken"]);
+  const [role, setRole] = useState();
+
+  const handleLogout = () => {
+    removeCookie("accessToken", { path: "/" });
+    navigate("/");
+  };
+
+  useEffect(() => {
+    if (cookies.accessToken && typeof cookies.accessToken === "string") {
+      try {
+        const decodedToken = jwtDecode(cookies.accessToken);
+        const role = decodedToken.role;
+        setRole(role);
+      } catch (error) {
+        console.error("Error decoding token", error);
+        setRole(null);
+      }
+    } else {
+      setRole(null);
+    }
+  }, [cookies.accessToken]);
 
   // dark mode
   // const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   // 메뉴 항목 상태 관리
   const menuItems = () => {
-    if (!isLoggedIn) {
+    if (!cookies.accessToken) {
       return (
         <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
           <Typography
@@ -40,7 +63,8 @@ const Header = () => {
           </Typography>
         </ul>
       );
-    } else if (role === "ADMIN") {
+    }
+    if (role === "ROLE_ADMIN") {
       return (
         <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
           <Typography
@@ -79,7 +103,8 @@ const Header = () => {
           </li>
         </ul>
       );
-    } else if (role === "USER") {
+    }
+    if (role === "ROLE_USER") {
       return (
         <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
           <Typography
@@ -108,16 +133,12 @@ const Header = () => {
     return null;
   };
 
-  const handleLogout = () => {
-    // 로그아웃 처리 로직을 여기에 추가
-  };
-
   return (
     <header className="mx-auto w-full px-6 py-3 bg-cyan-100">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Typography
           as="a"
-          href="/"
+          href={cookies.accessToken ? "/products" : "/"}
           variant="h4"
           className="mr-4 cursor-pointer py-1.5"
         >

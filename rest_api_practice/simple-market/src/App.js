@@ -2,8 +2,7 @@ import { useEffect } from "react";
 import { useDarkMode } from "./hooks/useDarkMode";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/layouts/Layout";
-import Login from "./pages/Login";
-import SignIn from "./pages/SignIn";
+import { AddProduct, Login, Product, Products, SignIn } from "./pages";
 
 function App() {
   const { isDarkMode } = useDarkMode();
@@ -18,9 +17,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/products" element={<h1>PRODUCT LIST</h1>} />
-          <Route path="/products/add" element={<h1>ADD PRODUCT</h1>} />
-          <Route path="/products/:id" element={<h1>PRODUCT</h1>} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/add" element={<AddProduct />} />
+          <Route path="/products/:id" element={<Product />} />
           <Route path="/admin" element={<h1>ADMIN PAGE</h1>} />
         </Routes>
       </Layout>

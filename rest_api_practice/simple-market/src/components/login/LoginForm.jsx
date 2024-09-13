@@ -1,42 +1,103 @@
 import React from "react";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
+import { useForm } from "react-hook-form";
+import { userAPI } from "../../services/user";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const LoginForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm();
+  const [, setCookie] = useCookies(["accessToken"]);
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await userAPI.login(data);
+      setCookie("accessToken", response.data.accessToken, { path: "/" });
+      navigate("/products");
+    } catch (error) {
+      if (error.status === 401) {
+        setError("email", {
+          type: "manual",
+          message: "아이디를 다시 입력해주세요.",
+        });
+        setError("password", {
+          type: "manual",
+          message: "비밀번호를 다시 입력해주세요.",
+        });
+      }
+    }
+  };
+
   return (
     <Card color="transparent" shadow={false} className="mt-4">
-      <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
-        <div className="mb-1 flex flex-col gap-6">
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Email
-          </Typography>
-          <Input
-            size="lg"
-            placeholder="example@mail.com"
-            className="!border-gray-200 p-2 focus:!border-t-gray-900 placeholder:text-sm placeholder:p-2"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          />
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Password
-          </Typography>
-          <Input
-            type="password"
-            size="lg"
-            placeholder="********"
-            className=" !border-gray-200 p-2 focus:!border-t-gray-900 placeholder:text-sm placeholder:p-2"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-          />
+      <form
+        className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <div className="mb-6 flex flex-col gap-4">
+          <div className="flex flex-col gap-1">
+            <Typography variant="h6" color="blue-gray" className="font-medium">
+              이메일
+            </Typography>
+            <Input
+              size="lg"
+              placeholder="example@mail.com"
+              className="p-3 border border-gray-300 rounded-md focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
+              {...register("email", { required: "이메일을 입력해주세요" })}
+              error={!!errors.email}
+            />
+            {errors.email && (
+              <Typography variant="small" className="mt-1 text-red-600">
+                {errors.email.message}
+              </Typography>
+            )}
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <Typography variant="h6" color="blue-gray" className="font-medium">
+              비밀번호
+            </Typography>
+            <Input
+              type="password"
+              size="lg"
+              placeholder="********"
+              className="p-3 border border-gray-300 rounded-md focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all"
+              {...register("password", { required: "비밀번호를 입력해주세요" })}
+              error={!!errors.password}
+            />
+            {errors.password && (
+              <Typography variant="small" className="mt-1 text-red-600">
+                {errors.password.message}
+              </Typography>
+            )}
+          </div>
         </div>
         <Button
-          className="mt-6 bg-cyan-600 text-white hover:bg-cyan-400"
+          type="submit"
+          className="mt-6 bg-cyan-600 text-white hover:bg-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-300 rounded-md"
           fullWidth
         >
           로그인
         </Button>
       </form>
+      <div className="mt-6 flex items-center gap-1 justify-center">
+        <Typography variant="small" className="font-medium text-gray-500">
+          만약 아이디가 없다면?
+        </Typography>
+        <Button
+          type="button"
+          className="text-sm bg-transparent border-b-1 border-cyan-600 text-cyan-600 hover:bg-transparent hover:text-cyan-200 focus:outline-none focus:ring-0"
+          onClick={() => navigate("/signin")}
+        >
+          회원가입
+        </Button>
+      </div>
     </Card>
   );
 };
