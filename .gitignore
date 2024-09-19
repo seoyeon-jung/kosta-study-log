@@ -4,3 +4,6 @@
 **/.log
 **/version.ini
 **/.metadata
+
+.env
+application.yml
