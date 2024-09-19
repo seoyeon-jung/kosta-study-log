@@ -44,8 +44,13 @@ public class User implements UserDetails {
 	@Column(nullable = false)
 	private String name;
 
-	@Column(nullable = false)
+	// google login이 추가되면서 password가 필수가 아님
+	@Column(nullable = true)
 	private String password;
+
+	@Column
+	@Builder.Default
+	private boolean oAuth = false;
 
 	@CreatedDate
 	@Column(name = "created_at")

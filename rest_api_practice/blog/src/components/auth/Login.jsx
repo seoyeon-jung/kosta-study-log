@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import google from "../../assets/google.png";
 
 const {
   Paper,
@@ -36,6 +37,21 @@ const Login = () => {
         message: "비밀번호를 확인해주세요",
       });
     }
+  };
+
+  const handleGoogleLogin = () => {
+    // 구글 로그인 버튼 클릭 시 이동하는 경로 지정
+    const params = new URLSearchParams({
+      scope: "email profile",
+      response_type: "code",
+      redirect_uri: "http://localhost:3000/oauth/google",
+      client_id:
+        "690190545613-ad3vmju6rrpvcuu17dd929ck4ednkfcr.apps.googleusercontent.com",
+    });
+    const GOOGLE_URL = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
+
+    // 지정한 경로로 이동
+    window.location.href = GOOGLE_URL;
   };
 
   return (
@@ -92,6 +108,9 @@ const Login = () => {
         />
         <Button type="submit" variant="contained" color="main" fullWidth>
           로그인
+        </Button>
+        <Button fullWidth onClick={() => handleGoogleLogin()}>
+          <img src={google} alt="google-login" height="45" />
         </Button>
       </Box>
     </Paper>

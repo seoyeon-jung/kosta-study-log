@@ -52,7 +52,7 @@ api.interceptors.response.use(
           return api.request(originReq);
         }
       } catch (error) {
-        console.err("토큰 재발급 실패");
+        console.error("토큰 재발급 실패");
         // error 처리
         return Promise.reject(err);
       }
