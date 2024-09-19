@@ -108,7 +108,7 @@
       response_type: "code",
       redirect_uri: "http://localhost:3000/oauth/google",
       client_id:
-        "690190545613-ad3vmju6rrpvcuu17dd929ck4ednkfcr.apps.googleusercontent.com",
+        "",
     });
     const GOOGLE_URL = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
 
@@ -239,8 +239,8 @@ public class OAuthServiceImpl implements OAuthService {
 		// google에 사용자 정보 요청 (헤더에 넣어주기)
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-		String clientId = "690190545613-ad3vmju6rrpvcuu17dd929ck4ednkfcr.apps.googleusercontent.com";
-		String clientSecret = "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";
+		String clientId = "";
+		String clientSecret = "";
 		String redirectURI = "http://localhost:3000/oauth/google";
 		headers.setBasicAuth(clientId, clientSecret);
 
