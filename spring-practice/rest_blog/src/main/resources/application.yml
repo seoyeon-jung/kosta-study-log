@@ -25,17 +25,17 @@ jwt:
   secret_key: myscretmyscretmyscretmyscretmyscret
   access_duration: 5000 #1800000 # 30분 (30*60*1000)
   refresh_duration: 86400000 # 24시간 (24*60*60*1000)
-#oauth2:
-#  clients:
-#    google:
-#        client-id: 690190545613-ad3vmju6rrpvcuu17dd929ck4ednkfcr.apps.googleusercontent.com
-#        client-secret: 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
-#        redirect-uri: http://localhost:3000/oauth/google
-#        token-uri: https://oauth2.googleapis.com/token
-#        user-info-request-uri: https://www.googleapis.com/oauth2/v3/userinfo
-#    kakao:
-#        client-id: 8e00b32829996f347d37311275517583
-#        client-secret: GoSuNEyA5a5KANJlT367MAqUZLVYMuz8
-#        redirect-uri: http://localhost:3000/oauth/kakao
-#        token-uri: https://kauth.kakao.com/oauth/token
-#        user-info-request-uri: https://kapi.kakao.com/v2/user/me
+oauth2:
+  clients:
+    google:
+        client-id: 690190545613-ad3vmju6rrpvcuu17dd929ck4ednkfcr.apps.googleusercontent.com
+        client-secret: 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
+        redirect-uri: http://localhost:3000/oauth/google
+        token-uri: https://oauth2.googleapis.com/token
+        user-info-request-uri: https://www.googleapis.com/oauth2/v3/userinfo
+    kakao:
+        client-id: 8e00b32829996f347d37311275517583
+        client-secret: GoSuNEyA5a5KANJlT367MAqUZLVYMuz8
+        redirect-uri: http://localhost:3000/oauth/kakao
+        token-uri: https://kauth.kakao.com/oauth/token
+        user-info-request-uri: https://kapi.kakao.com/v2/user/me
