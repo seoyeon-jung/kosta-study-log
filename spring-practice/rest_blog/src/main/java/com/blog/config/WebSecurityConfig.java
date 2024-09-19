@@ -77,7 +77,7 @@ public class WebSecurityConfig {
 		auth.requestMatchers(
 				// 로그인 관련 로직은 LoginCustomAuthenticationFilter에 존재
 				new AntPathRequestMatcher("/img/**"), // image는 전부 다 보이도록 설정
-				new AntPathRequestMatcher("api/oauth/**"), // oauth 전부 가능하도록 설정
+				new AntPathRequestMatcher("/api/oauth/**"), // oauth 전부 가능하도록 설정
 				new AntPathRequestMatcher("/api/auth/signup"), // 회원가입
 				new AntPathRequestMatcher("/api/auth/duplicate"), // email 중복 체크
 				new AntPathRequestMatcher("/api/auth/refresh-token"), // 토큰 재발급

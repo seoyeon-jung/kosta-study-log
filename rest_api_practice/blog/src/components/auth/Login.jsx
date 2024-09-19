@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import google from "../../assets/google.png";
+import kakao from "../../assets/kakao.png";
 
 const {
   Paper,
@@ -44,14 +45,26 @@ const Login = () => {
     const params = new URLSearchParams({
       scope: "email profile",
       response_type: "code",
-      redirect_uri: "http://localhost:3000/oauth/google",
-      client_id:
-        "690190545613-ad3vmju6rrpvcuu17dd929ck4ednkfcr.apps.googleusercontent.com",
+      redirect_uri: process.env.REACT_APP_GOOGLE_REDIRECT_URI,
+      client_id: process.env.REACT_APP_GOOGLE_ID,
     });
     const GOOGLE_URL = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
 
     // 지정한 경로로 이동
     window.location.href = GOOGLE_URL;
+  };
+
+  const handleKakaoLogin = () => {
+    const params = new URLSearchParams({
+      response_type: "code",
+      redirect_uri: process.env.REACT_APP_KAKAO_REDIRECT_URI,
+      client_id: process.env.REACT_APP_KAKAO_ID,
+    });
+
+    const KAKAO_URL = `https://kauth.kakao.com/oauth/authorize?${params.toString()}`;
+
+    // 지정한 경로로 이동
+    window.location.href = KAKAO_URL;
   };
 
   return (
@@ -110,7 +123,10 @@ const Login = () => {
           로그인
         </Button>
         <Button fullWidth onClick={() => handleGoogleLogin()}>
-          <img src={google} alt="google-login" height="45" />
+          <img src={google} alt="google-login" height="68" />
+        </Button>
+        <Button fullWidth onClick={() => handleKakaoLogin()}>
+          <img src={kakao} alt="google-login" height="45" />
         </Button>
       </Box>
     </Paper>

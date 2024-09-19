@@ -14,8 +14,7 @@ import useProvideAuth from "./hooks/useProvideAuth";
 import Login from "./components/auth/Login";
 import Home from "./pages/Home";
 import AccessControl from "./components/common/AccessControl";
-import { oauthAPI } from "./api/services/oauth";
-import { useEffect } from "react";
+import OAuthLogin from "./components/auth/OAuthLogin";
 
 function App() {
   const auth = useProvideAuth();
@@ -127,7 +126,7 @@ function App() {
             }
           />
 
-          <Route path="/oauth/google" element={<GoogleLogin />} />
+          <Route path="/oauth/:provider" element={<OAuthLogin />} />
 
           <Route
             path="*"
@@ -142,27 +141,5 @@ function App() {
     </LonginContext.Provider>
   );
 }
-
-const GoogleLogin = () => {
-  const code = new URLSearchParams(window.location.search).get("code");
-  console.log(code);
-
-  const login = async () => {
-    try {
-      const response = await oauthAPI.googleLogin(code);
-      if (response.status !== 200) {
-        throw new Error("로그인 실패");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    login();
-  }, [code]);
-
-  return <div>로그인 처리 중...</div>;
-};
 
 export default App;
