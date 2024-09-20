@@ -35,6 +35,10 @@ public class Product {
 	@Column(nullable = false)
 	private int price;
 
+	@Column(name = "is_delete", nullable = false)
+	@Builder.Default
+	private boolean isDeleted = Boolean.FALSE; // 삭제 여부 기본값 false
+
 	@CreatedDate
 	@Column(name = "created_at")
 	private LocalDateTime createdAt;

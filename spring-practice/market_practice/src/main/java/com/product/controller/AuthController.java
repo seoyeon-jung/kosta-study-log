@@ -41,10 +41,8 @@ public class AuthController {
 	public ResponseEntity<?> checkEmailDuplicate(@RequestParam("email") String email) {
 		boolean isExist = userService.checkEmailExists(email);
 
-		if (isExist) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse("[이메일 중복] 이미 사용 중인 이메일"));
-		}
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok()
+				.body(Map.of("available", !isExist, "message", isExist ? "[이메일 중복] 이미 사용 중인 이메일" : "사용 가능한 이메일입니다."));
 	}
 
 	// [추가] 닉네임 중복 체크
@@ -52,10 +50,8 @@ public class AuthController {
 	public ResponseEntity<?> checkNameDuplicate(@RequestParam("name") String name) {
 		boolean isExist = userService.checkNameExists(name);
 
-		if (isExist) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse("[닉네임 중복] 이미 사용 중인 닉네임"));
-		}
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok()
+				.body(Map.of("available", !isExist, "message", isExist ? "[닉네임 중복] 이미 사용 중인 닉네임" : "사용 가능한 닉네임입니다."));
 	}
 
 	// 토큰 재발급

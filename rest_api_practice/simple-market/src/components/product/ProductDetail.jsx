@@ -58,7 +58,7 @@ const ProductDetail = () => {
   if (!product) {
     return (
       <div className="text-center text-gray-600 dark:text-gray-300">
-        No product data found.
+        해당 상품이 존재하지 않습니다.
       </div>
     );
   }
@@ -180,18 +180,18 @@ const ProductDetail = () => {
         ) : (
           <>
             <Button
-              className="flex items-center justify-center p-2 rounded-full text-white focus:outline-none dark:text-gray-200"
+              className="flex items-center bg-cyan-300 justify-center p-2 rounded-full text-white focus:outline-none hover:bg-cyan-600 dark:bg-gray-600"
               aria-label="Edit"
               onClick={() => setIsEditing(true)}
             >
-              <MdEdit className="text-xl hover:text-gray-400 dark:hover:text-gray-100" />
+              <MdEdit className="text-xl dark:hover:text-gray-100" />
             </Button>
             <Button
-              className="flex items-center justify-center p-2 rounded-full text-white focus:outline-none dark:text-gray-200"
+              className="flex items-center bg-cyan-300 justify-center p-2 rounded-full text-white focus:outline-none hover:bg-cyan-600 dark:bg-gray-600"
               aria-label="Delete"
               onClick={handleDelete}
             >
-              <MdDelete className="text-xl hover:text-gray-400 dark:hover:text-gray-100" />
+              <MdDelete className="text-xl dark:hover:text-gray-100" />
             </Button>
           </>
         )}

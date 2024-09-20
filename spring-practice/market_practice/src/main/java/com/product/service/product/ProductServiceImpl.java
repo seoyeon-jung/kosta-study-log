@@ -1,6 +1,7 @@
 package com.product.service.product;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -30,14 +31,15 @@ public class ProductServiceImpl implements ProductService {
 	// 상품 전체 조회
 	@Override
 	public List<ProductResponse> getAllProduct() throws Exception {
-		return productRepository.findAll().stream().map(product -> ProductResponse.builder().id(product.getId())
-				.name(product.getName()).price(product.getPrice()).build()).toList();
+		return productRepository.findAllActiveProducts().stream().map(ProductResponse::toDTO)
+				.collect(Collectors.toList());
 	}
 
 	// 상품 조회
 	@Override
 	public ProductResponse getProductById(Long id) throws Exception {
-		Product product = productRepository.findById(id).orElseThrow(() -> new Exception("해당 상품을 찾을 수 없음"));
+		Product product = productRepository.findActiveProductById(id)
+				.orElseThrow(() -> new Exception("해당 상품을 찾을 수 없음"));
 
 		return ProductResponse.toDTO(product);
 	}
@@ -45,16 +47,19 @@ public class ProductServiceImpl implements ProductService {
 	// 상품 삭제
 	@Override
 	public ProductResponse deleteProduct(Long id) throws Exception {
-		Product product = productRepository.findById(id).orElseThrow(() -> new Exception("해당 상품을 찾을 수 없음"));
-		productRepository.delete(product);
+		Product product = productRepository.findActiveProductById(id)
+				.orElseThrow(() -> new Exception("해당 상품을 찾을 수 없음"));
 
-		return ProductResponse.toDTO(product);
+		product.setDeleted(true);
+		Product updatedProduct = productRepository.save(product);
+
+		return ProductResponse.toDTO(updatedProduct);
 	}
 
 	// 상품 수정
 	@Override
 	public ProductResponse updateProduct(ProductEdit productEdit) throws Exception {
-		Product product = productRepository.findById(productEdit.getId())
+		Product product = productRepository.findActiveProductById(productEdit.getId())
 				.orElseThrow(() -> new Exception("해당 상품을 찾을 수 없음"));
 
 		if (!product.getName().equals(productEdit.getName())) {

@@ -2,6 +2,7 @@ import { Button } from "@material-tailwind/react";
 import React from "react";
 import google from "../../assets/google.png";
 import kakao from "../../assets/kakao.png";
+import github from "../../assets/github.png";
 
 const SocialLogin = () => {
   const handleGoogleLogin = () => {
@@ -29,11 +30,23 @@ const SocialLogin = () => {
     window.location.href = KAKAO_URL;
   };
 
+  const handleGithubLogin = () => {
+    const params = new URLSearchParams({
+      client_id: process.env.REACT_APP_GITHUB_ID,
+      redirect_uri: process.env.REACT_APP_GITHUB_REDIRECT_URI,
+      scope: "read:user user:email",
+      response_type: "code",
+    });
+
+    const GITHUB_URL = `https://github.com/login/oauth/authorize?${params.toString()}`;
+    window.location.href = GITHUB_URL;
+  };
+
   return (
     <div className="mt-4 flex flex-col gap-2">
       <Button
         type="button"
-        className="flex items-center justify-center bg-white border border-gray-300 rounded-md shadow hover:bg-gray-100"
+        className="flex items-center justify-center bg-white border border-gray-300 rounded-md  hover:bg-gray-100"
         onClick={handleGoogleLogin}
         fullWidth
       >
@@ -51,6 +64,17 @@ const SocialLogin = () => {
         <div className="flex items-center">
           <img src={kakao} alt="Kakao Logo" className="h-5 mr-2" />
           <span>카카오로 로그인</span>
+        </div>
+      </Button>
+      <Button
+        type="button"
+        className="flex items-center justify-center bg-gray-400 text-white rounded-md shadow hover:bg-gray-500"
+        onClick={handleGithubLogin}
+        fullWidth
+      >
+        <div className="flex items-center">
+          <img src={github} alt="Github Logo" className="h-5 mr-2" />
+          <span>깃허브로 로그인</span>
         </div>
       </Button>
     </div>

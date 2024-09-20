@@ -64,7 +64,7 @@ public class User implements UserDetails {
 	@Builder.Default
 	private RoleEnum role = RoleEnum.ROLE_USER;
 
-	@Column(name = "refresh_token")
+	@Column(name = "refresh_token", length = 5000)
 	private String refreshToken;
 
 	@Override

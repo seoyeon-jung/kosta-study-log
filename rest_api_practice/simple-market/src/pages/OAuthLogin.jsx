@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { oauthAPI } from "../api/services/oauth";
 import { setCookie } from "../utils/cookieUtil";
@@ -8,10 +8,14 @@ const OAuthLogin = () => {
   const code = new URLSearchParams(window.location.search).get("code");
   const navigate = useNavigate();
 
-  const oAuthAPI = {
-    kakao: (code) => oauthAPI.kakaoLogin(code),
-    google: (code) => oauthAPI.googleLogin(code),
-  };
+  const oAuthAPI = useMemo(
+    () => ({
+      kakao: (code) => oauthAPI.kakaoLogin(code),
+      google: (code) => oauthAPI.googleLogin(code),
+      github: (code) => oauthAPI.githubLogin(code),
+    }),
+    []
+  );
 
   useEffect(() => {
     const login = async () => {
@@ -31,7 +35,7 @@ const OAuthLogin = () => {
     if (code) {
       login();
     }
-  }, [code]);
+  }, [code, navigate, provider, oAuthAPI]);
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100 dark:bg-gray-800">

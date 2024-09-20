@@ -5,6 +5,7 @@ import { userAPI } from "../../api/services/user";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import SocialLogin from "./SocialLogin";
+
 const LoginForm = () => {
   const {
     register,
@@ -38,12 +39,9 @@ const LoginForm = () => {
     <Card
       color="transparent"
       shadow={false}
-      className="mt-4 bg-white dark:bg-gray-800"
+      className="mt-4 mb-4 bg-white dark:bg-gray-800 w-full max-w-sm mx-auto"
     >
-      <form
-        className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+      <form className="mt-8 mb-2 w-full" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-6 flex flex-col gap-4">
           <div className="flex flex-col gap-1">
             <Typography
@@ -98,15 +96,21 @@ const LoginForm = () => {
         </div>
         <Button
           type="submit"
-          className="mt-6 bg-cyan-600 text-white hover:bg-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-300 rounded-md dark:bg-gray-500 dark:hover:bg-gray-400"
+          className="mt-3 bg-cyan-600 text-white hover:bg-cyan-400 focus:outline-none focus:ring-2 focus:ring-cyan-300 rounded-md dark:bg-gray-500 dark:hover:bg-gray-400"
           fullWidth
         >
           로그인
         </Button>
       </form>
 
+      <div className="my-4 border-t border-gray-300 dark:border-gray-600"></div>
+
       {/* social login */}
-      <SocialLogin />
+      <div className="mb-4">
+        <SocialLogin />
+      </div>
+
+      <div className="my-4 border-t border-gray-300 dark:border-gray-600"></div>
 
       <div className="mt-6 flex items-center gap-1 justify-center">
         <Typography
@@ -117,7 +121,7 @@ const LoginForm = () => {
         </Typography>
         <Button
           type="button"
-          className="text-sm bg-transparent border-b-1 border-cyan-600 text-cyan-600 hover:bg-transparent hover:text-cyan-200 focus:outline-none focus:ring-0 dark:border-cyan-400 dark:text-gray-400 dark:hover:text-gray-300"
+          className="text-sm bg-transparent border-b-1 border-cyan-600 text-cyan-600 hover:underline hover:bg-transparent hover:text-cyan-200 focus:outline-none focus:ring-0 dark:border-cyan-400 dark:text-gray-400 dark:hover:text-gray-300"
           onClick={() => navigate("/signin")}
         >
           회원가입
