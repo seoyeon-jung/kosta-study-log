@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { productAPI } from "../../services/product";
+import { productAPI } from "../../api/services/product";
 import ProductItem from "./ProductItem";
 import { Card, List } from "@material-tailwind/react";
 

@@ -15,11 +15,9 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { jwtDecode } from "jwt-decode";
 import { removeCookie } from "../../utils/cookieUtil";
-//import { useDarkMode } from "../../hooks/useDarkMode";
 
 const Header = ({ toggleDarkMode, isDarkMode }) => {
   const navigate = useNavigate();
-  //const { isDarkMode, toggleDarkMode } = useDarkMode();
   const [openNav, setOpenNav] = useState(false);
   const [cookies] = useCookies(["accessToken"]);
   const [role, setRole] = useState();

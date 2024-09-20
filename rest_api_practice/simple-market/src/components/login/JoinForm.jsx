@@ -2,7 +2,7 @@ import React from "react";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { userAPI } from "../../services/user";
+import { userAPI } from "../../api/services/user";
 
 const JoinForm = () => {
   const {

@@ -74,6 +74,7 @@ public class WebSecurityConfig {
 		http.authorizeHttpRequests(auth ->
 		// 특정 URL 경로에서는 인증 없이 접근 가능
 		auth.requestMatchers(new AntPathRequestMatcher("/api/auth/singin"), // 회원가입은 누구나 접근
+				new AntPathRequestMatcher("/api/oauth/**"), // OAuth2 누구나 접근 가능
 				new AntPathRequestMatcher("/api/auth/email-check"), // email 중복 체크
 				new AntPathRequestMatcher("/api/auth/name-check"), // nickname 중복 체크
 				new AntPathRequestMatcher("/api/auth/refresh-token") // token 재발급

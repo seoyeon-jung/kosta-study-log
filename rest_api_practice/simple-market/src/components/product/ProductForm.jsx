@@ -2,7 +2,7 @@ import { Button, Card, Input, Typography } from "@material-tailwind/react";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { productAPI } from "../../services/product";
+import { productAPI } from "../../api/services/product";
 
 const ProductForm = () => {
   const navigate = useNavigate();

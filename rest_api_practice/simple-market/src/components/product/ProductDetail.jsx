@@ -8,7 +8,7 @@ import {
   Button,
   Input,
 } from "@material-tailwind/react";
-import { productAPI } from "../../services/product";
+import { productAPI } from "../../api/services/product";
 import { useNavigate, useParams } from "react-router-dom";
 import { MdDelete, MdEdit } from "react-icons/md";
 import Swal from "sweetalert2";

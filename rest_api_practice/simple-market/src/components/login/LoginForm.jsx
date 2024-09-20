@@ -1,10 +1,10 @@
 import React from "react";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
-import { userAPI } from "../../services/user";
+import { userAPI } from "../../api/services/user";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-
+import SocialLogin from "./SocialLogin";
 const LoginForm = () => {
   const {
     register,
@@ -104,6 +104,10 @@ const LoginForm = () => {
           로그인
         </Button>
       </form>
+
+      {/* social login */}
+      <SocialLogin />
+
       <div className="mt-6 flex items-center gap-1 justify-center">
         <Typography
           variant="small"

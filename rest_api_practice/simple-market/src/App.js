@@ -13,12 +13,17 @@ import {
   GuestRoute,
   LoginUserRoute,
 } from "./shared/ProtectedRoutes";
+import OAuthLogin from "./pages/OAuthLogin";
 
 function App() {
   return (
     <Layout>
       <Routes>
         <Route path="/" element={<GuestRoute component={Login} />} />
+        <Route
+          path="/oauth/:provider"
+          element={<GuestRoute component={OAuthLogin} />}
+        />
         <Route path="/signin" element={<GuestRoute component={SignIn} />} />
         <Route
           path="/products"
