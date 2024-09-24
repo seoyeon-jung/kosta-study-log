@@ -16,5 +16,25 @@ spring:
 jwt:
   issuer: kosta-seoyeon
   secret_key: myscretmyscretmyscretmyscretmyscret
-  access_duration: 5000 #1800000 # 30분 (30*60*1000)
+  access_duration: 1800000 # 30분 (30*60*1000)
   refresh_duration: 86400000 #86400000 # 24시간 (24*60*60*1000)
+oauth2:
+  clients:
+    google:
+      client-id: 690190545613-ad3vmju6rrpvcuu17dd929ck4ednkfcr.apps.googleusercontent.com
+      client-secret: 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
+      redirect-uri: http://localhost:3000/oauth/google
+      token-uri: https://oauth2.googleapis.com/token
+      user-info-request-uri: https://www.googleapis.com/oauth2/v3/userinfo
+    kakao:
+      client-id: 558d1a2cd146034e29381ec3cd406e75
+      client-secret: m7F2TIiByU7duSoY5l1eaN5yzG0pdkWL
+      redirect-uri: http://localhost:3000/oauth/kakao
+      token-uri: https://kauth.kakao.com/oauth/token
+      user-info-request-uri: https://kapi.kakao.com/v2/user/me
+    github:
+      client-id: Ov23liD1x75zwHmgskhT
+      client-secret: 32c696b999caf98f1985b2e9fbf9b35c2b09b4d9
+      redirect-uri: http://localhost:3000/oauth/github
+      token-uri: https://github.com/login/oauth/access_token
+      user-info-request-uri: https://api.github.com/user
