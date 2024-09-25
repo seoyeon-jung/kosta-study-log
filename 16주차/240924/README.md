@@ -87,7 +87,7 @@
 
 # 실습 환경 구성
 ## 가상화 사용 설정
-![alt text](image.png)
+![alt text](./img/image.png)
 ## VM Ware 다운로드
 - [Braodcom 홈페이지](https://profile.broadcom.com/web/registration)에서 가입
 - [`Vmware Workstation Pro`](https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware+Workstation+Pro) 다운로드 (Personal User 선택하기)
