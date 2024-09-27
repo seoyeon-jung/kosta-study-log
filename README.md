@@ -162,6 +162,7 @@
 <br/>
 
 ## 16주차
-09.24 [가상머신 설치, Docker 기본](./16주차/240924/README.md)   
-09.25 [Docker 실습](./16주차/240925/README.md)   
-09.26 [Docker 실습](./16주차/240926/README.md)
+09.24 [가상머신 설치 / docker 설치 / 컨테이너 특징](./16주차/240924/README.md)   
+09.25 [docker 빌드 / docker hub / 이미지, 컨테이너 관리하기 / 리소스 제한하기](./16주차/240925/README.md)   
+09.26 [docker 빌드 및 운영 실습, docker-compose 사용](./16주차/240926/README.md)   
+08.27 [Docker 종합 실습](./16주차/240927/README.md)

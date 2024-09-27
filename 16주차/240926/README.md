@@ -136,7 +136,7 @@ docker exec -t front-container /bin/sh
 - executable jar 파일만 생성
 ```java
 jar {
-    enable = false
+	enabled = false
 }
 ```
 
