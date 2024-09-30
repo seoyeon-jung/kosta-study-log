@@ -33,6 +33,19 @@
     - [docker-compose.yml 파일 생성](#docker-composeyml-파일-생성-1)
   - [깃허브 Secret key 생성](#깃허브-secret-key-생성-1)
   - [깃허브 worklow yml 파일 생성](#깃허브-worklow-yml-파일-생성-1)
+  - [aws 콘솔에서 보안 인바운드 규칙 추가](#aws-콘솔에서-보안-인바운드-규칙-추가)
+- [ssl 인증서 추가](#ssl-인증서-추가)
+    - [certbot 설치](#certbot-설치)
+    - [ssl 인증서 작성](#ssl-인증서-작성)
+    - [warning 발생하는 경우](#warning-발생하는-경우)
+      - [`nginx.conf` 파일 수정](#nginxconf-파일-수정)
+      - [docker-compose.yml 파일 수정](#docker-composeyml-파일-수정)
+      - [Dockerfile 파일 수정](#dockerfile-파일-수정)
+  - [nginx 동작 확인](#nginx-동작-확인)
+    - [동작 중인지 확인](#동작-중인지-확인)
+    - [동작 중인 프로세스 끄기](#동작-중인-프로세스-끄기)
+    - [기동\&재시작](#기동재시작)
+- [백엔드 코드 수정](#백엔드-코드-수정)
 
 <br/>
 <br/>
@@ -64,8 +77,8 @@
 ## react api url 변경
 기존에 있던 url 대신 aws로 배포한 주소로 변경
 ## 깃허브 secret key 생성
-![alt text](image-2.png)
-![alt text](image-3.png)
+![alt text](./img/image-2.png)
+![alt text](./img/image-3.png)
 
 - HOST : 인스턴스 ip 주소
 - USERNAME : Ubuntu
@@ -81,7 +94,7 @@
 
 ## aws 인스턴스 생성
 ### 1. 인스턴스 선택
-![alt text](image.png)
+![alt text](./img/image.png)
 ![alt text](ap-northeast-2.console.aws.amazon.com_ec2_home_region=ap-northeast-2.png)
 - 이름 설정
 - ubuntu로 설정
@@ -155,7 +168,7 @@ newgrp docker
 ```
 - 현재 셸 세션의 그룹을 'docker'로 변경
 - 재로그인 하지 않고도 명령어 사용할 수 있도록 설정
-![alt text](image-1.png)
+![alt text](./img/image-1.png)
 ## 깃허브 레파지토리 클론
 ```
 git clone [프로젝트명]
@@ -243,13 +256,13 @@ on:
 - `git_output=${sudo git pull origin main 2>&1}` : git pull 받아오기
 - `docker compose up -d --build` : background에서 build해서 실행하기
 ## 수정하고 push했을 때
-![alt text](image-4.png)
+![alt text](./img/image-4.png)
 - 자동으로 빌드가 진행된다.
 
 ## aws에 결제한 도메인 연동
 ### route 53 대시보드로 이동
-![alt text](image-5.png)
-![alt text](image-6.png)
+![alt text](./img/image-5.png)
+![alt text](./img/image-6.png)
 - 구매한 도메인을 입력
 - 레코드에서 ns로 시작되는 값/트래픽 라우팅 대상 복사
 ### 가비아 도메인 관리
@@ -374,56 +387,70 @@ volumes:
 ```yml
 name: BACK-WORKFLOW
 on:
-    push:
-        branches: [ "main" ]
+  push:
+    branches: [ "main" ]
 jobs:
-    back-job:
-        runs-on: ubuntu:latest
-        steps:
-            - name: SSH
-              uses: appleboy/ssh-action@master
-              with:
-                host: ${{ secrets.HOST }}
-                username: ${{ secrets.USERNAME }}
-                key: ${{ secrets.KEY }}
-                script: |
-                    set -e
-                    cd back
-                    mkdir -p src/main/resources
-                    cat <<EOF > src/main/resources/application.yml
-                    spring:
-                        applicaton:
-                            name: [프로젝트명]
-                        jpa:
-                            generate-ddl: true
-                            show-sql: true
-                            open-in-view: false
-                        sql:
-                            init:
-                                mode: never
-                        upload:
-                            location: /home/image
-                        servlet:
-                            mutlipart:
-                                max-file-size: 100MB
-                        jwt:
-                            issuer: ${{ secrets.MYSQL_USER  }}
-                            secret_key: ${{}}
-                            access_duration: 5000
-                            refresh_duration: 86400000
-                        oauth2:
-                            clients:
-                                google:
-                                    client-id: ${{}}
-                                    client-secret: ${{}}
-                                    redirect-uri: ${{}}
-                                    token-uri: https://oauth2.googleapis.com/token
-                                    user-info-reqeust-uri: https://www.googleapis.com/oauth2/v3/userinfo
-                                kakao:
-                                    client-id: ${{ secrets.}}client-secret: ${{}}
-                                    redirect-uri: ${{}}
-                                    token-uri: https://kauth.kakao.com/oauth/token
-                                    user-info-request-uri: https://kapi.kakao.com/v2/user/me
+  back-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: |
+            set -e
+            cd back
+            mkdir -p src/main/resources
+            cat <<EOF > src/main/resources/application.yml
+            spring:
+              application:
+                  name: rest_blog
+              jpa:
+                  generate-ddl: true
+                  show-sql: true
+                  open-in-view: false
+              sql:
+                  init:
+                      mode: never
+              upload:
+                  location: /home/image
+              servlet:
+                multipart:
+                  max-file-size: 100MB
+                  max-request-size: 100MB
+            jwt:
+              issuer: ${{ secrets.USERNAME }}
+              secret_key: ${{ secrets.JWT_KEY }}
+              access_duration: 5000 # 1800000  # 30분 (30 * 60 * 1000)
+              refresh_duration: 86400000 # 86400000 # 24시간 (24 * 60 * 60 * 1000)
+            oauth2:
+              clients:
+                  google:
+                      client-id: ${{ secrets.GOOGLE_ID }}
+                      client-secret: ${{ secrets.GOOGLE_KEY }}
+                      redirect-uri: ${{ secrets.GOOGLE_REDIRECT_URI }}
+                      token-uri: https://oauth2.googleapis.com/token
+                      user-info-request-uri: https://www.googleapis.com/oauth2/v3/userinfo
+                  kakao:
+                      client-id: ${{ secrets.KAKAO_ID }}
+                      client-secret: ${{ secrets.KAKAO_KEY }}
+                      redirect-uri: ${{ secrets.KAKAO_REDIRECT_URI }}
+                      token-uri: https://kauth.kakao.com/oauth/token
+                      user-info-request-uri: https://kapi.kakao.com/v2/user/me
+            EOF
+
+            echo -e "MYSQL_USER=${{ secrets.MYSQL_USER }}" >> .env
+            echo -e "MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}" >> .env
+            echo -e "MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}" >> .env
+            echo -e "TZ=${{ secrets.TZ }}" >> .env
+            echo -e "SPRING_DATASOURCE_URL=${{ secrets.SPRING_DATASOURCE_URL }}" >> .env
+            echo -e "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> .env
+
+            git_output=$(sudo git pull origin main 2>&1)
+
+            docker compose up -d --build
 
 ```
 - `cat <<EOF > src/main/resources/application.yml` 
@@ -435,3 +462,147 @@ jobs:
                 max-file-size: 100MB
     ```
     - 파일의 최대 크기를 지정
+## aws 콘솔에서 보안 인바운드 규칙 추가
+- 그냥 배포하면 제대로 작동하지 않는다.
+- 80포트를 추가해야 한다.
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+# ssl 인증서 추가
+### certbot 설치
+```
+sudo apt-get install -y certbot python3-certbot-nginx
+```
+- certbot:  [Let's encrypt](https://ko.wikipedia.org/wiki/Let's_Encrypt)를 이용해서 ssl인증서를 발급, 갱신할 수 있게 도와주는 무료, 오픈소스 툴
+### ssl 인증서 작성
+```
+sudo certbot --nginx -d [도메인명] -d [도메인명]
+```
+1. 관리자 이메일 주소 작성
+2. 약관 동의 여부 >> 동의(y)
+3. 주의사항 동의 여부 >> 동의(y)
+### warning 발생하는 경우
+- 프론트 container가 실행되는 경우 오류가 발생할 수 있다.
+- 그럴 때는 container를 stop 해주고 다시 진행하면 된다.
+- 터미널에서 상위 경로까지 이동 (`cd ~`)
+- `cd etc/letsencencrypt/` 후에 `live` 폴더가 존재하는지 확인
+- 접근 권한 변경
+  ```
+  sudo chown -R $USER:$USER /etc/letsencrypt
+  sudo chmod -R 755 /etc/letsencrypt
+  ```
+- 권한 변경 후 `live` 폴더로 이동
+- `fullchain.pem`, `privkey.pem`을 복사해야 하므로 권한 변경해야 한다.
+  ```
+  sudo chmod 644 /etc/letsencrypt/live/[도메인명]/fullchain.pem
+  sudo chmod 644 /etc/letsencrypt/live/[도메인명]/privkey.pem
+  ```
+#### `nginx.conf` 파일 수정
+```
+    server {
+        # HTTP 요청이 들어오면
+        listen 80;
+        server_name [도메인명] [도메인명];
+
+        location / {
+            # 모든 요청을 HTTPS로 리디렉션
+            return 301 https://$host$request_uri;
+        }
+    }
+
+   server {
+        listen 443 ssl;  # 443 포트에서 SSL(HTTPS) 요청을 수신
+        server_name [도메인명] [도메인명];  # 도메인 이름 설정
+
+        ssl_certificate /etc/ssl/certs/fullchain.pem;  # SSL 인증서 경로
+        ssl_certificate_key /etc/ssl/private/privkey.pem;   # SSL 개인 키 경로
+
+        ssl_protocols TLSv1.2 TLSv1.3;  # 지원하는 SSL 프로토콜
+        ssl_prefer_server_ciphers on;  # 서버의 암호화 알고리즘 우선 사용
+        ssl_ciphers HIGH:!aNULL:!MD5;  # 사용할 암호화 알고리즘 설정
+
+        root /usr/share/nginx/html;  # 기본 웹 페이지 파일 경로
+        index index.html;  # 기본 인덱스 파일
+
+        location /api/ {
+            proxy_pass http://[ip주소];  # /api/ 요청을 지정된 IP로 전달
+            proxy_set_header Host $host;  # 원래의 Host 헤더 전달
+            proxy_set_header X-Real-IP $remote_addr;  # 클라이언트의 실제 IP 주소
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;  # 프록시 체인에 클라이언트 IP 추가
+            proxy_set_header X-Forwarded-Proto $scheme;  # 사용 중인 프로토콜(HTTP/HTTPS) 전달
+        }
+
+        location / {
+            try_files $uri $uri/ /index.html;  # 요청된 파일이 없으면 index.html을 서빙
+        }
+    }
+```
+- `listen 443 ssl;`: 443 포트에서 SSL을 사용하여 HTTPS 요청을 수신
+- ssl_certificate 및 ssl_certificate_key: SSL 인증서 및 개인 키의 경로를 설정
+- ssl_protocols: 지원하는 SSL 프로토콜 버전을 설정
+- ssl_ciphers: 사용할 암호화 알고리즘을 설정
+- root: 웹 서버의 루트 디렉토리를 설정
+- index: 기본 인덱스 파일을 설정
+- location 지시어
+    - location /api/: /api/ 경로로 들어오는 요청을 지정된 IP 주소로 프록시 필요한 헤더도 설정하여 클라이언트 정보를 전달합니다.
+    - location /: 나머지 모든 요청에 대해 요청된 파일이 존재하는지 확인하고, 없으면 index.html 파일을 반환
+
+#### docker-compose.yml 파일 수정
+```yml
+version: '3'
+services:
+    front:
+        build:
+            context: .
+        container_name: front-container
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./nginx.conf:/etc/nginx/conf.d/default.conf
+            - /etc/letsencrypt/archive/[도메인명]/fullchain1.pem:/etc/ssl/certs/fullchain.pem:ro
+            - /etd/letsencrypt/archive/[도메인명]/privkey.pem:/etc/ssl/private/privkey.pem:ro
+```
+1. `./nginx.conf:/etc/nginx/conf.d/default.conf`
+   - 왼쪽 : 호스트 머신의 현재 디렉토리에서 nginx.conf 파일을 참조
+   - 오른쪽 : 컨테이너 내부의 Nginx 설정 디렉토리로, 이 파일이 컨테이너에서 Nginx의 기본 설정 파일로 사용
+   - 용도: Nginx 설정을 컨테이너에서 직접 수정할 수 있게 하여, 변경사항을 즉시 반영할 수 있도록 한다.
+2. `/etc/letsencrypt/archive/[도메인명]/fullchain1.pem:/etc/ssl/certs/fullchain.pem:ro`
+   - 왼쪽 : 호스트 머신의 Let’s Encrypt 인증서 디렉토리에서 fullchain1.pem 파일을 참조
+     - 이 파일은 SSL 인증서의 체인을 포함하고 있다.
+   - 오른쪽 : 컨테이너 내부에서 Nginx가 사용할 SSL 인증서 체인 경로
+   - `:ro`: 이 파일을 읽기 전용으로 설정하여, 컨테이너에서 이 파일을 수정할 수 없도록 한다.
+3. `/etc/letsencrypt/archive/[도메인명]/privkey.pem:/etc/ssl/private/privkey.pem:ro`
+   - 왼쪽 : 호스트 머신의 Let’s Encrypt 인증서 디렉토리에서 개인 키 파일을 참조
+   - 오른쪽 : 컨테이너 내부에서 Nginx가 사용할 개인 키 경로
+   - `:ro`: 이 파일도 읽기 전용으로 설정되어, 컨테이너 내에서 수정할 수 없다.
+#### Dockerfile 파일 수정
+```Dockerfile
+EXPOSE 443
+```
+- 443 포트를 추가
+## nginx 동작 확인
+### 동작 중인지 확인
+```
+ps -f | grep nginx
+```
+### 동작 중인 프로세스 끄기
+```
+kill PID
+```
+### 기동&재시작
+```
+service nginx start
+service nginx restart
+```
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+# 백엔드 코드 수정
+- https 로 수정
